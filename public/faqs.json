@@ -1,0 +1,38 @@
+[
+    {
+        "_id":1,
+        "faqQus":"what is The virtual Bd?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    },
+    {
+        "_id":2,
+        "faqQus":"what is The virtual Bd 2?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    },
+    {
+        "_id":3,
+        "faqQus":"what is The virtual Bd 3?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    },
+    {
+        "_id":4,
+        "faqQus":"what is The virtual Bd 4?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    },
+    {
+        "_id":5,
+        "faqQus":"what is The virtual Bd 5?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    },
+    {
+        "_id":6,
+        "faqQus":"what is The virtual Bd 6?",
+        "faqAns":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe nemo unde quam laboriosam delectus cupiditate expedita dolore a magnam asperiores soluta debitis aliquid id.",
+        "status":true
+    }
+]

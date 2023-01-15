@@ -1,0 +1,24 @@
+thead,tbody,tr,th,td{
+    color: #003049;
+    padding: .5rem ;
+   
+}
+
+.filepond--credits{
+    display: none;
+}
+
+.img-input-field{
+    border: 1px dashed black;
+    padding: 100px 0;
+    height: 200px;
+    text-align: center;
+    border-radius: 5px;
+    background:#ECF0F1;
+}
+
+#filepond--drop-label-6162megdd{
+    margin-top:100px;
+}
+
+
