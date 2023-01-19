@@ -13,27 +13,53 @@ import Header from './components/SharedPage/Header';
 import 'tw-elements';
 import { useReducer } from 'react';
 import { APPContext, initialState, reducer } from './actions/reducers';
+import Catagory from './components/Dashboard/Catagory';
+import Comments from './components/Dashboard/Comments';
+import BloggerReq from './components/Dashboard/BloggerReq';
+import Services from './components/Dashboard/Services';
+import Role from './components/Dashboard/Role';
+import Permission from './components/Dashboard/Permission';
 
 function App() {
-  const [data, dispatch] = useReducer( initialState);
-  const value={data, dispatch}
+  const [data, dispatch] = useReducer(initialState);
+  const value = { data, dispatch }
   return (
     <APPContext.Provider value={value}>
       <Header />
       <Routes>
         <Route path="/admin-dashboard" element={<AdminDashboard />}>
-            <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
-            <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
-            <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
-            <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
-            <Route path='/admin-dashboard/portfolio' element={<Portfolio />}></Route>
-            <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
-            <Route path='/admin-dashboard/subscription' element={<Subscription />}></Route>
-            <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route>
+
+          <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
+
+          <Route index path="/admin-dashboard/category" element={<Catagory />} />
+
+          <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
+
+          <Route path='/admin-dashboard/project' element={<Portfolio />}></Route>
+
+          <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
+
+          <Route path='/admin-dashboard/sub-request' element={<Subscription />}></Route>
+
+          <Route path='/admin-dashboard/blogger-request' element={<BloggerReq />}></Route>
+
+          <Route path='/admin-dashboard/services' element={<Services />}></Route>
+
+          <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
+
+          <Route path='/admin-dashboard/role' element={<Role />}></Route>
+
+          <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
+
+
+
+           {/*  <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
+           <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
+          <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route> */}
         </Route>
-        
+
       </Routes>
-      
+
     </APPContext.Provider>
   );
 }

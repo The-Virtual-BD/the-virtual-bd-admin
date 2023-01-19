@@ -1,0 +1,43 @@
+[
+    {
+        "_id":1,
+        "bloggerName":"Mr. John",
+        "blogTitle":"blog title",
+        "blogSubTitle":"blog sub title",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDate":"01/01/2023",
+        "blogImg":"/assets/admin.png",
+        "status": "Pending"
+    },
+    {
+        "_id":2,
+        "bloggerName":"Mr. Mohin",
+        "blogTitle":"blog title2",
+        "blogSubTitle":"blog sub title",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDate":"01/01/2023",
+        "blogImg":"/assets/admin.png",
+        "status": "Accepted"
+    },
+    {
+        "_id":3,
+        "bloggerName":"Mr. Korim",
+        "blogTitle":"blog title3",
+        "blogSubTitle":"blog sub title",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDate":"01/01/2023",
+        "blogImg":"/assets/admin.png",
+        "status": "Declined"
+    },
+    {
+        "_id":4,
+        "bloggerName":"Mr. Watson",
+        "blogTitle":"blog title4",
+        "blogSubTitle":"blog sub title",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDate":"01/01/2023",
+        "blogImg":"/assets/admin.png",
+        "status": "Pending"
+    }
+    
+]

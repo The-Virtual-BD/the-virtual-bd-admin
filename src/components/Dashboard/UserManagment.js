@@ -15,16 +15,16 @@ const UserManagment = () => {
     }, []);
 
     return (
-        <div className='text-primary p-3'>
+        <div className='text-primary p-3 '>
            
 
-            <div className='bg-bgclr w-full px-10  rounded-lg mt-2 py-6'>
+            <div className='bg-white w-full px-10  rounded-lg mt-2 py-6 shadow-md'>
                 <div className="flex items-center justify-between pb-3">
                     <h2 className='text-2xl text-start font-semibold'>All User List</h2>
                    <Button>Search</Button>
                 </div>
                 <table className=' w-full '>
-                    <thead className='bg-white rounded-lg'>
+                    <thead className='bg-bgclr rounded-lg'>
                         <th>SL</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -32,7 +32,7 @@ const UserManagment = () => {
                         <th>Action</th>
                     </thead>
                     <tbody >
-                        {allUsers.map((user,index) => <tr key={user._id} className="even:bg-white odd:bg-bgclr rounded-md">
+                        {allUsers.map((user,index) => <tr key={user._id} className="even:bg-bgclr odd:bg-white rounded-md">
                             <td>{index + 1}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
