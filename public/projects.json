@@ -1,37 +1,93 @@
 [
     {
-        "_id":1,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 1,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     },
     {
-        "_id":2,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 2,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://images.unsplash.com/photo-1572274408891-758281498b72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
     },
     {
-        "_id":3,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 3,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     },
     {
-        "_id":4,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 4,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     },
     {
-        "_id":5,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 5,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     },
     {
-        "_id":6,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 6,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     },
     {
-        "_id":7,
-        "name":"Ishtiuq Ahmed",
-        "projectName":"Virtual Bd"
+        "_id": 7,
+        "name": "Ishtiuq Ahmed",
+        "projectName": "Virtual Bd",
+        "startDate": "22-10-2023",
+        "endDate": "28-10-2023",
+        "status": "completed",
+        "budget": "1000$",
+        "blogShortDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.",
+        "blogDesc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus deserunt at expedita esse eveniet. Dolor earum doloribus veniam possimus ea repellendus odit iure eos nobis.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ratione hic dolores atque explicabo dolorum debitis, tempora aperiam, aliquam tenetur minus iusto, accusantium dicta delectus nesciunt iste. Beatae soluta praesentium alias sit, nisi blanditiis debitis pariatur deserunt quibusdam ullam ea? Fugit tempora voluptatem voluptate vitae, saepe deleniti eum atque rerum",
+        "doc": "https://i.ibb.co/FHL2hrD/blog1.png",
+        "blogImg": "https://i.ibb.co/FHL2hrD/blog1.png"
     }
 ]

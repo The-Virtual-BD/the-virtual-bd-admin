@@ -1,17 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-import { BsCheck2, BsCheckLg, BsEyeFill, BsXLg } from 'react-icons/bs';
-import { RiEditBoxFill } from 'react-icons/ri';
+import { BsCheck2, BsEyeFill, } from 'react-icons/bs';
 import { RxCross2 } from 'react-icons/rx';
-import { useTable } from 'react-table';
-import { USER_COLUMNS } from '../../AllData/staticData';
+import { useNavigate } from 'react-router-dom';
+import Table from '../SharedPage/Table';
 import Button from '../utilities/Button';
-import Table from './UsersPagenation';
-import UsersPagenation from './UsersPagenation';
+import BlogDetails from './BlogDetails';
 
 const Blogs = () => {
-
-    const [data, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('/blogs.json')
@@ -19,18 +17,68 @@ const Blogs = () => {
             .then(data => setBlogs(data))
     }, []);
 
+    const handleBlogView = (id) => {
+        console.log("clicked", id);
+        navigate(`/admin-dashboard/blogs/${id}`);
+    };
+
+
+    const BLOG_COLUMNS = () => {
+        return [
+            {
+                Header: "SL",
+                accessor: "_id",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Blogger Name",
+                accessor: "bloggerName",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Blog Title",
+                accessor: "blogTitle",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Status",
+                accessor: "status",
+                sortType: 'basic',
+            },
+
+            {
+                Header: 'Action',
+                accessor: 'action',
+                Cell: ({ row }) => {
+                    const { _id } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 '>
+                        <button onClick={() => handleBlogView(_id)}>
+                            <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
+                                <BsEyeFill className='text-lg ' />
+                            </div>
+                        </button>
+
+                        <button >
+                            <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
+                                <AiFillDelete className='text-lg  text-white' />
+                            </div>
+                        </button>
+                    </div>);
+                },
+            },
+
+
+        ];
+    };
+
     return (
         <div className='text-primary p-3'>
-
-
-            {/* <BloggerApplicationsTable /> */}
-            {/* <AllBlogsList /> */}
-            {/* <UsersPagenation /> */}
-            {data.length && (
-                <Table columns={USER_COLUMNS()} data={data} />
+            {blogs.length && (
+                <Table columns={BLOG_COLUMNS()} data={blogs} headline={"All Blog list"} />
             )}
-
-
 
         </div>
     );
@@ -38,60 +86,7 @@ const Blogs = () => {
 
 export default Blogs;
 
-const AllBlogsList = () => {
-    const [blogs, setBlogs] = useState([]);
 
-    useEffect(() => {
-        fetch('/blogs.json')
-            .then(res => res.json())
-            .then(data => setBlogs(data))
-    }, []);
-    return (
-        <div>
-            <div className='bg-white w-full px-10  rounded-lg mt-2 py-6 shadow-md'>
-                <div className="flex items-center justify-between pb-3">
-                    <h2 className='text-2xl text-start font-semibold'>All Blogs List</h2>
-                    <Button>Search</Button>
-                </div>
-                <table className=' w-full'>
-                    <thead className="bg-bgclr">
-                        <th>SL</th>
-                        <th>Blogger Name</th>
-                        <th>Blog title</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-                        {blogs.map((blog, index) => <tr key={blog.id} className="even:bg-bgclr odd:bg-white rounded-md">
-                            <td>{index + 1}</td>
-                            <td>{blog.bloggerName}</td>
-                            <td>{blog.blogTitle}</td>
-                            <td>{blog.status}</td>
-                            <td>
-                                <div className='flex items-center justify-center gap-2 '>
-
-                                    <button>
-                                        <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
-                                            <BsEyeFill className='text-lg  text-white' />
-                                        </div>
-                                    </button>
-
-                                    <button>
-                                        <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
-                                            <AiFillDelete className='text-lg  text-white' />
-                                        </div>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>)}
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-
-    )
-}
 
 
 const BloggerApplicationsTable = () => {
@@ -154,52 +149,4 @@ const BloggerApplicationsTable = () => {
 };
 
 
-/* const ReactTable = ({ data }) => {
-    const columns = useMemo(()=>[{ Header: 'Name', accessor: 'bloggerName' }, { Header: 'Age', accessor: 'blogTitle' }, { Header: 'Address', accessor: 'blogDate' }], [])
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({ columns, data });
-    return (
-        <>
-            <table className="table-auto border-collapse" {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th
-                                    className="px-4 py-2 border-b-2 border-gray-300 text-left text-sm font-medium text-gray-700"
-                                    {...column.getHeaderProps()}
-                                >
-                                    {column.render('Header')}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map(row => {
-                        prepareRow(row);
-                        return (
-                            <tr {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return (
-                                        <td
-                                            className="px-4 py-2 border-b border-gray-300 text-left text-sm"
-                                            {...cell.getCellProps()}
-                                        >
-                                            {cell.render('Cell')}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </>
-    )
-} */
+

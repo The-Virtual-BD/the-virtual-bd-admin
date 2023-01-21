@@ -19,6 +19,8 @@ import BloggerReq from './components/Dashboard/BloggerReq';
 import Services from './components/Dashboard/Services';
 import Role from './components/Dashboard/Role';
 import Permission from './components/Dashboard/Permission';
+import BlogDetails from './components/Dashboard/BlogDetails';
+import ProjectDetails from './components/Dashboard/ProjectDetails';
 
 function App() {
   const [data, dispatch] = useReducer(initialState);
@@ -34,8 +36,10 @@ function App() {
           <Route index path="/admin-dashboard/category" element={<Catagory />} />
 
           <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
+          <Route path='/admin-dashboard/blogs/:id' element={<BlogDetails />}></Route>
 
           <Route path='/admin-dashboard/project' element={<Portfolio />}></Route>
+          <Route path='/admin-dashboard/project/:id' element={<ProjectDetails />}></Route>
 
           <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
 
@@ -53,7 +57,7 @@ function App() {
 
 
 
-           {/*  <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
+          {/*  <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
            <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
           <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route> */}
         </Route>

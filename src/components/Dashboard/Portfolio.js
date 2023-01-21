@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../utilities/Button';
 import './Dashboard.css';
 
 // Import React FilePond
@@ -12,6 +11,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { AiFillDelete } from 'react-icons/ai';
+import Table from '../SharedPage/Table';
+import { useNavigate } from 'react-router-dom';
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -198,6 +199,7 @@ const AddProject = () => {
 
 
 const ViewProjects = () => {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   useEffect(() => {
     fetch('/projects.json')
@@ -205,61 +207,81 @@ const ViewProjects = () => {
       .then(data => setProjects(data))
   }, []);
 
+  const handleProjectView = (id) => {
+    console.log("clicked", id);
+    navigate(`/admin-dashboard/project/${id}`);
+  };
+
+
+  const PROJECT_COLUMNS = () => {
+    return [
+      {
+        Header: "SL",
+        accessor: "_id",
+        sortType: 'basic',
+
+      },
+      {
+        Header: "Project Title",
+        accessor: "projectName",
+        sortType: 'basic',
+
+      },
+      {
+        Header: "Client Name",
+        accessor: "name",
+        sortType: 'basic',
+
+      },
+      {
+        Header: "Start Date",
+        accessor: "startDate",
+        sortType: 'basic',
+
+      },
+      {
+        Header: "End Date",
+        accessor: "endDate",
+        sortType: 'basic',
+
+      },
+
+      {
+        Header: 'Action',
+        accessor: 'action',
+        Cell: ({ row }) => {
+          const { _id } = row.original;
+          return (<div className='flex items-center justify-center  gap-2 '>
+            <button onClick={() => handleProjectView(_id)}>
+              <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
+                <BsEyeFill className='text-lg  ' />
+              </div>
+            </button>
+            <button>
+              <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
+                <RiEditBoxFill className='text-lg  text-white' />
+              </div>
+            </button>
+
+            <button>
+              <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
+                <AiFillDelete className='text-lg  text-white' />
+              </div>
+            </button>
+          </div>);
+        },
+      },
+
+
+    ];
+  };
+
   return (
     <div className='text-primary p-3'>
 
-
-      <div className='bg-white  w-full px-10  rounded-lg mt-2 py-6'>
-        <div className="flex items-center justify-between pb-3">
-          <h2 className='text-2xl text-start font-semibold'>All Projects List</h2>
-          <Button>Search</Button>
-        </div>
-        <table className=' w-full '>
-          <thead className='bg-bgclr rounded-lg'>
-            <th>SL</th>
-            <th>Project Title</th>
-            <th>Client Name</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
-
-            <th>Action</th>
-          </thead>
-          <tbody >
-            {projects.map((project, index) => <tr key={project._id} className="even:bg-bgclr odd:bg-white rounded-md">
-              <td>{index + 1}</td>
-              <td>{project.projectName}</td>
-              <td>{project.name}</td>
-              <td>01/01/2023</td>
-              <td>20/02/2023</td>
-
-              <td>
-                <div className='flex items-center justify-center gap-2 '>
-                  <button>
-                    <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
-                      <BsEyeFill className='text-lg  text-white' />
-                    </div>
-                  </button>
-
-
-                  <button>
-                    <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
-                      <RiEditBoxFill className='text-lg  text-white' />
-                    </div>
-                  </button>
-
-                  <button>
-                    <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
-                      <AiFillDelete className='text-lg  text-white' />
-                    </div>
-                  </button>
-
-                </div>
-              </td>
-            </tr>)}
-          </tbody>
-        </table>
-
-      </div>
+      {projects.length && (
+        <Table columns={PROJECT_COLUMNS()} data={projects} headline={"All Projects List"} />
+      )}
 
     </div>
   )
