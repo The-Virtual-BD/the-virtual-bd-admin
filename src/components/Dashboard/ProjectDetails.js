@@ -19,7 +19,7 @@ const ProjectDetails = () => {
                 <hr className=' text-bgclr' />
             </div>
 
-            <div className='flex items-start justify-center gap-5 p-4'>
+            <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>
                     <div className='flex flex-col items-start gap-3'>
                         <h3><span className='font-bold'>Project Title:</span> {getProjectsDeatils?.projectName}</h3>

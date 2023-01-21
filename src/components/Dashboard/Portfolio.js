@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Dashboard.css';
 
 // Import React FilePond
@@ -13,16 +13,22 @@ import { RiEditBoxFill } from 'react-icons/ri';
 import { AiFillDelete } from 'react-icons/ai';
 import Table from '../SharedPage/Table';
 import { useNavigate } from 'react-router-dom';
+import { APPContext } from '../../actions/reducers';
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 
 
 const Portfolio = () => {
+  const { isproject, setIsproject } = useContext(APPContext);
+
   return (
     <div className=''>
-      {/* <AddProject /> */}
-      <ViewProjects />
+      {
+        isproject ? <AddProject /> : <ViewProjects />
+      }
+
+
     </div>
   );
 };

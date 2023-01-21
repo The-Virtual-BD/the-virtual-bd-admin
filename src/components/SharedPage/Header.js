@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
+import { APPContext } from '../../actions/reducers';
 
 const Header = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     // console.log(location.pathname);
+    const { isproject, setIsproject } = useContext(APPContext);
+
+
+
     return (
         <div className='w-full text-primary flex items-center justify-between h-20 px-10 bg-white shadow-lg border-b-[1px] border-bgclr'>
             <img src="/assets/Virtual BD Logo.png" alt="logo" srcset="" />
@@ -18,8 +23,14 @@ const Header = () => {
 
             {
                 currentPath === "/admin-dashboard/project" && <div className='flex items-center gap-4 justify-center'>
-                    <button className='text-lg font-semibold  hover:text-blue '>Add Project</button>
-                    <button className='text-lg font-semibold hover:text-blue'>View Projects</button>
+                    <button
+                        onClick={() => setIsproject(false)}
+                        className={`${(!isproject) ? "text-blue" : ""} text-lg font-semibold hover:text-blue `}>View Projects</button>
+
+                    <button
+                        onClick={() => setIsproject(true)}
+                        className={`${isproject ? "text-blue" : ""} text-lg font-semibold  hover:text-blue `}>Add Project</button>
+
                 </div>
             }
 

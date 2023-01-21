@@ -10,6 +10,8 @@ import BlogDetails from './BlogDetails';
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
+    // const [pageSize, setPageSize] = useState(10);
+    // const [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
         fetch('/blogs.json')
@@ -77,7 +79,10 @@ const Blogs = () => {
     return (
         <div className='text-primary p-3'>
             {blogs.length && (
-                <Table columns={BLOG_COLUMNS()} data={blogs} headline={"All Blog list"} />
+                <Table
+                    columns={BLOG_COLUMNS()}
+                    data={blogs}
+                    headline={"All Blog list"} />
             )}
 
         </div>
@@ -147,6 +152,32 @@ const BloggerApplicationsTable = () => {
         </div>
     )
 };
+
+
+
+/* const Pagination = ({ pageCount, pageIndex, onPageChange }) => {
+    const [currentPage, setCurrentPage] = useState(pageIndex + 1);
+
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+        onPageChange(page - 1);
+    }
+
+    const pageButtons = [];
+    for (let i = 1; i <= pageCount; i++) {
+        pageButtons.push(
+            <button key={i} onClick={() => handlePageClick(i)} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ${i === currentPage ? 'bg-blue-800' : ''}`}>
+                {i}
+            </button>
+        );
+    }
+
+    return (
+        <div className="flex justify-center">
+            {pageButtons}
+        </div>
+    );
+} */
 
 
 

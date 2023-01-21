@@ -11,7 +11,7 @@ import Subscription from './components/Dashboard/Subscription';
 import UserManagment from './components/Dashboard/UserManagment';
 import Header from './components/SharedPage/Header';
 import 'tw-elements';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { APPContext, initialState, reducer } from './actions/reducers';
 import Catagory from './components/Dashboard/Catagory';
 import Comments from './components/Dashboard/Comments';
@@ -23,8 +23,12 @@ import BlogDetails from './components/Dashboard/BlogDetails';
 import ProjectDetails from './components/Dashboard/ProjectDetails';
 
 function App() {
+  const [isproject, setIsproject] = useState(false);
+  console.log(isproject)
+
+
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch }
+  const value = { data, dispatch, isproject, setIsproject }
   return (
     <APPContext.Provider value={value}>
       <Header />
