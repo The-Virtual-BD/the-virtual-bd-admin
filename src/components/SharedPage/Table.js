@@ -68,20 +68,20 @@ function Table({ columns, data, headline }) {
     )
 
     return (
-        <div className="bg-white py-4 px-5">
-            <div className="flex items-center justify-between bg-white w-full px-3 rounded-md">
+        <div className="bg-white py-3 px-2 rounded-md">
+            <div className="flex flex-col lg:flex-row items-center gap-3 justify-between bg-white w-full px-3 rounded-md">
                 <h2 className="text-2xl font-bold text-primary">{headline}</h2>
                 <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             </div>
 
 
-            <div className="p-3 bg-white rounded-md mt-3  ">
-                <table {...getTableProps()} className=" w-full pt-5  h-auto rounded-md">
+            <div className="p-2 bg-white rounded-md mt-3  ">
+                <table {...getTableProps()} className=" w-full overflow-y-hidden overflow-x-auto pt-3  h-auto rounded-md">
                     <thead className="rounded-lg">
                         {headerGroups.map((headerGroup, ind) => (
                             <tr {...headerGroup.getHeaderGroupProps()} key={ind} >
                                 {headerGroup.headers.map((column, i) => (
-                                    <th key={i} {...column.getHeaderProps(column.getSortByToggleProps())} className="bg-white text-primary  text-center    p-4 ">{column.render('Header')}
+                                    <th key={i} {...column.getHeaderProps(column.getSortByToggleProps())} className="bg-white text-primary  text-center    p-3 ">{column.render('Header')}
                                         <span>
                                             {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                                         </span>
@@ -96,14 +96,14 @@ function Table({ columns, data, headline }) {
                         {page.map((row, i) => {
                             prepareRow(row, i)
                             return (
-                                (i % 2 == 1) ? <tr {...row.getRowProps()} key={i} className="m-2 p-4 text-center  ">
+                                (i % 2 == 1) ? <tr {...row.getRowProps()} key={i} className="m-2 p-2 text-center  ">
                                     {row.cells.map((cell, i) => {
-                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-4 text-center capitalize text-primary  ">{cell.render('Cell')}</td>
+                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center capitalize text-primary  ">{cell.render('Cell')}</td>
                                     })}
                                 </tr> :
-                                    <tr {...row.getRowProps()} key={i} className="m-2 p-4 text-center ">
+                                    <tr {...row.getRowProps()} key={i} className="m-2 p-2 text-center ">
                                         {row.cells.map((cell, i) => {
-                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-4 text-center bg-bgclr text-primary   capitalize ">{cell.render('Cell')}</td>
+                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center bg-bgclr text-primary   capitalize ">{cell.render('Cell')}</td>
                                         })}
                                     </tr>
                             )
@@ -112,7 +112,7 @@ function Table({ columns, data, headline }) {
                 </table>
             </div>
 
-            <div className="flex items-center justify-between px-3">
+            <div className="flex flex-col lg:flex-row items-center justify-between px-3">
                 <div>
                     <span>Show 
                         <select className="rounded-md bg-cardBg p-1.5 mx-1  text-primary border-[1px] border-bgclr cursor-pointer"

@@ -21,6 +21,8 @@ import Role from './components/Dashboard/Role';
 import Permission from './components/Dashboard/Permission';
 import BlogDetails from './components/Dashboard/BlogDetails';
 import ProjectDetails from './components/Dashboard/ProjectDetails';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -67,6 +69,7 @@ function App() {
         </Route>
 
       </Routes>
+      <ToastContainer />
 
     </APPContext.Provider>
   );

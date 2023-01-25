@@ -15,8 +15,8 @@ const AdminDashboard = () => {
                 <Outlet></Outlet>
             </div>
 
-            <div className='bg-white text-primary h-screen pt-3 w-60  transition ease duration-300 '>
-                <ul className='flex flex-col gap-1 '>
+            <div className='bg-white text-primary h-screen pt-3 w-60 hidden lg:block  transition ease duration-300 '>
+                <ul className='flex  flex-col gap-1 '>
                     {
                         sidebarMenu.map(singleMenu => <li key={singleMenu.id}
                             className={` hover:bg-blue hover:text-white  px-5 py-2 rounded-sm

@@ -14,6 +14,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import Table from '../SharedPage/Table';
 import { useNavigate } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
+import { toast } from 'react-toastify';
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
@@ -27,8 +28,6 @@ const Portfolio = () => {
       {
         isproject ? <AddProject /> : <ViewProjects />
       }
-
-
     </div>
   );
 };
@@ -59,16 +58,20 @@ const AddProject = () => {
 
   const handleProjectForm = e => {
     e.preventDefault();
-    console.log(projectTitle, projectBudget, projectPaid, projectSub, clientName, clientSelect, portfolio, projectStatus, projectDesc, projectShortDesc, projectStartDate, projectEndDate, projectImg, projectDoc);
+    const newProject = { projectTitle, projectBudget, projectPaid, projectSub, clientName, clientSelect, portfolio, projectStatus, projectDesc, projectShortDesc, projectStartDate, projectEndDate, projectImg, projectDoc };
+
+
+    console.log(newProject );
 
     e.target.reset();
+    toast.success("Project Added Successfully")
 
   };
 
 
 
   return (
-    <div className='text-labelclr p-3 m-2 lg:m-10 bg-white rounded-md '>
+    <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
       <div cclassName='bg-white w-full px-10   rounded-lg mt-2 py-6 shadow-md'>
         <h3 className='px-3 text-2xl font-bold text-start my-2'>Add Project</h3>
         <form className='p-3 ' onSubmit={handleProjectForm} >
@@ -109,7 +112,7 @@ const AddProject = () => {
           </div>
 
 
-          <div className='flex items-start justify-between gap-5'>
+          <div className='flex flex-col lg:flex-row items-start justify-between gap-5'>
 
             <div className='w-full lg:w-1/2'>
 
@@ -190,7 +193,7 @@ const AddProject = () => {
 
 
 
-          <div class="flex flex-col lg:flex-row gap-3 justify-end items-center text-center mt-3">
+          <div class="flex flex-row gap-3 justify-center lg:justify-end items-center text-center mt-3">
             <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
 
             <button type="reset" className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>
