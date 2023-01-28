@@ -1,6 +1,7 @@
 import React from "react";
 import { useTable, usePagination, useSortBy, useGlobalFilter } from "react-table";
 import { RiSearchLine } from "react-icons/ri";
+import Pagination from "../../PaginationTable/Pagination";
 
 
 
@@ -115,8 +116,10 @@ function Table({ columns, data, headline }) {
                 </table>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-center justify-between px-3">
-                <div>
+            <div className="">
+
+
+               {/*  <div>
                     <span>Show
                         <select className="rounded-md bg-cardBg p-1.5 mx-1  text-primary border-[1px] border-bgclr cursor-pointer"
                             value={pageSize}
@@ -132,30 +135,17 @@ function Table({ columns, data, headline }) {
                         </select>&nbsp;
                         entries
                     </span>
-                </div>
+                </div> */}
 
 
-                <div className="pagination p-2 py-3  float-right ">
+             
 
-                    <button onClick={() => previousPage()} disabled={!canPreviousPage} className="p-2 text-primary  hover:bg-blue hover:text-white rounded-md px-4  border-[1px] border-bgclr  font-bold cursor-pointer ">
-                        {'Previous'}
-                    </button>
-
-                    <span className='bg-cardBg text-primary rounded-md px-4 py-3'>
-                        Page
-                        <strong>
-                            {pageIndex + 1} of {pageOptions.length}
-                        </strong>
-                    </span>&nbsp;
-
-                    <button onClick={() => nextPage()} disabled={!canNextPage} className="p-2  text-primary rounded-md px-4 font-bold hover:bg-blue hover:text-white  border-[1px] border-bgclr cursor-pointer">
-                        {'Next'}
-                    </button>
-
-
-
-
-                </div>
+                <Pagination
+                gotoPage={gotoPage}
+                length={data.length}
+                pageSize={pageSize}
+                setPageSize={setPageSize}
+            />
 
             </div>
 
@@ -166,9 +156,4 @@ function Table({ columns, data, headline }) {
 export default Table;
 
 
-const PaginationBtn = () => {
-    return (
-        <>
-        </>
-    )
-}
+
