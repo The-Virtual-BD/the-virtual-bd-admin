@@ -67,16 +67,19 @@ function Table({ columns, data, headline }) {
 
     )
 
+    console.log(pageOptions.length)
+    console.log(page)
+
     return (
-        <div className="bg-white py-3 px-2 rounded-md">
+        <div className="bg-white py-3 px-2 rounded-md   w-auto">
             <div className="flex flex-col lg:flex-row items-center gap-3 justify-between bg-white w-full px-3 rounded-md">
                 <h2 className="text-2xl font-bold text-primary">{headline}</h2>
                 <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             </div>
 
 
-            <div className="p-2 bg-white rounded-md mt-3  ">
-                <table {...getTableProps()} className=" w-full overflow-y-hidden overflow-x-auto pt-3  h-auto rounded-md">
+            <div className="p-2 bg-white rounded-md mt-3  w-auto overflow-hidden overflow-x-auto">
+                <table {...getTableProps()} className="w-auto lg:w-full pt-3  h-auto rounded-md ">
                     <thead className="rounded-lg">
                         {headerGroups.map((headerGroup, ind) => (
                             <tr {...headerGroup.getHeaderGroupProps()} key={ind} >
@@ -114,7 +117,7 @@ function Table({ columns, data, headline }) {
 
             <div className="flex flex-col lg:flex-row items-center justify-between px-3">
                 <div>
-                    <span>Show 
+                    <span>Show
                         <select className="rounded-md bg-cardBg p-1.5 mx-1  text-primary border-[1px] border-bgclr cursor-pointer"
                             value={pageSize}
                             onChange={e => {
@@ -126,7 +129,7 @@ function Table({ columns, data, headline }) {
                                     {pageSize}
                                 </option>
                             ))}
-                        </select>&nbsp; 
+                        </select>&nbsp;
                         entries
                     </span>
                 </div>
@@ -161,3 +164,11 @@ function Table({ columns, data, headline }) {
 }
 
 export default Table;
+
+
+const PaginationBtn = () => {
+    return (
+        <>
+        </>
+    )
+}

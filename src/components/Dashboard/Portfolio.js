@@ -73,7 +73,7 @@ const AddProject = () => {
   return (
     <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
       <div cclassName='bg-white w-full px-10   rounded-lg mt-2 py-6 shadow-md'>
-        <h3 className='px-3 text-2xl font-bold text-start my-2'>Add Project</h3>
+        <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Add Project</h3>
         <form className='p-3 ' onSubmit={handleProjectForm} >
 
           <div className='flex flex-col lg:flex-row items-center gap-5'>

@@ -3,6 +3,8 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
 import { sidebarMenu } from '../../AllData/staticData';
+// import logo1 from '../../../public/assets/Virtual BD Logo.png';
+// import logo2 from '../../../public/assets/Virtual BD Logo2.png';
 
 const Header = () => {
     const location = useLocation();
@@ -17,7 +19,10 @@ const Header = () => {
         <>
             <div className='w-full text-primary flex items-center gap-3 justify-between h-20 px-3 lg:px-10  bg-white shadow-lg border-b-[1px] border-bgclr'>
 
-                <img src="/assets/Virtual BD Logo.png" alt="logo" srcset="" />
+                {/* <img src="/assets/Virtual BD Logo.png" alt="logo" srcset="" /> */}
+
+                <img src={"/assets/Virtual BD Logo.png"} alt="talents" className="my-5 hidden lg:block" />
+                <img src={"/assets/Virtual BD Logo2.png"} alt="talents" className="my-5 lg:hidden block" />
 
                 {
                     currentPath === "/admin-dashboard/project" && <div className='flex items-center gap-4 justify-center'>
@@ -49,9 +54,9 @@ const Header = () => {
                     className="block lg:hidden text-blue"
                 >
                     {!open ? (
-                        <AiOutlineMenu className="text-4xl" />
+                        <AiOutlineMenu className="text-3xl" />
                     ) : (
-                        <AiOutlineClose className="text-4xl" />
+                        <AiOutlineClose className="text-3xl" />
                     )}
                 </button>
 

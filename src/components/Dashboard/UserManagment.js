@@ -44,7 +44,7 @@ const UserManagment = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: () => {
-                    return (<div className='flex flex-col lg:flex-row items-center justify-center  gap-2 '>
+                    return (<div className='flex  items-center justify-center  gap-2 '>
                         <button >
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
