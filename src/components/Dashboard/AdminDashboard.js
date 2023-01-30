@@ -9,7 +9,7 @@ const AdminDashboard = () => {
     // console.log(location.pathname);
 
     return (
-        <div className='flex flex-row-reverse justify-between  '>
+        <div className='flex flex-row-reverse justify-between  bg-bgclr'>
 
             <div className='text-center w-full  bg-bgclr'>
                 <Outlet></Outlet>

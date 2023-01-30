@@ -13,9 +13,9 @@ const ProjectDetails = () => {
     const getProjectsDeatils = projects?.find(blog => blog._id == id);
     console.log(getProjectsDeatils);
     return (
-        <div className='bg-white p-4 mx-8 my-5 rounded-md'>
+        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md'>
             <div>
-                <h2 className='text-2xl font-bold text-start my-3 px-4'>View Post</h2>
+                <h2 className='text-2xl font-bold text-start my-3 px-4'>View Project</h2>
                 <hr className=' text-bgclr' />
             </div>
 
@@ -39,7 +39,7 @@ const ProjectDetails = () => {
                             <p className='text-labelclr'>{getProjectsDeatils?.blogDesc}</p>
                         </div>
 
-                        <p><span className='font-bold'>Documents:</span> <a className='text-blue cursor-pointer' href={`${getProjectsDeatils?.doc}`} target="_blank" rel="noopener noreferrer">{getProjectsDeatils?.doc}</a> </p>
+                        <p className='text-start'><span className='font-bold '>Documents:</span> <a className='text-blue cursor-pointer' href={`${getProjectsDeatils?.doc}`} target="_blank" rel="noopener noreferrer">{getProjectsDeatils?.doc}</a> </p>
 
 
                     </div>
@@ -48,7 +48,7 @@ const ProjectDetails = () => {
 
 
                 <div className='w-full lg:w-1/2'>
-                    <img src={getProjectsDeatils?.blogImg} alt="" srcset="" style={{ height: "500px" }} />
+                    <img src={getProjectsDeatils?.blogImg} alt="" srcset="" className='h-full lg:h-[500px]' />
                 </div>
             </div>
         </div>

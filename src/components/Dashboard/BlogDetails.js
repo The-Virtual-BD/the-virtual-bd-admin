@@ -18,9 +18,9 @@ const BlogDetails = () => {
 
 
     return (
-        <div className='bg-white p-4 mx-8 my-5 rounded-md'>
+        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md'>
             <div>
-                <h2 className='text-2xl font-bold text-start my-3 px-4'>View Post</h2>
+                <h2 className='text-2xl font-bold text-start my-3 px-4'>View Blog</h2>
                 <hr className=' text-bgclr' />
             </div>
 
@@ -55,7 +55,7 @@ const BlogDetails = () => {
 
 
                 <div className='w-full lg:w-1/2'>
-                    <img src={getBlogDeatils?.blogImg} alt="" srcset="" style={{ height: "500px" }} />
+                    <img src={getBlogDeatils?.blogImg} alt="" srcset="" className='h-full lg:h-[500px]' />
                 </div>
             </div>
         </div>

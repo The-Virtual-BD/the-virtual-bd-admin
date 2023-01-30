@@ -25,7 +25,7 @@ const Header = () => {
                 <img src={"/assets/Virtual BD Logo2.png"} alt="talents" className="my-5 lg:hidden block" />
 
                 {
-                    currentPath === "/admin-dashboard/project" && <div className='flex items-center gap-4 justify-center'>
+                    currentPath === "/admin-dashboard/project" && <div className='lg:flex items-center gap-4 justify-center hidden'>
                         <button
                             onClick={() => setIsproject(false)}
                             className={`${(!isproject) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue `}>View Projects</button>
@@ -73,11 +73,35 @@ const Header = () => {
                             <p className='text-sm'>Admin</p>
                         </div>
 
-                        <ul className="  flex flex-col  items-start  gap-2 mt-5  ease-in">
+
+                        {
+                            currentPath === "/admin-dashboard/project" && <div className='flex flex-col items-start gap-2 justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                <button
+                                    onClick={() => {
+                                        setIsproject(false)
+                                        setOpen(!open)
+                                    }}
+                                    className={`${(!isproject) ? "text-blue bg-white" : ""} text-sm text-start w-full px-5 py-2  font-semibold hover:text-blue `}>View Projects</button>
+
+                                <button
+                                    onClick={() => {
+                                        setIsproject(true)
+                                        setOpen(!open)
+                                    }}
+                                    className={`${isproject ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue  `}>Add Project</button>
+
+                            </div>
+                        }
+
+
+
+
+
+                        <ul className="  flex flex-col  items-start  gap-2 ease-in">
                             {
-                                sidebarMenu.map(singleMenu => <li key={singleMenu.id}
+                                sidebarMenu.map(singleMenu => <li key={singleMenu.id} onClick={() => setOpen(!open)}
                                     className={`w-full hover:text-blue hover:bg-white  px-5 py-2 rounded-sm
-                             ${currentPath === singleMenu.path ? "text-blue bg-white" : ""} `}>
+                             ${currentPath === singleMenu.path ? "text-blue bg-white" : ""} `} >
                                     <Link to={singleMenu.path}>
                                         <div className='flex items-center justify-start'>
                                             {singleMenu.icon}

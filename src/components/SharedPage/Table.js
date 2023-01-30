@@ -116,27 +116,10 @@ function Table({ columns, data, headline }) {
                 </table>
             </div>
 
-            <div className="">
+            <div >
 
 
-               {/*  <div>
-                    <span>Show
-                        <select className="rounded-md bg-cardBg p-1.5 mx-1  text-primary border-[1px] border-bgclr cursor-pointer"
-                            value={pageSize}
-                            onChange={e => {
-                                setPageSize(Number(e.target.value))
-                            }}
-                        >
-                            {[10, 20, 30, 40, 50, 100].map(pageSize => (
-                                <option key={pageSize} value={pageSize} className="bg-bgclr text-primary p-1.5  ">
-                                    {pageSize}
-                                </option>
-                            ))}
-                        </select>&nbsp;
-                        entries
-                    </span>
-                </div> */}
-
+               
 
              
 
