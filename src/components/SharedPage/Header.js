@@ -44,6 +44,7 @@ const Header = () => {
                         <p className='text-sm'>Admin</p>
                     </div>
                     <img src="/assets/admin.png" alt="admin" srcset="" />
+             
                 </div>
 
 
@@ -97,7 +98,7 @@ const Header = () => {
 
 
 
-                        <ul className="  flex flex-col  items-start  gap-2 ease-in">
+                        <ul className="  flex flex-col  items-start ease-in">
                             {
                                 sidebarMenu.map(singleMenu => <li key={singleMenu.id} onClick={() => setOpen(!open)}
                                     className={`w-full hover:text-blue hover:bg-white  px-5 py-2 rounded-sm

@@ -29,6 +29,8 @@ export const sidebarMenu = [
     {
         id: 4,
         name: "Project",
+        subItem1:"Add Project",
+        subItem2:"View Project",
         icon: <AiFillProject />,
         path: "/admin-dashboard/project"
     },
