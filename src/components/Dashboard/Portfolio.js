@@ -179,13 +179,16 @@ const AddProject = () => {
               </div>
 
               <div class="mb-3 flex flex-col items-start w-full">
-                <label for="Status" class="font-bold mb-1">Upload Images</label>
-                <input type="file" class="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Status" onChange={(e) => setProjectImg(e.target.value)} placeholder="50%" />
+                    <label for="img" class="font-bold mb-1">Upload Images</label>
+                    <input class="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
+                  outline-none focus:outline-none" type="file" id="img" onChange={(e) => setProjectImg(e.target.value)} placeholder="50%" />
               </div>
 
+
               <div class="mb-3 flex flex-col items-start w-full">
-                <label for="Status" class="font-bold mb-1">Upload Documents</label>
-                <input type="file" class="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Status" onChange={(e) => setProjectDoc(e.target.value)} placeholder="50%" />
+                    <label for="img" class="font-bold mb-1">Upload Documents</label>
+                    <input class="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
+                  outline-none focus:outline-none active:outline-none" type="file" id="img" onChange={(e) => setProjectDoc(e.target.value)} placeholder="50%" />
               </div>
 
             </div>

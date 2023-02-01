@@ -8,9 +8,9 @@ import {AiFillHome} from 'react-icons/ai';
 
 const Dashboard = () => {
     return (
-        <div className='flex flex-row-reverse justify-between  text-primary '>
+        <div className='flex  text-primary '>
 
-            <div className='text-center w-5/6'>
+            <div className='text-center w-full'>
                 <h2 className='mt-5 font-bold '>You Logged in!</h2>
             </div>
 
