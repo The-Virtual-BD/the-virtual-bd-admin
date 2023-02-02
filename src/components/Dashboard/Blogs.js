@@ -155,29 +155,5 @@ const BloggerApplicationsTable = () => {
 
 
 
-/* const Pagination = ({ pageCount, pageIndex, onPageChange }) => {
-    const [currentPage, setCurrentPage] = useState(pageIndex + 1);
-
-    const handlePageClick = (page) => {
-        setCurrentPage(page);
-        onPageChange(page - 1);
-    }
-
-    const pageButtons = [];
-    for (let i = 1; i <= pageCount; i++) {
-        pageButtons.push(
-            <button key={i} onClick={() => handlePageClick(i)} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ${i === currentPage ? 'bg-blue-800' : ''}`}>
-                {i}
-            </button>
-        );
-    }
-
-    return (
-        <div className="flex justify-center">
-            {pageButtons}
-        </div>
-    );
-} */
-
 
 
