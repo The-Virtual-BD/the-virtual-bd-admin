@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
 import { Link, useLocation } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
 import { sidebarMenu } from '../../AllData/staticData';
@@ -11,24 +12,41 @@ const Header = () => {
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     // console.log(location.pathname);
-    const { isproject, setIsproject } = useContext(APPContext);
+    const { isproject, setIsproject,menuOpen, setMenuOpen } = useContext(APPContext);
+    console.log(menuOpen);
+
+
 
 
 
     return (
         <>
-            <div className='w-full text-primary flex items-center gap-3 justify-between h-20 px-3 lg:px-10  bg-white shadow-lg border-b-[1px] border-bgclr'>
+            <div className='w-full text-primary flex items-center gap-3 justify-between h-20 px-3 lg:px-5 lg:py-3  bg-white shadow-lg border-b-[1px] border-bgclr'>
 
                 {/* <img src="/assets/Virtual BD Logo.png" alt="logo" srcset="" /> */}
 
-                <img src={"/assets/Virtual BD Logo.png"} alt="talents" className="my-5 hidden lg:block" />
-                <img src={"/assets/Virtual BD Logo2.png"} alt="talents" className="my-5 lg:hidden block" />
+                {/* <img src={"/assets/Virtual BD Logo.png"} alt="talents" className="my-5 hidden lg:block" /> */}
+
+               <div className='flex items-center gap-5'>
+                     <img src={"/assets/Virtual BD Logo2.png"} alt="talents" className="my-5 block" />
+
+                     {
+                        !menuOpen
+                        ?
+                        <span onClick={()=>setMenuOpen(!menuOpen)} className='w-8 h-10 rounded-md cursor-pointer bg-bgclr hidden lg:flex items-center justify-center'><IoIosArrowForward className='text-2xl font-bold text-blue'/></span>
+                       
+                        :
+                        <span onClick={()=>setMenuOpen(!menuOpen)} className='w-8 h-10 rounded-md cursor-pointer bg-bgclr hidden lg:flex items-center justify-center'><IoIosArrowBack className='text-2xl font-bold text-blue'/></span>
+                        
+                     }
+
+               </div>
 
                 {
                     currentPath === "/admin-dashboard/project" && <div className='lg:flex items-center gap-4 justify-center hidden'>
                         <button
                             onClick={() => setIsproject(false)}
-                            className={`${(!isproject) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue `}>View Projects</button>
+                            className={`${(!isproject) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Projects</button>
 
                         <button
                             onClick={() => setIsproject(true)}
@@ -49,7 +67,7 @@ const Header = () => {
 
 
 
-                {/*   Menu Icon */}
+                {/* Menu Icon for Responsive*/}
                 <button
                     onClick={() => setOpen(!open)}
                     className="block lg:hidden text-blue"
@@ -67,7 +85,7 @@ const Header = () => {
 
             <div className='lg:hidden block  '>
                 {open ? (
-                    <div className="bg-blue text-white  rounded w-72  py-3 z-10 fixed top-2 left-0 h-auto overflow-y-auto overflow-x-hidden ">
+                    <div className="bg-blue text-white  rounded w-60  py-3 z-10 fixed top-2 left-0 h-auto overflow-y-auto overflow-x-hidden ">
                         {/* <img src="/assets/admin.png" alt="admin" srcset="" /> */}
                         <div className='flex flex-col lg:hidden  text-center '>
                             <h3 className='text-lg font-bold'>Ishtiuq Ahmed Chowdhury</h3>
@@ -76,20 +94,20 @@ const Header = () => {
 
 
                         {
-                            currentPath === "/admin-dashboard/project" && <div className='flex flex-col items-start gap-2 justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                            currentPath === "/admin-dashboard/project" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
                                 <button
                                     onClick={() => {
                                         setIsproject(false)
                                         setOpen(!open)
                                     }}
-                                    className={`${(!isproject) ? "text-blue bg-white" : ""} text-sm text-start w-full px-5 py-2  font-semibold hover:text-blue `}>View Projects</button>
+                                    className={`${(!isproject) ? "text-blue bg-white" : ""} text-sm text-start w-full px-5 py-2  font-semibold hover:text-blue hover:bg-white`}>View Projects</button>
 
                                 <button
                                     onClick={() => {
                                         setIsproject(true)
                                         setOpen(!open)
                                     }}
-                                    className={`${isproject ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue  `}>Add Project</button>
+                                    className={`${isproject ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>Add Project</button>
 
                             </div>
                         }
@@ -109,6 +127,10 @@ const Header = () => {
                                             <span className='ml-2'> {singleMenu.name}</span>
                                         </div>
                                     </Link>
+
+                                    <div>
+                                        
+                                    </div>
                                 </li>)
                             }
                         </ul>

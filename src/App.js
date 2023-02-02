@@ -26,11 +26,12 @@ import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(true);
   console.log(isproject)
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen }
   return (
     <APPContext.Provider value={value}>
       <Header />
