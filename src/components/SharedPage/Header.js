@@ -12,7 +12,7 @@ const Header = () => {
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     // console.log(location.pathname);
-    const { isproject, setIsproject,menuOpen, setMenuOpen } = useContext(APPContext);
+    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission } = useContext(APPContext);
     console.log(menuOpen);
 
 
@@ -42,6 +42,7 @@ const Header = () => {
 
                </div>
 
+               {/* Projects Sub Menu */}
                 {
                     currentPath === "/admin-dashboard/project" && <div className='lg:flex items-center gap-4 justify-center hidden'>
                         <button
@@ -51,6 +52,20 @@ const Header = () => {
                         <button
                             onClick={() => setIsproject(true)}
                             className={`${isproject ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Project</button>
+
+                    </div>
+                }
+
+                {/* Permissions Sub Menu */}
+                {
+                    currentPath === "/admin-dashboard/permission" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                        <button
+                            onClick={() => setIsAddPermission(false)}
+                            className={`${(!isAddPermission) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>All Permissions</button>
+
+                        <button
+                            onClick={() => setIsAddPermission(true)}
+                            className={`${isAddPermission ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add New Permission</button>
 
                     </div>
                 }
@@ -93,6 +108,7 @@ const Header = () => {
                         </div>
 
 
+                         {/* Projects Sub Menu */}
                         {
                             currentPath === "/admin-dashboard/project" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
                                 <button
@@ -100,17 +116,37 @@ const Header = () => {
                                         setIsproject(false)
                                         setOpen(!open)
                                     }}
-                                    className={`${(!isproject) ? "text-blue bg-white" : ""} text-sm text-start w-full px-5 py-2  font-semibold hover:text-blue hover:bg-white`}>View Projects</button>
+                                    className={`${(!isproject) ? "text-blue bg-white" : ""} text-sm text-start w-full px-5 py-2  font-semibold hover:text-blue hover:bg-white`}>* View Projects</button>
 
                                 <button
                                     onClick={() => {
                                         setIsproject(true)
                                         setOpen(!open)
                                     }}
-                                    className={`${isproject ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>Add Project</button>
+                                    className={`${isproject ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Project</button>
 
                             </div>
                         }
+
+                         {/* Permissions Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/permission" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setIsAddPermission(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!isAddPermission? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Permissions</button>
+
+                                    <button
+                                        onClick={() =>{
+                                            setIsAddPermission(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${isAddPermission ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add New Permission</button>
+
+                                </div>
+                            }
 
 
 

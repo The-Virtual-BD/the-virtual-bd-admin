@@ -72,14 +72,14 @@ function Table({ columns, data, headline }) {
     console.log(page)
 
     return (
-        <div className="bg-white py-3 px-2 rounded-md   w-auto">
+        <div className="bg-white py-3 px-2 rounded-md   w-full">
             <div className="flex flex-col lg:flex-row items-center gap-3 justify-between bg-white w-full px-3 rounded-md">
                 <h2 className="text-2xl font-bold text-primary">{headline}</h2>
                 <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             </div>
 
 
-            <div className="p-2 bg-white rounded-md mt-3  w-auto overflow-hidden overflow-x-auto">
+            <div className="p-2 bg-white rounded-md mt-3  w-auto lg:w-full overflow-hidden overflow-x-auto flex items-center justify-center">
                 <table {...getTableProps()} className="w-auto lg:w-full pt-3  h-auto rounded-md ">
                     <thead className="rounded-lg">
                         {headerGroups.map((headerGroup, ind) => (

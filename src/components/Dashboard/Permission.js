@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
+import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 
 const Permission = () => {
+  const{isAddPermission, setIsAddPermission}=useContext(APPContext);
     return (
         <div>
-           {/* <ViewAllPermissions /> */}
-           <AddPermission />
+           {
+        isAddPermission ? <AddPermission /> :   <ViewAllPermissions />
+         }
         </div>
     );
 };
@@ -60,9 +65,9 @@ const ViewAllPermissions=()=>{
         Cell: ({ row }) => {
           const { _id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
-            <button >
-              <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
-                <BsEyeFill className='text-lg  ' />
+             <button>
+              <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
+                <RiEditBoxFill className='text-lg  text-white' />
               </div>
             </button>
            
@@ -114,14 +119,16 @@ const AddPermission=()=>{
               <div class="mb-3 flex flex-col items-start w-full">
                     <label for="projectTitle" class="font-bold mb-1 ">Guard Name</label>
                     <select onChange={(e) => setGuardName(e.target.value)} class="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat   rounded transition ease-in-out  m-0 outline-none" aria-label="Clientselect"  >
-                      <option selected>Select Guard Name</option>
+                      <option selected disabled>Select Guard Name</option>
                       <option value="1">Web</option>
                       <option value="2">App</option>
                       <option value="3">Three</option>
                     </select>
                 </div>
   
-              <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg mt-3">Submit</button>
+              <div className='flex items-end justify-end'>
+                <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg mt-3 ">Submit</button>
+              </div>
 
           </form>
         </div>

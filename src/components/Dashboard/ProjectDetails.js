@@ -11,13 +11,14 @@ const ProjectDetails = () => {
     }, []);
 
     const getProjectsDeatils = projects?.find(blog => blog._id == id);
-    console.log(getProjectsDeatils);
+    // console.log(getProjectsDeatils);
     return (
-        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md'>
+        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
             <div>
                 <h2 className='text-2xl font-bold text-start my-3 px-4'>View Project</h2>
                 <hr className=' text-bgclr' />
             </div>
+           
 
             <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>

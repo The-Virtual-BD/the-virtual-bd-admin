@@ -18,7 +18,7 @@ const BlogDetails = () => {
 
 
     return (
-        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md'>
+        <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
             <div>
                 <h2 className='text-2xl font-bold text-start my-3 px-4'>View Blog</h2>
                 <hr className=' text-bgclr' />
