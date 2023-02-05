@@ -41,7 +41,7 @@ const Subscription = () => {
 
             },
             {
-                Header: "Date",
+                Header: "Meeting Time",
                 accessor: "meeting_date",
                 sortType: 'basic',
             },

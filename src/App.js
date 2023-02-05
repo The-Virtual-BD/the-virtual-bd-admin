@@ -25,16 +25,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import BloggerReqDetails from './components/Dashboard/BloggerReqDetails';
 import SubsReqDetails from './components/Dashboard/SubsReqDetails';
+import UserDetails from './components/Dashboard/UserDetails';
+import ServicesDetails from './components/Dashboard/ServicesDetails';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
   const [isAddPermission, setIsAddPermission] = useState(false);
+  const [isAddService, setIsAddService] = useState(false);
+
   const [menuOpen, setMenuOpen] = useState(true);
-  console.log(isproject)
+
+  // console.log(isproject)
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService }
   return (
     <APPContext.Provider value={value}>
       <Header />
@@ -60,8 +65,10 @@ function App() {
           <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails />}></Route>
 
           <Route path='/admin-dashboard/services' element={<Services />}></Route>
+          <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>
 
           <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
+          <Route path='/admin-dashboard/user-managment/:id' element={<UserDetails />}></Route>
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
 

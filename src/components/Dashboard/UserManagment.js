@@ -4,14 +4,21 @@ import Table from '../SharedPage/Table';
 import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { BsEyeFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const UserManagment = () => {
     const [allUsers, setAllUsers] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         fetch('/users.json')
             .then(res => res.json())
             .then(data => setAllUsers(data))
     }, []);
+
+    const handleUserView = (id) => {
+        console.log("clicked", id);
+        navigate(`/admin-dashboard/user-managment/${id}`);
+      };
 
     const USER_COLUMNS = () => {
         return [
@@ -43,9 +50,10 @@ const UserManagment = () => {
             {
                 Header: 'Action',
                 accessor: 'action',
-                Cell: () => {
+                Cell: ({row}) => {
+                    const { _id } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
-                        <button >
+                        <button onClick={() => handleUserView(_id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
                             </div>
@@ -71,6 +79,7 @@ const UserManagment = () => {
 
     return (
         <div className='text-primary p-3 '>
+           
 
             {allUsers.length && (
                 <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />

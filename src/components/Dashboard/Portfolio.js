@@ -197,9 +197,11 @@ const AddProject = () => {
 
 
           <div class="flex flex-row gap-3 justify-center lg:justify-end items-center text-center mt-3">
+            <button type="reset" className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>
+
             <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
 
-            <button type="reset" className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>
+           
           </div>
         </form>
       </div>

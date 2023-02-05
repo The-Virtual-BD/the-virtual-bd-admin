@@ -12,7 +12,7 @@ const Header = () => {
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     // console.log(location.pathname);
-    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission } = useContext(APPContext);
+    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService } = useContext(APPContext);
     console.log(menuOpen);
 
 
@@ -69,6 +69,24 @@ const Header = () => {
 
                     </div>
                 }
+
+
+                {/* Services Sub Menu */}
+                {
+                    currentPath === "/admin-dashboard/services" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                        <button
+                            onClick={() => setIsAddService(false)}
+                            className={`${(!isAddService) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Services</button>
+
+                        <button
+                            onClick={() => setIsAddService(true)}
+                            className={`${isAddService? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Service</button>
+
+                    </div>
+                }
+
+
+
 
 
                 <div className='hidden lg:flex items-center gap-2'>
@@ -128,6 +146,7 @@ const Header = () => {
                             </div>
                         }
 
+
                          {/* Permissions Sub Menu */}
                             {
                                 currentPath === "/admin-dashboard/permission" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
@@ -144,6 +163,27 @@ const Header = () => {
                                             setOpen(!open)
                                         }}
                                         className={`${isAddPermission ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add New Permission</button>
+
+                                </div>
+                            }
+
+
+                         {/* Services Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/services" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setIsAddService(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!isAddService? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Services</button>
+
+                                    <button
+                                        onClick={() =>{
+                                            setIsAddService(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${isAddService? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Service</button>
 
                                 </div>
                             }
