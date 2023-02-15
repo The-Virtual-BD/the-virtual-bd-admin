@@ -12,7 +12,7 @@ const Header = () => {
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     // console.log(location.pathname);
-    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService } = useContext(APPContext);
+    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice } = useContext(APPContext);
     console.log(menuOpen);
 
 
@@ -81,6 +81,20 @@ const Header = () => {
                         <button
                             onClick={() => setIsAddService(true)}
                             className={`${isAddService? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Service</button>
+
+                    </div>
+                }
+
+                {/* Notices Sub Menu */}
+                {
+                    currentPath === "/admin-dashboard/notice" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                        <button
+                            onClick={() => setAddNotice(false)}
+                            className={`${(!addNotice) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Notice</button>
+
+                        <button
+                            onClick={() => setAddNotice(true)}
+                            className={`${addNotice? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Notice</button>
 
                     </div>
                 }
@@ -184,6 +198,26 @@ const Header = () => {
                                             setOpen(!open)
                                         }}
                                         className={`${isAddService? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Service</button>
+
+                                </div>
+                            }
+
+                         {/* Notices Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/notice" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setAddNotice(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!addNotice? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Notices</button>
+
+                                    <button
+                                        onClick={() =>{
+                                            setAddNotice(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${addNotice? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Service</button>
 
                                 </div>
                             }

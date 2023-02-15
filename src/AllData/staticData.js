@@ -1,4 +1,4 @@
-import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete } from 'react-icons/ai';
+import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete, AiFillNotification } from 'react-icons/ai';
 import { FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
 import { RiEditBoxFill, RiUserFollowFill } from 'react-icons/ri';
 import { HiViewGridAdd } from 'react-icons/hi';
@@ -66,12 +66,18 @@ export const sidebarMenu = [
     },
     {
         id: 10,
+        name: "Notice",
+        icon: <AiFillNotification />,
+        path: "/admin-dashboard/notice"
+    },
+    {
+        id: 11,
         name: "Role",
         icon: <FaUserEdit />,
         path: "/admin-dashboard/role"
     },
     {
-        id: 11,
+        id: 12,
         name: "Permission",
         icon: <FaUserLock />,
         path: "/admin-dashboard/permission"

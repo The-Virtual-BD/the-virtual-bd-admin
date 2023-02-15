@@ -8,7 +8,8 @@ module.exports = {
     'bgclr': '#ECF0F1',
     'blue': '#3498DB',
     'white': '#ffffff',
-    'labelclr':"#2C3E50"
+    'labelclr':"#2C3E50",
+    "textred":"#FF0000"
   },
   
 },

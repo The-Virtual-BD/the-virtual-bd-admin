@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsCheck2, BsEyeFill, } from 'react-icons/bs';
-import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import Table from '../SharedPage/Table';
-import Button from '../utilities/Button';
-import BlogDetails from './BlogDetails';
 
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -14,6 +11,7 @@ const Blogs = () => {
     // const [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
+        
         fetch('/blogs.json')
             .then(res => res.json())
             .then(data => setBlogs(data))

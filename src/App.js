@@ -27,11 +27,15 @@ import BloggerReqDetails from './components/Dashboard/BloggerReqDetails';
 import SubsReqDetails from './components/Dashboard/SubsReqDetails';
 import UserDetails from './components/Dashboard/UserDetails';
 import ServicesDetails from './components/Dashboard/ServicesDetails';
+import Login from './components/Login/Login';
+import Notice from './components/Dashboard/Notice';
+// import Notice from './components/Dashboard/Notice/Notice';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
   const [isAddPermission, setIsAddPermission] = useState(false);
   const [isAddService, setIsAddService] = useState(false);
+  const [addNotice, setAddNotice] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(true);
 
@@ -39,7 +43,7 @@ function App() {
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice }
   return (
     <APPContext.Provider value={value}>
       <Header />
@@ -57,6 +61,7 @@ function App() {
           <Route path='/admin-dashboard/project/:id' element={<ProjectDetails />}></Route>
 
           <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
+          <Route path='/admin-dashboard/notice' element={<Notice />}></Route>
 
           <Route path='/admin-dashboard/sub-request' element={<Subscription />}></Route>
           <Route path='/admin-dashboard/sub-request/:id' element={<SubsReqDetails />}></Route>
@@ -71,8 +76,11 @@ function App() {
           <Route path='/admin-dashboard/user-managment/:id' element={<UserDetails />}></Route>
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
-
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
+          
+
+          
+          
 
 
 
@@ -80,6 +88,7 @@ function App() {
            <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
           <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route> */}
         </Route>
+        <Route path='/sign-in' element={<Login />}></Route>
 
       </Routes>
       <ToastContainer />
