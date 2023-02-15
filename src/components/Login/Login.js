@@ -2,18 +2,18 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { baseURL } from '../utilities/url';
+import useUser from '../utilities/useUser';
 
 const Login = () => {
-    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate=useNavigate();
 
     const onSubmit =( data,e) => {
         e.preventDefault();
-        console.log(data);
-        navigate('/admin-dashboard/dashboard');
-
+        // console.log(data);
     
-       /*  // const url = `${baseUrl}/api/login`;
+        const url = `${baseURL}/api/login`;
         fetch(url, {
             method: 'POST',
             headers: {
@@ -29,17 +29,17 @@ const Login = () => {
               }else{
                 console.log(result);
                 const token=result.token
-                const user=JSON.stringify(result.user)
-    
-                // toast.success("login Successfully!");
+                const user=JSON.stringify(result.user);
+                
                 window.localStorage.setItem("token", token);
                 window.localStorage.setItem("user", user);
+                toast.success(result.message);
     
                 navigate('/admin-dashboard/dashboard');
               }
               
                
-            }) */
+            })
     };
 
     return (

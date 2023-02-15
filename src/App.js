@@ -29,6 +29,8 @@ import UserDetails from './components/Dashboard/UserDetails';
 import ServicesDetails from './components/Dashboard/ServicesDetails';
 import Login from './components/Login/Login';
 import Notice from './components/Dashboard/Notice';
+import RequireAuth from './components/utilities/RequireAuth';
+import Profile from './components/Profile/Profile';
 // import Notice from './components/Dashboard/Notice/Notice';
 
 function App() {
@@ -48,7 +50,7 @@ function App() {
     <APPContext.Provider value={value}>
       <Header />
       <Routes>
-        <Route path="/admin-dashboard" element={<AdminDashboard />}>
+        <Route path="/admin-dashboard" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  }>
 
           <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
 
@@ -78,6 +80,7 @@ function App() {
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
           
+          
 
           
           
@@ -88,6 +91,7 @@ function App() {
            <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
           <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route> */}
         </Route>
+        <Route path='/profile' element={<RequireAuth> <Profile /></RequireAuth> }></Route>
         <Route path='/sign-in' element={<Login />}></Route>
 
       </Routes>

@@ -60,15 +60,17 @@ export const sidebarMenu = [
     },
     {
         id: 9,
-        name: "Users",
-        icon: <FaUser />,
-        path: "/admin-dashboard/user-managment"
-    },
-    {
-        id: 10,
         name: "Notice",
         icon: <AiFillNotification />,
         path: "/admin-dashboard/notice"
+        
+    },
+    {
+        id: 10,
+        name: "Users",
+        icon: <FaUser />,
+        path: "/admin-dashboard/user-managment"
+        
     },
     {
         id: 11,
