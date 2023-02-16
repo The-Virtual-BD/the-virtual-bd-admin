@@ -7,6 +7,8 @@ import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import Modal from '../utilities/Modal';
+import { toast } from 'react-toastify';
 
 const UserManagment = () => {
     const[token]=useToken();
@@ -14,7 +16,7 @@ const UserManagment = () => {
     const navigate = useNavigate();
  
 
-
+    //Get Users
     useEffect(() => {
         const perUrl=`${baseURL}/api/admin/users`;
         fetch(perUrl,{
@@ -30,11 +32,35 @@ const UserManagment = () => {
 
 
 
-
+    //Handle View User
     const handleUserView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/user-managment/${id}`);
       };
+
+      const handleDeleteUser=id=>{
+        const procced=window.confirm("You Want To Delete?");
+
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/user/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = allUsers.filter(card => card.id !== id);
+                        setAllUsers(remaining);
+                        toast.success(data.message)
+                    
+                })
+        };
+      };
+
+
 
     const USER_COLUMNS = () => {
         return [
@@ -80,11 +106,13 @@ const UserManagment = () => {
                             </div>
                         </button>
 
-                        <button>
+                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={()=>handleDeleteUser(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
+                           
                         </button>
+                       
                     </div>);
                 },
             },
@@ -94,15 +122,16 @@ const UserManagment = () => {
     };
 
     return (
+      <>
         <div className='text-primary p-3 '>
-           
+           {allUsers.length && (
+               <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />
+           )}
+       </div>
 
-            {allUsers.length && (
-                <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />
-            )}
-
-        </div>
+      </>
     );
 };
 
 export default UserManagment;
+

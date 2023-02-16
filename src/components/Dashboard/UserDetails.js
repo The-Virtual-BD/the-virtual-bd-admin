@@ -39,7 +39,7 @@ const UserDetails = () => {
 
                 <div className='text-start'>
                     <h2 className='text-2xl font-bold'>{`${user?.first_name} ${user?.last_name}`}</h2>
-                    <p><span className='font-bold'> </span>{user?.email}</p>
+                    <p><span className='font-bold'> </span> {user?.profession}</p>
                 </div>
             </div>
 
@@ -57,7 +57,7 @@ const UserDetails = () => {
                     </div> */}
                     
                     <div className='text-start mb-1'>
-                            <h3 ><span className='font-bold mr-2'>Profession: </span>{user?.profession}</h3>
+                            <h3 ><span className='font-bold mr-2'>Email: </span>{user?.email}</h3>
                     </div>
                     
                     <div className='text-start mb-2'>

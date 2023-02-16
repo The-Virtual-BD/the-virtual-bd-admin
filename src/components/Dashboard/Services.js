@@ -5,13 +5,14 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const Services = () => {
-    const {isAddService, setIsAddService } = useContext(APPContext);
+    const {isAddService } = useContext(APPContext);
     return (
         <div>
              {
@@ -119,10 +120,9 @@ const AddService=()=>{
 const ViewServices=()=>{
     const[token]=useToken();
     const [services, setServices] = useState([]);
-
     const navigate = useNavigate();
    
-
+    //Get Services
     useEffect(() => {
         const perUrl=`${baseURL}/api/admin/services`;
         fetch(perUrl,{
@@ -139,13 +139,36 @@ const ViewServices=()=>{
 
 
 
-
     const handleUserView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/services/${id}`);
       };
 
-    const USER_COLUMNS = () => {
+
+      //Handle Delete Service
+      const handleDeleteService=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/service/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = services.filter(card => card.id !== id);
+                        setServices(remaining);
+                        toast.success(data.message)
+                    
+                })
+        };
+      };
+
+    const SERVICE_COLUMNS = () => {
         return [
             {
                 Header: "SL",
@@ -177,7 +200,7 @@ const ViewServices=()=>{
                             </div>
                         </button>
 
-                        <button>
+                        <button onClick={()=>handleDeleteService(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -192,12 +215,9 @@ const ViewServices=()=>{
 
     return (
         <div className='text-primary p-3 '>
-           
-
             {services.length && (
-                <Table columns={USER_COLUMNS()} data={services} headline={"All Services"} />
+                <Table columns={ SERVICE_COLUMNS()} data={services} headline={"All Services"} />
             )}
-
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
@@ -17,7 +18,7 @@ const Subscription = () => {
             .then(data => setSubReq(data))
     }, []); */
 
-
+    //Get All Sub Req
     useEffect(() => {
         const perUrl=`${baseURL}/api/admin/subscriptions`;
         fetch(perUrl,{
@@ -37,6 +38,28 @@ const Subscription = () => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/sub-request/${id}`);
     };
+
+    //Handle Delete Service
+    const handleDeleteSubReq=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/subscriptions/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = subReq.filter(card => card.id !== id);
+                        setSubReq(remaining);
+                        toast.success(data.message)
+                })
+        };
+      };
 
 
     const SUB_REQ_COLUMNS = () => {
@@ -77,7 +100,7 @@ const Subscription = () => {
                             </div>
                         </button>
 
-                        <button >
+                        <button onClick={()=>handleDeleteSubReq(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -89,6 +112,7 @@ const Subscription = () => {
 
         ];
     };
+
     return (
         <div className='text-primary p-3'>
             {subReq.length && (
