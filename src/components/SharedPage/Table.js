@@ -68,8 +68,8 @@ function Table({ columns, data, headline }) {
 
     )
 
-    console.log(pageOptions.length)
-    console.log(page)
+    // console.log(pageOptions.length)
+    // console.log(page)
 
     return (
         <div className="bg-white py-3 px-2 rounded-md   w-full">

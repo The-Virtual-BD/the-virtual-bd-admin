@@ -3,17 +3,36 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const Subscription = () => {
+    const[token]=useToken();
     const [subReq, setSubReq] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
+   /*  useEffect(() => {
         fetch('/subscription.json')
             .then(res => res.json())
             .then(data => setSubReq(data))
-    }, []);
+    }, []); */
 
+
+    useEffect(() => {
+        const perUrl=`${baseURL}/api/admin/subscriptions`;
+        fetch(perUrl,{
+          method:"GET",
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data =>setSubReq(data.data))
+      }, [token]);
+
+
+      //handle Sub Req View
     const handleSubReqView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/sub-request/${id}`);
@@ -36,13 +55,13 @@ const Subscription = () => {
             },
             {
                 Header: "Service",
-                accessor: "service",
+                accessor: "subject",
                 sortType: 'basic',
 
             },
             {
                 Header: "Meeting Time",
-                accessor: "meeting_date",
+                accessor: "schedule",
                 sortType: 'basic',
             },
 

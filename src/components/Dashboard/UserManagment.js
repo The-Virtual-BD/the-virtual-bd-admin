@@ -5,15 +5,31 @@ import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const UserManagment = () => {
+    const[token]=useToken();
     const [allUsers, setAllUsers] = useState([]);
     const navigate = useNavigate();
+ 
+
+
     useEffect(() => {
-        fetch('/users.json')
-            .then(res => res.json())
-            .then(data => setAllUsers(data))
-    }, []);
+        const perUrl=`${baseURL}/api/admin/users`;
+        fetch(perUrl,{
+          method:"GET",
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data => setAllUsers(data.user))
+      }, [token]);
+
+
+
 
     const handleUserView = (id) => {
         console.log("clicked", id);
@@ -24,13 +40,13 @@ const UserManagment = () => {
         return [
             {
                 Header: "SL",
-                accessor: "_id",
+                accessor: "id",
                 sortType: 'basic',
 
             },
             {
                 Header: "Name",
-                accessor: "name",
+                accessor: "first_name",
                 sortType: 'basic',
 
             },
@@ -51,9 +67,9 @@ const UserManagment = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({row}) => {
-                    const { _id } = row.original;
+                    const { id } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
-                        <button onClick={() => handleUserView(_id)}>
+                        <button onClick={() => handleUserView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
                             </div>

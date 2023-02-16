@@ -3,6 +3,8 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const Role = () => {
     return (
@@ -16,14 +18,25 @@ export default Role;
 
 
 const ViewAllRole=()=>{
-    const navigate = useNavigate();
-  const [permit, setPermit] = useState([]);
+  const[token]=useToken();
+  const navigate = useNavigate();
+  const [role, setRole] = useState([]);
+  const roles=[...role].reverse();
+  
+  console.log(roles)
 
   useEffect(() => {
-    fetch('/permit.json')
+    const perUrl=`${baseURL}/api/admin/roles`;
+    fetch(perUrl,{
+      method:"GET",
+      headers: {
+          'content-type': 'application/json',
+          "Authorization": `Bearer ${token}`
+      }
+  })
       .then(res => res.json())
-      .then(data => setPermit(data))
-  }, []);
+      .then(data => setRole(data.roles))
+  }, [token]);
 
   /* const handlePermitView = (id) => {
     console.log("clicked", id);
@@ -47,7 +60,7 @@ const ViewAllRole=()=>{
       },
       {
         Header: "Gurd Name",
-        accessor: "guardName",
+        accessor: "guard_name",
         sortType: 'basic',
 
       },
@@ -57,7 +70,7 @@ const ViewAllRole=()=>{
         Header: 'Action',
         accessor: 'action',
         Cell: ({ row }) => {
-          const { _id } = row.original;
+          const { id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
             <button >
               <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
@@ -81,8 +94,8 @@ const ViewAllRole=()=>{
   return (
     <div className='text-primary p-3'>
 
-      {permit.length && (
-        <Table columns={PROJECT_COLUMNS()} data={permit} headline={"All Role"} />
+      {role.length && (
+        <Table columns={PROJECT_COLUMNS()} data={roles} headline={"All Role"} />
       )}
 
     </div>

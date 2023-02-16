@@ -7,6 +7,8 @@ import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const Services = () => {
     const {isAddService, setIsAddService } = useContext(APPContext);
@@ -115,14 +117,28 @@ const AddService=()=>{
 
 
 const ViewServices=()=>{
+    const[token]=useToken();
     const [services, setServices] = useState([]);
 
     const navigate = useNavigate();
+   
+
     useEffect(() => {
-        fetch('/users.json')
-            .then(res => res.json())
-            .then(data => setServices(data))
-    }, []);
+        const perUrl=`${baseURL}/api/admin/services`;
+        fetch(perUrl,{
+          method:"GET",
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data => setServices(data.data))
+      }, [token]);
+
+
+
+
 
     const handleUserView = (id) => {
         console.log("clicked", id);
@@ -133,7 +149,7 @@ const ViewServices=()=>{
         return [
             {
                 Header: "SL",
-                accessor: "_id",
+                accessor: "id",
                 sortType: 'basic',
 
             },
@@ -148,9 +164,9 @@ const ViewServices=()=>{
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({row}) => {
-                    const { _id } = row.original;
+                    const { id } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
-                        <button onClick={() => handleUserView(_id)}>
+                        <button onClick={() => handleUserView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
                             </div>

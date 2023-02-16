@@ -1,26 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
+import blankUser from '../../images/blank_user.png';
 
 const UserDetails = () => {
     const { id } = useParams();
-    const [allUsers, setAllUsers] = useState([]);
+    const[token]=useToken();
+    const [user, setUser] = useState([]);
+
+  
 
     useEffect(() => {
-        fetch('/users.json')
-            .then(res => res.json())
-            .then(data => setAllUsers(data))
-    }, []);
+        const perUrl=`${baseURL}/api/admin/user/${id}`;
+        fetch(perUrl,{
+          method:"GET",
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data => setUser(data.user))
+      }, [id,token]);
 
-    const getUserDeatils = allUsers?.find(blog => blog._id == id);
-    // console.log(getUserDeatils);
+      console.log(user)
 
     return (
         <div className='mx-2 lg:mx-8  text-primary '>
             <div className='bg-white p-4  my-5 rounded-md  flex items-center justify-start gap-3'>
-                <img src={getUserDeatils?.img} alt={getUserDeatils?.name} srcset="" className='h-[100px] w-[100px] rounded-full' />
+
+               {
+                (user.img)? 
+                <img src={user?.img} alt={user?.name} srcset="" className='h-[100px] w-[100px] rounded-full' />
+                :
+                <img src={blankUser} alt={user?.name} srcset="" className='h-[100px] w-[100px] rounded-full' />
+               }
+
                 <div className='text-start'>
-                    <h2 className='text-2xl font-bold'>{getUserDeatils?.name}</h2>
-                    <p><span className='font-bold'>Email: </span>{getUserDeatils?.email}</p>
+                    <h2 className='text-2xl font-bold'>{`${user?.first_name} ${user?.last_name}`}</h2>
+                    <p><span className='font-bold'> </span>{user?.email}</p>
                 </div>
             </div>
 
@@ -30,29 +49,29 @@ const UserDetails = () => {
 
                 <div className='mt-5'>
                    {/*  <div className='text-start mb-1'>
-                            <h3 ><span className='font-bold'>Name: </span>  {getUserDeatils?.name}</h3>
+                            <h3 ><span className='font-bold'>Name: </span>  {user?.name}</h3>
                     </div> */}
 
-                    <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Blogger Name: </span> {getUserDeatils?.bloggerName}</h3>
-                    </div>
+                   {/*  <div className='text-start mb-1'>
+                        <h3 ><span className='font-bold mr-2'>Blogger Name: </span> {user?.bloggerName}</h3>
+                    </div> */}
                     
                     <div className='text-start mb-1'>
-                            <h3 ><span className='font-bold mr-2'>Profession: </span>{getUserDeatils?.profession}</h3>
+                            <h3 ><span className='font-bold mr-2'>Profession: </span>{user?.profession}</h3>
                     </div>
                     
                     <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Phone: </span> {getUserDeatils?.phone}</h3>
+                        <h3 ><span className='font-bold mr-2'>Phone: </span> {user?.phone}</h3>
                     </div>
                     <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Date of Birth: </span> {getUserDeatils?.birth_date}</h3>
+                        <h3 ><span className='font-bold mr-2'>Date of Birth: </span> {user?.birth_date}</h3>
                     </div>
                     <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Nationality: </span> {getUserDeatils?.nationality}</h3>
+                        <h3 ><span className='font-bold mr-2'>Nationality: </span> {user?.nationality}</h3>
                     </div>
 
                     <div className='text-start  mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Bio: </span>{getUserDeatils?.bio}</h3>
+                        <h3 ><span className='font-bold mr-2'>Bio: </span>{user?.bio}</h3>
                     </div>
                </div>
 

@@ -11,7 +11,7 @@ import Subscription from './components/Dashboard/Subscription';
 import UserManagment from './components/Dashboard/UserManagment';
 import Header from './components/SharedPage/Header';
 import 'tw-elements';
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { APPContext, initialState, reducer } from './actions/reducers';
 import Catagory from './components/Dashboard/Catagory';
 import Comments from './components/Dashboard/Comments';
@@ -38,14 +38,26 @@ function App() {
   const [isAddPermission, setIsAddPermission] = useState(false);
   const [isAddService, setIsAddService] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
-
   const [menuOpen, setMenuOpen] = useState(true);
 
-  // console.log(isproject)
+  const [user, setUser] = useState([]);
+
+  useEffect(()=>{
+    const getUserStr=localStorage.getItem("user");
+       if(getUserStr){
+         const getUser= JSON.parse(getUserStr);
+         //    console.log(getUser);
+            setUser(getUser);
+       }
+  },[])
+
+  
+
+  // console.log(user)
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser }
   return (
     <APPContext.Provider value={value}>
       <Header />
@@ -54,7 +66,7 @@ function App() {
 
           <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
 
-          <Route index path="/admin-dashboard/category" element={<Catagory />} />
+          <Route path="/admin-dashboard/category" element={<Catagory />} />
 
           <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
           <Route path='/admin-dashboard/blogs/:id' element={<BlogDetails />}></Route>

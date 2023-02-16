@@ -13,8 +13,9 @@ import logo2 from '../../images/logo 2.png'
 
 
 const Header = () => {
+    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user,setUser} = useContext(APPContext);
+
     const [token,setToken]= useToken();
-    const[user,setUser]=useUser();
     const location = useLocation();
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
@@ -23,14 +24,13 @@ const Header = () => {
     const[image,setImage]=useState(user.photo || blankUser);
     const[profile,setProfile]=useState(false);
 
-    const access_token=window.localStorage.getItem("token")
-    const access_user=window.localStorage.getItem("user")
+    // const access_token=window.localStorage.getItem("token")
+    // const access_user=window.localStorage.getItem("user")
 
-
-
+   
     // console.log(location.pathname);
-    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice } = useContext(APPContext);
-    console.log(user);
+  
+    // console.log(access_user);
 
 
     const handleLogout=()=>{
@@ -47,10 +47,9 @@ const Header = () => {
             .then(res => res.json())
             .then(result => {
               console.log(result);
+              setUser('')
               window.localStorage.removeItem('token');
               window.localStorage.removeItem('user');
-              setUser("");
-              setToken('')
               navigate('/sign-in');
             })
       };
@@ -147,11 +146,11 @@ const Header = () => {
 
 
                 {
-                ( access_token && access_user)?
+                ( token)?
                     <div className='hidden lg:flex items-center gap-2'>
                     <div className='text-end'>
-                        <h3 className='text-lg font-bold'>{user?.first_name}</h3>
-                        <p className='text-sm font-semibold'>{user?.profession}</p>
+                        <h3 className='text-lg font-bold'>{ user?.first_name}</h3>
+                        <p className='text-sm font-semibold'>{ user?.profession}</p>
                     </div>
 
                    

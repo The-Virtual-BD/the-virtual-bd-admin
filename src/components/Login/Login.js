@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { APPContext } from '../../actions/reducers';
 import { baseURL } from '../utilities/url';
 import useUser from '../utilities/useUser';
 
 const Login = () => {
+    const{user,setUser}=useContext(APPContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate=useNavigate();
 
@@ -28,6 +30,7 @@ const Login = () => {
                 toast.error("Login Failed");
               }else{
                 console.log(result);
+                setUser(result.user);
                 const token=result.token
                 const user=JSON.stringify(result.user);
                 
