@@ -44,7 +44,7 @@ const BlogDetails = () => {
                         <div className='mt-4'>
                             <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue '>Accept</button>
 
-                            <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button>
+                           {/*  <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
                         </div>
@@ -55,7 +55,7 @@ const BlogDetails = () => {
 
 
                 <div className='w-full lg:w-1/2'>
-                    <img src={getBlogDeatils?.blogImg} alt="" srcset="" className='h-full lg:h-[500px]' />
+                    <img src={getBlogDeatils?.blogImg} alt="" srcSet="" className='h-full lg:h-[500px]' />
                 </div>
             </div>
         </div>

@@ -101,18 +101,18 @@ const AddNotice=()=>{
             <form className='p-3 ' onSubmit={handleAddNotice} >
 
 
-                <div class="mb-3 flex flex-col items-start w-full">
-                    <label for="projectTitle" class="font-bold mb-1">Notice Title</label>
-                    <input type="text" class="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e=>setTitle(e.target.value)} placeholder="Notice Title" />
+                <div className="mb-3 flex flex-col items-start w-full">
+                    <label for="projectTitle" className="font-bold mb-1">Notice Title</label>
+                    <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e=>setTitle(e.target.value)} placeholder="Notice Title" />
                 </div>
 
-                 <div class="mb-3 flex flex-col items-start w-full">
-                    <label for="img" class="font-bold mb-1">Upload Notice</label>
-                    <input class="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none active:outline-none"
+                 <div className="mb-3 flex flex-col items-start w-full">
+                    <label for="img" className="font-bold mb-1">Upload Notice</label>
+                    <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none active:outline-none"
                         type="file" id="img" onChange={e=>setDoc(e.target.files[0])} />
                  </div>
 
-                <div class="flex  justify-center lg:justify-end items-center text-center mt-3">
+                <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
                     <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
                 </div>
            </form>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 
 const Permission = () => {
-  const{isAddPermission, setIsAddPermission}=useContext(APPContext);
+  const{isAddPermission}=useContext(APPContext);
     return (
         <div>
            {
@@ -111,14 +110,14 @@ const AddPermission=()=>{
           <form className='p-3 ' onSubmit={handlePermissionForm} >
   
                 
-              <div class="mb-3 flex flex-col items-start w-full">
-                <label for="projectTitle" class="font-bold mb-1">Permission Name</label>
-                <input type="text" class="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setPermissionName(e.target.value)} placeholder="permission create" />
+              <div className="mb-3 flex flex-col items-start w-full">
+                <label for="projectTitle" className="font-bold mb-1">Permission Name</label>
+                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setPermissionName(e.target.value)} placeholder="permission create" />
               </div>
 
-              <div class="mb-3 flex flex-col items-start w-full">
-                    <label for="projectTitle" class="font-bold mb-1 ">Guard Name</label>
-                    <select onChange={(e) => setGuardName(e.target.value)} class="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat   rounded transition ease-in-out  m-0 outline-none" aria-label="Clientselect"  >
+              <div className="mb-3 flex flex-col items-start w-full">
+                    <label for="projectTitle" className="font-bold mb-1 ">Guard Name</label>
+                    <select onChange={(e) => setGuardName(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat   rounded transition ease-in-out  m-0 outline-none" aria-label="Clientselect"  >
                       <option selected disabled>Select Guard Name</option>
                       <option value="1">Web</option>
                       <option value="2">App</option>

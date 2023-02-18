@@ -32,9 +32,9 @@ const UserDetails = () => {
 
                {
                 (user.img)? 
-                <img src={user?.img} alt={user?.name} srcset="" className='h-[100px] w-[100px] rounded-full' />
+                <img src={user?.img} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                 :
-                <img src={blankUser} alt={user?.name} srcset="" className='h-[100px] w-[100px] rounded-full' />
+                <img src={blankUser} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                }
 
                 <div className='text-start'>

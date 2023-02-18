@@ -1,4 +1,4 @@
-/* import { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const useUser = () => {
@@ -17,4 +17,4 @@ const useUser = () => {
     return [user, setUser];
 }
 
-export default useUser; */
+export default useUser;

@@ -49,7 +49,7 @@ const ProjectDetails = () => {
 
 
                 <div className='w-full lg:w-1/2'>
-                    <img src={getProjectsDeatils?.blogImg} alt="" srcset="" className='h-full lg:h-[500px]' />
+                    <img src={getProjectsDeatils?.blogImg} alt="" srcSet="" className='h-full lg:h-[500px]' />
                 </div>
             </div>
         </div>

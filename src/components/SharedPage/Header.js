@@ -107,7 +107,7 @@ const Header = () => {
 
                                 <button
                                     onClick={() => setIsAddPermission(true)}
-                                    className={`${isAddPermission ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add New Permission</button>
+                                    className={`${isAddPermission ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Permission</button>
 
                             </div>
                         }
@@ -155,20 +155,20 @@ const Header = () => {
 
                    
 
-                    <div class="flex justify-center">
+                    <div className="flex justify-center">
                             <div>
-                                <div class="dropdown relative">
+                                <div className="dropdown relative">
                                 <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         {
-                                        <img src={image} alt="admin" srcset="" style={{width:"50px",height:"50px",borderRadius:"100%"}} onClick={()=>setProfile(!profile)} />
+                                        <img src={image} alt="admin" srcSet="" style={{width:"50px",height:"50px",borderRadius:"100%"}} onClick={()=>setProfile(!profile)} />
                                     }
                                 </button>
-                                <ul  class="dropdown-menu w-36 absolute bg-white text-base z-50 float-left py-1.5 list-none text-left rounded-lg shadow-lg mt-1  hidden  m-0 bg-clip-padding border-none "  
+                                <ul  className="dropdown-menu w-36 absolute bg-white text-base z-50 float-left py-1.5 list-none text-left rounded-lg shadow-lg mt-1  hidden  m-0 bg-clip-padding border-none "  
                                 aria-labelledby="dropdownMenuButton1">  
                                     <li>
-                                        <Link to={"/profile"} class="dropdown-item text-sm py-1.5 px-4 block w-full  whitespace-nowrap  bg-transparent text-primary hover:bg-bgclr text-center font-bold">Profile</Link > </li>
+                                        <Link to={"/profile"} className="dropdown-item text-sm py-1.5 px-4 block w-full  whitespace-nowrap  bg-transparent text-primary hover:bg-bgclr text-center font-bold">Profile</Link > </li>
                                     <li>
-                                        <button class="dropdown-item text-sm py-1.5 px-4  block w-full  whitespace-nowrap  bg-transparent text-primary hover:bg-bgclr font-bold"  onClick={handleLogout}>Logout </button>
+                                        <button className="dropdown-item text-sm py-1.5 px-4  block w-full  whitespace-nowrap  bg-transparent text-primary hover:bg-bgclr font-bold"  onClick={handleLogout}>Logout </button>
                                     </li>
                                 </ul>
                                 </div>
@@ -200,7 +200,7 @@ const Header = () => {
             <div className='lg:hidden block  '>
                 {open ? (
                     <div className="bg-blue text-white  rounded w-60  py-3 z-10 fixed top-2 left-0 h-auto overflow-y-auto overflow-x-hidden ">
-                        {/* <img src="/assets/admin.png" alt="admin" srcset="" /> */}
+                        {/* <img src="/assets/admin.png" alt="admin" srcSet="" /> */}
                         <div className='flex flex-col lg:hidden  text-center '>
                             <h3 className='text-lg font-bold'>{user.first_name}</h3>
                             <p className='text-sm'>{user.profession}</p>

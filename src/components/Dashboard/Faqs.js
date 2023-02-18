@@ -29,19 +29,19 @@ const AddFaq = () => {
               <h3 className='px-3 text-2xl font-bold'>Add FAQs</h3>
               <form className='p-3 ' onSubmit={handleFAQForm} >
 
-                    <div class="mb-3 flex flex-col items-start w-full">
-                      <label for="faqQus" class="font-bold">Question</label>
-                      <input type="text" class="w-full bg-white rounded py-1 px-3 outline-none" id="faqQus" onChange={(e) => setFaqQus(e.target.value)} />
+                    <div className="mb-3 flex flex-col items-start w-full">
+                      <label for="faqQus" className="font-bold">Question</label>
+                      <input type="text" className="w-full bg-white rounded py-1 px-3 outline-none" id="faqQus" onChange={(e) => setFaqQus(e.target.value)} />
                     </div>
                   
 
-                    <div class="mb-3 flex flex-col items-start w-full">
-                      <label for="faqAns" class="font-bold ">Answer</label>
-                      <textarea class="w-full bg-white rounded py-1 px-3 outline-none" id='faqAns' rows="5" onChange={(e) => setFaqAns(e.target.value)}></textarea>
+                    <div className="mb-3 flex flex-col items-start w-full">
+                      <label for="faqAns" className="font-bold ">Answer</label>
+                      <textarea className="w-full bg-white rounded py-1 px-3 outline-none" id='faqAns' rows="5" onChange={(e) => setFaqAns(e.target.value)}></textarea>
                     </div>
                           
 
-                    <div class=" text-center mt-3">
+                    <div className=" text-center mt-3">
                       <Button type="submit">Submit</Button>
                     </div>
               </form>
@@ -85,10 +85,10 @@ const ViewProjects = () => {
 const AccordionCard = ({ faq }) => {
     const { _id, faqQus, faqAns, status } = faq;
     return (
-        <div class="accordion">
-            <div class="accordion-item bg-white border border-gray-200">
-                <h2 class="accordion-header mb-0" id={`heading${_id}`}>
-                    <button class="
+        <div className="accordion">
+            <div className="accordion-item bg-white border border-gray-200">
+                <h2 className="accordion-header mb-0" id={`heading${_id}`}>
+                    <button className="
                     accordion-button
                     relative
                     flex
@@ -108,9 +108,9 @@ const AccordionCard = ({ faq }) => {
                     </button>
                 </h2>
                         
-                <div id={`collapse${_id}`} class="accordion-collapse collapse " aria-labelledby={`heading${_id}`}
+                <div id={`collapse${_id}`} className="accordion-collapse collapse " aria-labelledby={`heading${_id}`}
                     >
-                    <div class="accordion-body py-4 px-5 text-left">
+                    <div className="accordion-body py-4 px-5 text-left">
                     {faqAns}
                     </div>
                 </div>

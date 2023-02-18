@@ -62,6 +62,7 @@ function App() {
     <APPContext.Provider value={value}>
       <Header />
       <Routes>
+        <Route path="/" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  } />
         <Route path="/admin-dashboard" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  }>
 
           <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
@@ -93,11 +94,6 @@ function App() {
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
           
           
-
-          
-          
-
-
 
           {/*  <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
            <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
