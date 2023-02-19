@@ -2,22 +2,63 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const BloggerReq = () => {
+    const[token]=useToken();
     const [bloggerApplicent, setBloggerApplicent] = useState([]);
     const navigate=useNavigate();
+     
 
+    //Get blogger req
     useEffect(() => {
-        fetch('/blogger.json')
+        const sUrl = `${baseURL}/api/admin/bloggerApplication`;
+        // setLoading(true);
+        fetch(sUrl, {
+            method: 'GET',
+            headers: { 
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setBloggerApplicent(data))
-    }, []);
+            .then(data => {
+                // setLoading(false);
+                console.log(data.blogger)
+                setBloggerApplicent(data.blogger)
+            })
+    }, [token]);
 
     const handleBloggerReqView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/blogger-request/${id}`);
     };
+
+
+    //Handle Delete Blogger Req
+    const handleDeleteBlogReq=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/bloggerApplication/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = bloggerApplicent.filter(card => card.id !== id);
+                        setBloggerApplicent(remaining);
+                        toast.success(data.message)
+                })
+        };
+      };
 
 
     const BLOGGER_COLUMNS = () => {
@@ -30,19 +71,19 @@ const BloggerReq = () => {
             },
             {
                 Header: "Blogger Name",
-                accessor: "bloggerName",
+                accessor: "name",
                 sortType: 'basic',
 
             },
             {
                 Header: "Subject",
-                accessor: "blogSub",
+                accessor: "subject",
                 sortType: 'basic',
 
             },
             {
                 Header: "Exp. Area",
-                accessor: "blogExArea",
+                accessor: "expertise",
                 sortType: 'basic',
 
             },
@@ -58,7 +99,7 @@ const BloggerReq = () => {
                             </div>
                         </button>
 
-                        <button >
+                        <button onClick={()=>handleDeleteBlogReq(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>

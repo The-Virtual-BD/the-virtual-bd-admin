@@ -2,44 +2,91 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsCheck2, BsEyeFill, } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const Blogs = () => {
+    const[token]=useToken();
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
-    // const [pageSize, setPageSize] = useState(10);
-    // const [pageIndex, setPageIndex] = useState(0);
-
+  
+    //Handle Get posts
     useEffect(() => {
-        
-        fetch('/blogs.json')
+        const sUrl = `${baseURL}/api/admin/posts`;
+        // setLoading(true);
+
+        fetch(sUrl, {
+            method: 'GET',
+            headers: { 
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setBlogs(data))
-    }, []);
+            .then(data => {
+                // setLoading(false);
+                // console.log(data)
+                setBlogs(data.data)
+            })
+    }, [token]);
 
     const handleBlogView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/blogs/${id}`);
     };
 
+    //Handle Delete Service
+    const handleDeletePost=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/posts/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = blogs.filter(card => card.id !== id);
+                        setBlogs(remaining);
+                        toast.success(data.message)
+                })
+        };
+      };
+
+
+      console.log(blogs)
+
 
     const BLOG_COLUMNS = () => {
         return [
             {
                 Header: "SL",
-                accessor: "_id",
+                accessor: "id",
                 sortType: 'basic',
 
             },
             {
                 Header: "Blogger Name",
-                accessor: "bloggerName",
+                accessor: "author.first_name",
+                
                 sortType: 'basic',
 
             },
             {
                 Header: "Blog Title",
-                accessor: "blogTitle",
+                accessor: "title",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Category Name",
+                accessor: "category.name",
                 sortType: 'basic',
 
             },
@@ -53,15 +100,15 @@ const Blogs = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({ row }) => {
-                    const { _id } = row.original;
+                    const { id } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 '>
-                        <button onClick={() => handleBlogView(_id)}>
+                        <button onClick={() => handleBlogView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg ' />
                             </div>
                         </button>
 
-                        <button >
+                        <button onClick={()=>handleDeletePost(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>

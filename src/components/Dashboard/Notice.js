@@ -5,6 +5,10 @@ import Table from '../SharedPage/Table';
 import { saveAs } from "file-saver";
 import { useForm } from 'react-hook-form';
 import { APPContext } from '../../actions/reducers';
+import { AiFillDelete } from 'react-icons/ai';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
+import { toast } from 'react-toastify';
 
 
 const Notice = () => {
@@ -24,6 +28,7 @@ export default Notice;
 
 
 const ViewNotice=()=>{
+  
     const [notices, setNotices] = useState([]);
     useEffect(() => {
       fetch('/notice.json')
@@ -61,9 +66,17 @@ const ViewNotice=()=>{
             accessor: 'action',
             Cell: ({ row }) => {
                 const { id } = row.original;
-                return ( <div className='flex items-center justify-center'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={()=>downloadFile(id)}>
+                return ( <div className='flex items-center justify-center gap-2'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={()=>downloadFile(id)}>
                 <FiDownload className=' ' />
-            </button></div>);
+            </button>
+
+            <button >
+              <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
+                <AiFillDelete className='text-lg  text-white' />
+              </div>
+            </button>
+            
+            </div>);
             },
         },
         ];
@@ -82,18 +95,41 @@ const ViewNotice=()=>{
 
 
 const AddNotice=()=>{
+    const[token]=useToken();
     const[title,setTitle]=useState('');
-    const[doc,setDoc]=useState(null);
+    const[document,setDoc]=useState(null);
 
 
     //Handle Add Notice
-    const handleAddNotice=(e) => {
+    const handleAddNotice=async(e) => {
         e.preventDefault();
-        const newNotice={title,doc};
+        const newNotice={title,document};
 
-        console.log(newNotice);
-        e.target.reset()
+        const noUrl= `${baseURL}/api/admin/notices`;
+
+        const response = await fetch(noUrl, {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newNotice)
+        });
+    
+        const result = await response.json();
+    
+        if (result.error) {
+            console.log(result.error);
+            toast.error("Notice Add Failed");
+        } else {
+            console.log(result);
+            e.target.reset();
+            toast.success(result.message);
+        }
     };
+
+    
+
+
 
     return(
         <div className='text-primary p-3 m-3 bg-white rounded-md '>

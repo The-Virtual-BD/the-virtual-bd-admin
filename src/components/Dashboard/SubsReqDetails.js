@@ -1,28 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { saveAs } from "file-saver";
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 
 const SubsReqDetails = () => {
-    const [subReq, setSubReq] = useState([]);
+    const [subRe, setSubRe] = useState([]);
     const { id } = useParams();
+    const[token]=useToken();
 
+
+    //Handle Get Project
     useEffect(() => {
-        fetch('/subscription.json')
-            .then(res => res.json())
-            .then(data => setSubReq(data))
-    }, []);
+        const sUrl = `${baseURL}/api/admin/subscriptions/${id}`;
+        // setLoading(true);
 
-    const getSingleSubsReq = subReq?.find(blog => blog.id == id);
-    console.log(getSingleSubsReq);
+        fetch(sUrl, {
+            method: 'GET',
+            headers: { 
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                // setLoading(false);
+                console.log(data.data)
+                setSubRe(data.data)
+            })
+    }, [token,id]);
+
+
+    console.log(subRe)
+
+
 
 
     //Download Documents
     const downloadFile = () => {
-        fetch(`${getSingleSubsReq.doc}`)
+        fetch(`${subRe.attachment}`)
           .then((response) => response.blob())
           .then((blob) => {
-            saveAs(blob, `${getSingleSubsReq?.doc}`);
+            saveAs(blob, `${subRe?.attachment}`);
+            
           });
       };
       
@@ -35,38 +56,40 @@ const SubsReqDetails = () => {
 
             <div className='mt-5'>
                <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Name: </span>  {getSingleSubsReq?.userName}</h3>
+                    <h3 ><span className='font-bold'>Name: </span>{`${subRe?.applicant?.first_name} ${subRe?.applicant?.last_name}`}</h3>
+
                </div>
 
                <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Service Name: </span> {getSingleSubsReq?.service}</h3>
+                    <h3 ><span className='font-bold'>Service Name: </span> {subRe?.service?.name}</h3>
                </div>
               
                <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Meeting Time: </span>{getSingleSubsReq?.meeting_date}</h3>
+                    <h3 ><span className='font-bold'>Meeting Time: </span>{subRe?.schedule}</h3>
                </div>
               
                <div className='text-start mb-2'>
-                    <h3 ><span className='font-bold'>Subject: </span> {getSingleSubsReq?.subject}</h3>
+                    <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
                </div>
+               
                <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>Description: </span>{getSingleSubsReq?.desc}</h3>
+                    <h3 ><span className='font-bold'>Description: </span>{subRe?.description}</h3>
                </div>
 
-               <div className='text-start  mb-1'>
+                <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
-                    <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {getSingleSubsReq?.doc}</span>
+                    <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {subRe?.attachment}</span>
                        
                    </h3>
-               </div>
+               </div> 
 
             
 
 
                <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue '>Accept</button>
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
 
-                            <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button>
+                            {/* <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
              </div>

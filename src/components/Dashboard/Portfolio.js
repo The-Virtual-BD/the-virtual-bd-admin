@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './Dashboard.css';
-
-// Import React FilePond
-import { FilePond, registerPlugin } from "react-filepond";
-// Import FilePond styles
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { AiFillDelete } from 'react-icons/ai';
@@ -17,8 +9,14 @@ import { APPContext } from '../../actions/reducers';
 import { toast } from 'react-toastify';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+
+/* import { FilePond, registerPlugin } from "react-filepond";
+import "filepond/dist/filepond.min.css";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"; */
 // Register the plugins
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+// registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 
 
@@ -33,8 +31,10 @@ const Portfolio = () => {
     </div>
   );
 };
-
 export default Portfolio;
+
+
+
 
 const AddProject = () => {
   const[token]=useToken();
@@ -98,12 +98,12 @@ const AddProject = () => {
   // console.log(allUsers)
 
   
-//Handle add project
+  //Handle add project
     const handleProjectForm = async(e) => {
     e.preventDefault();
 
-    const newProject = { name, value, value_paid, service_id, client_name, user_id, portfolio, progress, description, short_description, starting_date, ending_date, cover, documents };
-    console.log(newProject );
+   /*  const newProject = { name, value, value_paid, service_id, client_name, user_id, portfolio, progress, description, short_description, starting_date, ending_date, cover, documents };
+    console.log(newProject ); */
 
 
     const projectData=new FormData();
@@ -151,7 +151,7 @@ const AddProject = () => {
 
   return (
     <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
-      <div cclassName='bg-white w-full px-10   rounded-lg mt-2 py-6 shadow-md'>
+      <div >
         <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Add Project</h3>
         <form className='p-3 ' onSubmit={handleProjectForm} >
 
@@ -284,11 +284,13 @@ const AddProject = () => {
           </div>
         </form>
       </div>
-
-
     </div>
   )
 };
+
+
+
+
 
 
 const ViewProjects = () => {
@@ -296,69 +298,90 @@ const ViewProjects = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
 
- /*  useEffect(() => {
-    fetch('/projects.json')
-      .then(res => res.json())
-      .then(data => setProjects(data))
-  }, []); */
+ 
 
   
-  //Get projects
-  useEffect(() => {
-    const sUrl = `${baseURL}/api/projects`;
-    // setLoading(true);
+      //Get projects
+      useEffect(() => {
+        const sUrl = `${baseURL}/api/admin/projects`;
+        // setLoading(true);
 
-    fetch(sUrl, {
-        method: 'GET',
-        headers: { 
-            'content-type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
-    })
-        .then(res => res.json())
-        .then(data => {
-            // setLoading(false)
-            setProjects(data)
+        fetch(sUrl, {
+            method: 'GET',
+            headers: { 
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
         })
-}, [token]);
+            .then(res => res.json())
+            .then(data => {
+                // setLoading(false);
+                console.log(data)
+                setProjects(data.data)
+            })
+    }, [token]);
 
 
 
-  const handleProjectView = (id) => {
-    console.log("clicked", id);
-    navigate(`/admin-dashboard/project/${id}`);
-  };
+    //Handle Project View 
+    const handleProjectView = (id) => {
+      console.log("clicked", id);
+      navigate(`/admin-dashboard/project/${id}`);
+    };
+
+    //Handle Delete Service*
+    const handleDeleteProject=id=>{
+      const procced=window.confirm("You Want To Delete?");
+  
+      if (procced) {
+          const userUrl=`${baseURL}/api/admin/projects/destroy/${id}`;
+          fetch(userUrl, {
+              method: 'DELETE',
+              headers: {
+                  "Authorization": `Bearer ${token}`
+              }
+          })
+              .then(res => res.json())
+              .then(data => {
+                      console.log(data);
+                      const remaining = projects.filter(card => card.id !== id);
+                      setProjects(remaining);
+                      toast.success(data.message)
+                  
+              })
+      };
+    };
 
 
   const PROJECT_COLUMNS = () => {
     return [
       {
         Header: "SL",
-        accessor: "_id",
+        accessor: "id",
         sortType: 'basic',
 
       },
       {
         Header: "Project Title",
-        accessor: "projectName",
-        sortType: 'basic',
-
-      },
-      {
-        Header: "Client Name",
         accessor: "name",
         sortType: 'basic',
 
       },
       {
+        Header: "Client Name",
+        accessor: "client_name",
+        sortType: 'basic',
+
+      },
+      {
         Header: "Start Date",
-        accessor: "startDate",
+        accessor: "starting_date",
         sortType: 'basic',
 
       },
       {
         Header: "End Date",
-        accessor: "endDate",
+        accessor: "ending_date",
         sortType: 'basic',
 
       },
@@ -367,9 +390,9 @@ const ViewProjects = () => {
         Header: 'Action',
         accessor: 'action',
         Cell: ({ row }) => {
-          const { _id } = row.original;
+          const { id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
-            <button onClick={() => handleProjectView(_id)}>
+            <button onClick={() => handleProjectView(id)}>
               <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                 <BsEyeFill className='text-lg  ' />
               </div>
@@ -380,7 +403,7 @@ const ViewProjects = () => {
               </div>
             </button>
 
-            <button>
+            <button onClick={()=>handleDeleteProject(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                 <AiFillDelete className='text-lg  text-white' />
               </div>

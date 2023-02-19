@@ -32,6 +32,8 @@ const Subscription = () => {
           .then(data =>setSubReq(data.data))
       }, [token]);
 
+      console.log(subReq)
+
 
       //handle Sub Req View
     const handleSubReqView = (id) => {
@@ -72,7 +74,7 @@ const Subscription = () => {
             },
             {
                 Header: "Name",
-                accessor: "userName",
+                accessor: "applicant.first_name",
                 sortType: 'basic',
 
             },

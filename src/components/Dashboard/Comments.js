@@ -13,7 +13,7 @@ const Comments = () => {
     const navigate = useNavigate();
 
   
-    //Get All Sub Req
+    //Get All Comments
     useEffect(() => {
         const perUrl=`${baseURL}/api/admin/comments`;
         fetch(perUrl,{
@@ -24,11 +24,15 @@ const Comments = () => {
           }
       })
           .then(res => res.json())
-          .then(data =>setComments(data.data))
+          .then(data =>{
+            console.log(data);
+            // setComments(data.data)
+          })
       }, [token]);
 
 
-      //handle Sub Req View
+
+      //handle Comments View*
     const handleSubReqView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/sub-request/${id}`);

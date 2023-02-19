@@ -13,7 +13,7 @@ import logo2 from '../../images/logo 2.png'
 
 
 const Header = () => {
-    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user,setUser} = useContext(APPContext);
+    const { isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user,setUser,addCategory, setAddCategory} = useContext(APPContext);
 
     const [token,setToken]= useToken();
     const location = useLocation();
@@ -32,10 +32,8 @@ const Header = () => {
   
     // console.log(access_user);
 
-
+    //Handle Logout
     const handleLogout=()=>{
-
-
         const url = `${baseURL}/api/logout`;
         fetch(url, {
             method: 'POST',
@@ -137,6 +135,19 @@ const Header = () => {
                                 <button
                                     onClick={() => setAddNotice(true)}
                                     className={`${addNotice? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Notice</button>
+
+                            </div>
+                        }
+                        {/* Category Sub Menu */}
+                        {
+                            currentPath === "/admin-dashboard/category" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                                <button
+                                    onClick={() => setAddCategory(false)}
+                                    className={`${(!addCategory) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Category</button>
+
+                                <button
+                                    onClick={() => setAddCategory(true)}
+                                    className={`${addCategory? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Category</button>
 
                             </div>
                         }
@@ -285,6 +296,25 @@ const Header = () => {
                                             setOpen(!open)
                                         }}
                                         className={`${addNotice? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Service</button>
+
+                                </div>
+                            }
+                         {/* Category Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/notice" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setAddCategory(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!addCategory? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Category</button>
+
+                                    <button
+                                        onClick={() =>{
+                                            setAddCategory(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${addCategory? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Category</button>
 
                                 </div>
                             }

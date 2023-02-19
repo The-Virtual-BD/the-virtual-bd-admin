@@ -38,8 +38,10 @@ function App() {
   const [isAddPermission, setIsAddPermission] = useState(false);
   const [isAddService, setIsAddService] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [addCategory, setAddCategory] = useState(false);
 
+
+  const [menuOpen, setMenuOpen] = useState(true);
   const [user, setUser] = useState([]);
 
   useEffect(()=>{
@@ -57,7 +59,9 @@ function App() {
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory }
+
+  
   return (
     <APPContext.Provider value={value}>
       <Header />

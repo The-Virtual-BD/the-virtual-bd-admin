@@ -32,11 +32,10 @@ const AddService=()=>{
     const[cover,setCover]=useState(null);
     const[description,setDescription]=useState("");
 
+
+    //Handle Add Services
     const handleAddServiceForm=async(e)=>{
         e.preventDefault();
-
-        /* const newService={name,cover,description};
-        console.log(newService); */
 
         const serviceData=new FormData();
         serviceData.append("name",name);
@@ -193,6 +192,8 @@ const ViewServices=()=>{
                 })
         };
       };
+
+      
 
     const SERVICE_COLUMNS = () => {
         return [
