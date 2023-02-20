@@ -8,42 +8,42 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const Comments = () => {
-    const[token]=useToken();
+    const [token] = useToken();
     const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
-  
+
     //Get All Comments
     useEffect(() => {
-        const perUrl=`${baseURL}/api/admin/comments`;
-        fetch(perUrl,{
-          method:"GET",
-          headers: {
-              'content-type': 'application/json',
-              "Authorization": `Bearer ${token}`
-          }
-      })
-          .then(res => res.json())
-          .then(data =>{
-            console.log(data);
-            // setComments(data.data)
-          })
-      }, [token]);
+        const perUrl = `${baseURL}/api/admin/comments`;
+        fetch(perUrl, {
+            method: "GET",
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                // setComments(data.data)
+            })
+    }, [token]);
 
 
 
-      //handle Comments View*
+    //handle Comments View*
     const handleSubReqView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/sub-request/${id}`);
     };
 
     //Handle Delete Service
-    const handleDeleteComment=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
+    const handleDeleteComment = id => {
+        const procced = window.confirm("You Want To Delete?");
+
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/comments/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/comments/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -52,13 +52,13 @@ const Comments = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = comments.filter(card => card.id !== id);
-                        setComments(remaining);
-                        toast.success(data.message)
+                    console.log(data);
+                    const remaining = comments.filter(card => card.id !== id);
+                    setComments(remaining);
+                    toast.success(data.message)
                 })
         };
-      };
+    };
 
 
     const Comments_COLUMNS = () => {
@@ -93,7 +93,7 @@ const Comments = () => {
                             </div>
                         </button>
 
-                        <button onClick={()=>handleDeleteComment(id)}>
+                        <button onClick={() => handleDeleteComment(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -109,14 +109,14 @@ const Comments = () => {
 
     return (
         <div className='text-primary p-3'>
-        {comments.length && (
-            <Table
-                columns={Comments_COLUMNS()}
-                data={comments}
-                headline={"All Comments"} />
-        )}
+            {comments.length && (
+                <Table
+                    columns={Comments_COLUMNS()}
+                    data={comments}
+                    headline={"All Comments"} />
+            )}
 
-    </div>
+        </div>
     );
 };
 

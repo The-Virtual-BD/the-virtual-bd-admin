@@ -8,10 +8,10 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const BloggerReq = () => {
-    const[token]=useToken();
+    const [token] = useToken();
     const [bloggerApplicent, setBloggerApplicent] = useState([]);
-    const navigate=useNavigate();
-     
+    const navigate = useNavigate();
+
 
     //Get blogger req
     useEffect(() => {
@@ -19,7 +19,7 @@ const BloggerReq = () => {
         // setLoading(true);
         fetch(sUrl, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'content-type': 'application/json',
                 "Authorization": `Bearer ${token}`
             }
@@ -39,11 +39,11 @@ const BloggerReq = () => {
 
 
     //Handle Delete Blogger Req
-    const handleDeleteBlogReq=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
+    const handleDeleteBlogReq = id => {
+        const procced = window.confirm("You Want To Delete?");
+
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/bloggerApplication/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/bloggerApplication/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -52,13 +52,13 @@ const BloggerReq = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = bloggerApplicent.filter(card => card.id !== id);
-                        setBloggerApplicent(remaining);
-                        toast.success(data.message)
+                    console.log(data);
+                    const remaining = bloggerApplicent.filter(card => card.id !== id);
+                    setBloggerApplicent(remaining);
+                    toast.success(data.message)
                 })
         };
-      };
+    };
 
 
     const BLOGGER_COLUMNS = () => {
@@ -99,7 +99,7 @@ const BloggerReq = () => {
                             </div>
                         </button>
 
-                        <button onClick={()=>handleDeleteBlogReq(id)}>
+                        <button onClick={() => handleDeleteBlogReq(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>

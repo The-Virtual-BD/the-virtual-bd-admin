@@ -8,45 +8,45 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const Subscription = () => {
-    const[token]=useToken();
+    const [token] = useToken();
     const [subReq, setSubReq] = useState([]);
     const navigate = useNavigate();
 
-   /*  useEffect(() => {
-        fetch('/subscription.json')
-            .then(res => res.json())
-            .then(data => setSubReq(data))
-    }, []); */
+    /*  useEffect(() => {
+         fetch('/subscription.json')
+             .then(res => res.json())
+             .then(data => setSubReq(data))
+     }, []); */
 
     //Get All Sub Req
     useEffect(() => {
-        const perUrl=`${baseURL}/api/admin/subscriptions`;
-        fetch(perUrl,{
-          method:"GET",
-          headers: {
-              'content-type': 'application/json',
-              "Authorization": `Bearer ${token}`
-          }
-      })
-          .then(res => res.json())
-          .then(data =>setSubReq(data.data))
-      }, [token]);
+        const perUrl = `${baseURL}/api/admin/subscriptions`;
+        fetch(perUrl, {
+            method: "GET",
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setSubReq(data.data))
+    }, [token]);
 
-      console.log(subReq)
+    console.log(subReq)
 
 
-      //handle Sub Req View
+    //handle Sub Req View
     const handleSubReqView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/sub-request/${id}`);
     };
 
     //Handle Delete Service
-    const handleDeleteSubReq=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
+    const handleDeleteSubReq = id => {
+        const procced = window.confirm("You Want To Delete?");
+
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/subscriptions/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/subscriptions/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -55,13 +55,13 @@ const Subscription = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = subReq.filter(card => card.id !== id);
-                        setSubReq(remaining);
-                        toast.success(data.message)
+                    console.log(data);
+                    const remaining = subReq.filter(card => card.id !== id);
+                    setSubReq(remaining);
+                    toast.success(data.message)
                 })
         };
-      };
+    };
 
 
     const SUB_REQ_COLUMNS = () => {
@@ -102,7 +102,7 @@ const Subscription = () => {
                             </div>
                         </button>
 
-                        <button onClick={()=>handleDeleteSubReq(id)}>
+                        <button onClick={() => handleDeleteSubReq(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>

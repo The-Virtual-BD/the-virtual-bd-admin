@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import {AiFillHome} from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
 
 
 
@@ -14,8 +14,8 @@ const Dashboard = () => {
                 <h2 className='mt-5 font-bold '>You Logged in!</h2>
             </div>
 
-          
-           
+
+
         </div>
     );
 };

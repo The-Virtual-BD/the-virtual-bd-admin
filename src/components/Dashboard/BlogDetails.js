@@ -6,18 +6,18 @@ import useToken from '../utilities/useToken';
 
 const BlogDetails = () => {
     const { id } = useParams();
-    const[token]=useToken();
+    const [token] = useToken();
     const [blog, setBlog] = useState({});
 
- 
-     //Handle Get post
-     useEffect(() => {
+
+    //Handle Get post
+    useEffect(() => {
         const sUrl = `${baseURL}/api/admin/posts/show/${id}`;
         // setLoading(true);
 
         fetch(sUrl, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'content-type': 'application/json',
                 "Authorization": `Bearer ${token}`
             }
@@ -28,7 +28,7 @@ const BlogDetails = () => {
                 console.log(data.data)
                 setBlog(data.data)
             })
-    }, [token,id]);
+    }, [token, id]);
 
     const postDate = moment(blog?.created_at).format('DD MMM YYYY')
 
@@ -65,7 +65,7 @@ const BlogDetails = () => {
                         <div className='mt-4'>
                             <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
 
-                           {/*  <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
+                            {/*  <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
                         </div>

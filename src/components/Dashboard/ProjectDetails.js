@@ -6,18 +6,18 @@ import useToken from '../utilities/useToken';
 const ProjectDetails = () => {
     const [project, setProject] = useState([]);
     const { id } = useParams();
-    const[token]=useToken();
+    const [token] = useToken();
 
-   
 
-     //Handle Get Project
-     useEffect(() => {
+
+    //Handle Get Project
+    useEffect(() => {
         const sUrl = `${baseURL}/api/admin/projects/show/${id}`;
         // setLoading(true);
 
         fetch(sUrl, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'content-type': 'application/json',
                 "Authorization": `Bearer ${token}`
             }
@@ -28,7 +28,7 @@ const ProjectDetails = () => {
                 console.log(data.data)
                 setProject(data.data)
             })
-    }, [token,id]);
+    }, [token, id]);
 
     console.log(project)
 
@@ -38,7 +38,7 @@ const ProjectDetails = () => {
                 <h2 className='text-2xl font-bold text-start my-3 px-4'>View Project</h2>
                 <hr className=' text-bgclr' />
             </div>
-           
+
 
             <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>
