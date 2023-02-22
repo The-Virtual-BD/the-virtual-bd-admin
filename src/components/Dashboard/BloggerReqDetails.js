@@ -7,12 +7,9 @@ import useToken from '../utilities/useToken';
 const BloggerReqDetails = () => {
     const [bloggerApplicen, setBloggerApplicen] = useState([]);
     const { id } = useParams();
-<<<<<<< HEAD
     const navigate=useNavigate();
     const[token]=useToken();
-=======
-    const [token] = useToken();
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
+
 
 
     //Handle Get service
@@ -36,7 +33,6 @@ const BloggerReqDetails = () => {
     }, [token, id]);
 
 
-<<<<<<< HEAD
       //Handle Delete Blogger Req
     const handleDeleteBlogReq=id=>{
         const procced=window.confirm("You Want To Delete?");
@@ -58,9 +54,9 @@ const BloggerReqDetails = () => {
         };
       };
 
-    /*   //handle Accept Blog
-      const handlePostAccept=id=>{
-        const userUrl=`${baseURL}/api/admin/posts/approve/${id}`;
+      //handle Accept Blog
+      const handleBlogReqAccept=id=>{
+        const userUrl=`${baseURL}/api/admin/bloggerApplication/approve//${id}`;
         
         fetch(userUrl, {
             method: 'PUT',
@@ -72,16 +68,13 @@ const BloggerReqDetails = () => {
             .then(data => {
                     console.log(data);
                     toast.success(data.message);
-                    navigate("/admin-dashboard/blogs")
+                    navigate("/admin-dashboard/blogger-request")
             })
-      } */
+      }
 
 
       console.log(bloggerApplicen);
-=======
-    console.log(bloggerApplicen);
 
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
 
 
     return (
@@ -110,22 +103,13 @@ const BloggerReqDetails = () => {
                 </div>
 
 
-<<<<<<< HEAD
                     <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' >Accept</button>
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleBlogReqAccept(bloggerApplicen?.id)}>Accept</button>
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeleteBlogReq(bloggerApplicen?.id)}>Delete</button>
                     </div>
               
-=======
 
-                <div className='mt-7 flex items-start '>
-                    <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
-
-                    <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
-                </div>
-
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
 
             </div>
 
