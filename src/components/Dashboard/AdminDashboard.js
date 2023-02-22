@@ -8,7 +8,7 @@ const AdminDashboard = () => {
     const location = useLocation();
     const isActive = location.pathname;
     // console.log(location.pathname);
-    const {menuOpen } = useContext(APPContext);
+    const { menuOpen } = useContext(APPContext);
 
     return (
         <div className='flex flex-row-reverse justify-between  bg-bgclr'>
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
                 <Outlet></Outlet>
             </div>
 
-            <div className={`bg-white text-primary h-screen   hidden lg:block  transition ease duration-300 ${menuOpen?"w-60":"w-14"}`}>
+            <div className={`bg-white text-primary h-screen   hidden lg:block  transition ease duration-300 ${menuOpen ? "w-60" : "w-14"}`}>
                 <ul className='flex  flex-col  '>
                     {
                         sidebarMenu.map(singleMenu => <li key={singleMenu.id}
@@ -26,9 +26,9 @@ const AdminDashboard = () => {
                             <Link to={singleMenu.path}>
 
                                 <div className='flex items-center justify-start'>
-                                   <span className={` ${menuOpen?"text-base":"  py-1 text-center"}`}> {singleMenu.icon}</span>
+                                    <span className={` ${menuOpen ? "text-base" : "  py-1 text-center"}`}> {singleMenu.icon}</span>
 
-                                    <span className={`ml-3 ${menuOpen?"block":"hidden"}`}> {singleMenu.name}</span>
+                                    <span className={`ml-3 ${menuOpen ? "block" : "hidden"}`}> {singleMenu.name}</span>
                                 </div>
                             </Link>
                         </li>)

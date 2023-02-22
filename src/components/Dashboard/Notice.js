@@ -15,7 +15,15 @@ const Notice = () => {
     const { addNotice } = useContext(APPContext);
     return (
         <div>
+<<<<<<< HEAD
              { addNotice ? <AddNotice /> : <ViewNotice />}
+=======
+            {
+                addNotice ? <AddNotice /> : <ViewNotice />
+            }
+
+
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         </div>
     );
 };
@@ -23,6 +31,7 @@ const Notice = () => {
 export default Notice;
 
 
+<<<<<<< HEAD
 const ViewNotice=()=>{
     const[token]=useToken();
     const [notices, setNotices] = useState([]);
@@ -44,11 +53,22 @@ const ViewNotice=()=>{
             setNotices(data.data)
           })
       }, [token]);
+=======
+const ViewNotice = () => {
 
-     //Download Documents
-     const downloadFile = (id) => {
-        const getDoc=notices.find(notice=>notice.id===id);
+    const [notices, setNotices] = useState([]);
+    useEffect(() => {
+        fetch('/notice.json')
+            .then(res => res.json())
+            .then(data => setNotices(data))
+    }, []);
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
 
+    //Download Documents
+    const downloadFile = (id) => {
+        const getDoc = notices.find(notice => notice.id === id);
+
+<<<<<<< HEAD
         fetch(`${getDoc.document}`)
           .then((response) => response.blob())
           .then((blob) => {
@@ -80,28 +100,23 @@ const ViewNotice=()=>{
       };
 
   const NOTICE_COLUMNS = () => {
-        return [
-          {
-            Header: "SL",
-            accessor: "id",
-            sortType: 'basic',
-    
-          },
-          {
-            Header: "Title",
-            accessor: "title",
-            sortType: 'basic',
-    
-          },
-          {
-            Header: 'Action',
-            accessor: 'action',
-            Cell: ({ row }) => {
-                const { id } = row.original;
-                return ( <div className='flex items-center justify-center gap-2'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={()=>downloadFile(id)}>
-                <FiDownload className=' ' />
-            </button>
+=======
+        fetch(`${getDoc.doc}`)
+            .then((response) => response.blob())
+            .then((blob) => {
+                saveAs(blob, `${getDoc.title}`);
+            });
+    };
 
+    const NOTICE_COLUMNS = () => {
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
+        return [
+            {
+                Header: "SL",
+                accessor: "id",
+                sortType: 'basic',
+
+<<<<<<< HEAD
             <button onClick={()=>handleDeleteNotice(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                 <AiFillDelete className='text-lg  text-white' />
@@ -109,39 +124,68 @@ const ViewNotice=()=>{
             </button>
             
             </div>);
+=======
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
             },
-        },
+            {
+                Header: "Title",
+                accessor: "title",
+                sortType: 'basic',
+
+            },
+            {
+                Header: 'Action',
+                accessor: 'action',
+                Cell: ({ row }) => {
+                    const { id } = row.original;
+                    return (<div className='flex items-center justify-center gap-2'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={() => downloadFile(id)}>
+                        <FiDownload className=' ' />
+                    </button>
+
+                        <button >
+                            <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
+                                <AiFillDelete className='text-lg  text-white' />
+                            </div>
+                        </button>
+
+                    </div>);
+                },
+            },
         ];
-      }; 
+    };
 
 
 
-    return(
+    return (
         <div className='text-primary p-3'>
             {notices.length && (
-                    <Table columns={NOTICE_COLUMNS()} data={notices} headline={"Notice List"} />
-                )}
+                <Table columns={NOTICE_COLUMNS()} data={notices} headline={"Notice List"} />
+            )}
         </div>
     )
 };
 
 
-const AddNotice=()=>{
-    const[token]=useToken();
-    const[title,setTitle]=useState('');
-    const[document,setDoc]=useState(null);
+const AddNotice = () => {
+    const [token] = useToken();
+    const [title, setTitle] = useState('');
+    const [document, setDoc] = useState(null);
 
 
     //Handle Add Notice
-    const handleAddNotice=async(e) => {
+    const handleAddNotice = async (e) => {
         e.preventDefault();
+<<<<<<< HEAD
         // const newNotice={title,document};
         const noticeForm=new FormData();
         noticeForm.append("title",title);
         noticeForm.append("document",document);
 
+=======
+        const newNotice = { title, document };
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
 
-        const noUrl= `${baseURL}/api/admin/notices`;
+        const noUrl = `${baseURL}/api/admin/notices`;
 
         const response = await fetch(noUrl, {
             method: 'POST',
@@ -150,9 +194,9 @@ const AddNotice=()=>{
             },
             body: noticeForm
         });
-    
+
         const result = await response.json();
-    
+
         if (result.error) {
             console.log(result.error);
             toast.error("Notice Add Failed");
@@ -163,9 +207,15 @@ const AddNotice=()=>{
         }
     };
 
-    
 
+<<<<<<< HEAD
     return(
+=======
+
+
+
+    return (
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         <div className='text-primary p-3 m-3 bg-white rounded-md '>
             <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Notice</h3>
             <form className='p-3 ' onSubmit={handleAddNotice} >
@@ -173,19 +223,19 @@ const AddNotice=()=>{
 
                 <div className="mb-3 flex flex-col items-start w-full">
                     <label for="projectTitle" className="font-bold mb-1">Notice Title</label>
-                    <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e=>setTitle(e.target.value)} placeholder="Notice Title" />
+                    <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setTitle(e.target.value)} placeholder="Notice Title" />
                 </div>
 
-                 <div className="mb-3 flex flex-col items-start w-full">
+                <div className="mb-3 flex flex-col items-start w-full">
                     <label for="img" className="font-bold mb-1">Upload Notice</label>
                     <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none active:outline-none"
-                        type="file" id="img" onChange={e=>setDoc(e.target.files[0])} />
-                 </div>
+                        type="file" id="img" onChange={e => setDoc(e.target.files[0])} />
+                </div>
 
                 <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
                     <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
                 </div>
-           </form>
+            </form>
         </div>
     )
 };

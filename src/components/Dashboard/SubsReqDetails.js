@@ -20,7 +20,7 @@ const SubsReqDetails = () => {
 
         fetch(sUrl, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'content-type': 'application/json',
                 "Authorization": `Bearer ${token}`
             }
@@ -31,7 +31,7 @@ const SubsReqDetails = () => {
                 console.log(data.data)
                 setSubRe(data.data)
             })
-    }, [token,id]);
+    }, [token, id]);
 
 
     //Download Documents
@@ -84,6 +84,8 @@ const SubsReqDetails = () => {
             })
       }
       
+            
+
     return (
         <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
             <div>
@@ -92,41 +94,49 @@ const SubsReqDetails = () => {
             </div>
 
             <div className='mt-5'>
-               <div className='text-start mb-1'>
+                <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Name: </span>{`${subRe?.applicant?.first_name} ${subRe?.applicant?.last_name}`}</h3>
 
-               </div>
+                </div>
 
-               <div className='text-start mb-1'>
+                <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Service Name: </span> {subRe?.service?.name}</h3>
-               </div>
-              
-               <div className='text-start mb-1'>
+                </div>
+
+                <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Meeting Time: </span>{subRe?.schedule}</h3>
-               </div>
-              
-               <div className='text-start mb-2'>
+                </div>
+
+                <div className='text-start mb-2'>
                     <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
-               </div>
-               
-               <div className='text-start  mb-1'>
+                </div>
+
+                <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold'>Description: </span>{subRe?.description}</h3>
-               </div>
+                </div>
 
                 <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
-                    <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {subRe?.attachment}</span>
-                       
-                   </h3>
-               </div> 
+                        <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {subRe?.attachment}</span>
 
-            
+                    </h3>
+                </div>
+
+
+
+
+                <div className='mt-7 flex items-start '>
+                    <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
+
+                    {/* <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
+
+                    <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                </div>
+
 
 
                  <div className='mt-7 flex items-start '>
                             <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSuReqAccept(subRe?.id)}>Accept</button>
-
-                            {/* <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
 
                             <button onClick={()=>handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
                   </div>
@@ -134,8 +144,6 @@ const SubsReqDetails = () => {
               
                
 
-              
-           
 
             </div>
         </div>

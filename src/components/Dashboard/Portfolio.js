@@ -37,7 +37,7 @@ export default Portfolio;
 
 
 const AddProject = () => {
-  const[token]=useToken();
+  const [token] = useToken();
 
   const [value, setProjectBudget] = useState(0);
   const [value_paid, setProjectPaid] = useState('');
@@ -57,93 +57,93 @@ const AddProject = () => {
   const [portfolio, setPortfolio] = useState("");
   const [progress, setProjectStatus] = useState("");
 
-  const [allServices,setAllServices]=useState([]);
-  const [allUsers,setAllUsers]=useState([]);
+  const [allServices, setAllServices] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
 
-   //Get Services
-   useEffect(() => {
+  //Get Services
+  useEffect(() => {
     const sUrl = `${baseURL}/api/services/activeservices`;
     // setLoading(true);
 
     fetch(sUrl, {
-        method: 'GET',
-        headers: { 
-            'content-type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
     })
-        .then(res => res.json())
-        .then(data => {
-            // setLoading(false)
-            setAllServices(data)
-        })
-}, [token]);
+      .then(res => res.json())
+      .then(data => {
+        // setLoading(false)
+        setAllServices(data)
+      })
+  }, [token]);
 
 
   //Get Users
   useEffect(() => {
-    const perUrl=`${baseURL}/api/admin/users`;
-    fetch(perUrl,{
-      method:"GET",
+    const perUrl = `${baseURL}/api/admin/users`;
+    fetch(perUrl, {
+      method: "GET",
       headers: {
-          'content-type': 'application/json',
-          "Authorization": `Bearer ${token}`
+        'content-type': 'application/json',
+        "Authorization": `Bearer ${token}`
       }
-  })
+    })
       .then(res => res.json())
       .then(data => setAllUsers(data.user))
   }, [token]);
 
   // console.log(allUsers)
 
-  
+
   //Handle add project
-    const handleProjectForm = async(e) => {
+  const handleProjectForm = async (e) => {
     e.preventDefault();
 
-   /*  const newProject = { name, value, value_paid, service_id, client_name, user_id, portfolio, progress, description, short_description, starting_date, ending_date, cover, documents };
-    console.log(newProject ); */
+    /*  const newProject = { name, value, value_paid, service_id, client_name, user_id, portfolio, progress, description, short_description, starting_date, ending_date, cover, documents };
+     console.log(newProject ); */
 
 
-    const projectData=new FormData();
-    projectData.append("name",name);
-    projectData.append("value",value);
-    projectData.append("value_paid",value_paid);
-    projectData.append("service_id",service_id);
-    projectData.append("client_name",client_name);
-    projectData.append("user_id",user_id);
-    projectData.append("portfolio",portfolio);
-    projectData.append("progress",progress);
-    projectData.append("description",description);
-    projectData.append("short_description",short_description);
-    projectData.append("starting_date",starting_date);
-    projectData.append("ending_date",ending_date);
-    projectData.append("cover",cover,cover.name);
-    projectData.append("documents",documents,documents.name);
+    const projectData = new FormData();
+    projectData.append("name", name);
+    projectData.append("value", value);
+    projectData.append("value_paid", value_paid);
+    projectData.append("service_id", service_id);
+    projectData.append("client_name", client_name);
+    projectData.append("user_id", user_id);
+    projectData.append("portfolio", portfolio);
+    projectData.append("progress", progress);
+    projectData.append("description", description);
+    projectData.append("short_description", short_description);
+    projectData.append("starting_date", starting_date);
+    projectData.append("ending_date", ending_date);
+    projectData.append("cover", cover, cover.name);
+    projectData.append("documents", documents, documents.name);
 
 
     const url = `${baseURL}/api/projects/store`;
     const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            "Authorization": `Bearer ${token}`
-        },
-        body: projectData
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      body: projectData
     });
 
     const result = await response.json();
 
     if (result.error) {
-        console.log(result.error);
-        toast.error("Project Added Failed");
+      console.log(result.error);
+      toast.error("Project Added Failed");
     } else {
-        console.log(result);
-        e.target.reset();
-        toast.success(result.message);
+      console.log(result);
+      e.target.reset();
+      toast.success(result.message);
     }
 
-    
+
 
   };
 
@@ -177,8 +177,8 @@ const AddProject = () => {
                   <select onChange={(e) => setProjectSub(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  >
                     <option selected disabled>Select Service</option>
                     {
-                       allServices?.data?.map(service => <option value={service.id}>{service.name}</option>)
-                           }
+                      allServices?.data?.map(service => <option value={service.id}>{service.name}</option>)
+                    }
                   </select>
                 </div>
               </div>
@@ -207,8 +207,8 @@ const AddProject = () => {
                     <select onChange={(e) => setClientSelect(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat   rounded transition ease-in-out  m-0 outline-none" aria-label="Clientselect"  >
                       <option selected disabled>Client Select</option>
                       {
-                       allUsers?.map(service => <option value={service.id}>{service.first_name}</option>)
-                           }
+                        allUsers?.map(service => <option value={service.id}>{service.first_name}</option>)
+                      }
                     </select>
                   </div>
                 </div>
@@ -258,15 +258,15 @@ const AddProject = () => {
               </div>
 
               <div className="mb-3 flex flex-col items-start w-full">
-                    <label for="img" className="font-bold mb-1">Upload Images</label>
-                    <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
+                <label for="img" className="font-bold mb-1">Upload Images</label>
+                <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
                   outline-none focus:outline-none" type="file" id="img" onChange={(e) => setProjectImg(e.target.files[0])} placeholder="50%" />
               </div>
 
 
               <div className="mb-3 flex flex-col items-start w-full">
-                    <label for="img" className="font-bold mb-1">Upload Documents</label>
-                    <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
+                <label for="img" className="font-bold mb-1">Upload Documents</label>
+                <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
                   outline-none focus:outline-none active:outline-none" type="file" id="img" onChange={(e) => setProjectDoc(e.target.files[0])} placeholder="50%" />
               </div>
 
@@ -280,7 +280,7 @@ const AddProject = () => {
 
             <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
 
-           
+
           </div>
         </form>
       </div>
@@ -294,62 +294,62 @@ const AddProject = () => {
 
 
 const ViewProjects = () => {
-  const[token]=useToken();
+  const [token] = useToken();
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
 
  
-  
-      //Get projects
-      useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/projects`;
-        // setLoading(true);
+  //Get projects
+  useEffect(() => {
+    const sUrl = `${baseURL}/api/admin/projects`;
+    // setLoading(true);
 
-        fetch(sUrl, {
-            method: 'GET',
-            headers: { 
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
+    fetch(sUrl, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        // setLoading(false);
+        console.log(data)
+        setProjects(data.data)
+      })
+  }, [token]);
+
+
+
+  //Handle Project View 
+  const handleProjectView = (id) => {
+    console.log("clicked", id);
+    navigate(`/admin-dashboard/project/${id}`);
+  };
+
+  //Handle Delete Service*
+  const handleDeleteProject = id => {
+    const procced = window.confirm("You Want To Delete?");
+
+    if (procced) {
+      const userUrl = `${baseURL}/api/admin/projects/destroy/${id}`;
+      fetch(userUrl, {
+        method: 'DELETE',
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          const remaining = projects.filter(card => card.id !== id);
+          setProjects(remaining);
+          toast.success(data.message)
+
         })
-            .then(res => res.json())
-            .then(data => {
-                // setLoading(false);
-                console.log(data)
-                setProjects(data.data)
-            })
-    }, [token]);
 
-
-
-    //Handle Project View 
-    const handleProjectView = (id) => {
-      console.log("clicked", id);
-      navigate(`/admin-dashboard/project/${id}`);
     };
-
-    //Handle Delete Projects
-    const handleDeleteProject=id=>{
-      const procced=window.confirm("You Want To Delete?");
-  
-      if (procced) {
-          const userUrl=`${baseURL}/api/admin/projects/destroy/${id}`;
-          fetch(userUrl, {
-              method: 'DELETE',
-              headers: {
-                  "Authorization": `Bearer ${token}`
-              }
-          })
-              .then(res => res.json())
-              .then(data => {
-                      console.log(data);
-                      const remaining = projects.filter(card => card.id !== id);
-                      setProjects(remaining);
-                      toast.success(data.message)
-                  
-              })
-      };
-    };
+  };
 
     //handle Project Edit
     const handleProjectEdit=id=>{
@@ -408,7 +408,7 @@ const ViewProjects = () => {
               </div>
             </button>
 
-            <button onClick={()=>handleDeleteProject(id)}>
+            <button onClick={() => handleDeleteProject(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                 <AiFillDelete className='text-lg  text-white' />
               </div>

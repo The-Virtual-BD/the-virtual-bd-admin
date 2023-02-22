@@ -4,8 +4,8 @@ import { useState } from "react";
 const useToken = () => {
     const [token, setToken] = useState([]);
     useEffect(() => {
-       const getToken=window.localStorage.getItem("token");
-       setToken(getToken);
+        const getToken = window.localStorage.getItem("token");
+        setToken(getToken);
     }, []);
     return [token, setToken];
 }

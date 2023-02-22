@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { FadeLoader} from 'react-spinners';
+import { FadeLoader } from 'react-spinners';
 
-const Loading = ({loading}) => {
+const Loading = ({ loading }) => {
     // let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#3498db");
 
@@ -9,10 +9,10 @@ const Loading = ({loading}) => {
         display: "block",
         margin: "0 auto",
         borderColor: "#3498db",
-      };
+    };
     return (
         <div className='loading-container'>
-             <div>
+            <div>
                 <FadeLoader
                     color={color}
                     loading={loading}
@@ -20,8 +20,8 @@ const Loading = ({loading}) => {
                     size={60}
                     aria-label="DotLoader"
                     data-testid="loader"
-                    />
-             </div>
+                />
+            </div>
         </div>
     );
 };

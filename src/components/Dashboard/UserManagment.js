@@ -11,24 +11,24 @@ import Modal from '../utilities/Modal';
 import { toast } from 'react-toastify';
 
 const UserManagment = () => {
-    const[token]=useToken();
+    const [token] = useToken();
     const [allUsers, setAllUsers] = useState([]);
     const navigate = useNavigate();
- 
+
 
     //Get Users
     useEffect(() => {
-        const perUrl=`${baseURL}/api/admin/users`;
-        fetch(perUrl,{
-          method:"GET",
-          headers: {
-              'content-type': 'application/json',
-              "Authorization": `Bearer ${token}`
-          }
-      })
-          .then(res => res.json())
-          .then(data => setAllUsers(data.user))
-      }, [token]);
+        const perUrl = `${baseURL}/api/admin/users`;
+        fetch(perUrl, {
+            method: "GET",
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => setAllUsers(data.user))
+    }, [token]);
 
 
 
@@ -36,13 +36,13 @@ const UserManagment = () => {
     const handleUserView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/user-managment/${id}`);
-      };
+    };
 
-      const handleDeleteUser=id=>{
-        const procced=window.confirm("You Want To Delete?");
+    const handleDeleteUser = id => {
+        const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/user/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/user/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -51,14 +51,14 @@ const UserManagment = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = allUsers.filter(card => card.id !== id);
-                        setAllUsers(remaining);
-                        toast.success(data.message)
-                    
+                    console.log(data);
+                    const remaining = allUsers.filter(card => card.id !== id);
+                    setAllUsers(remaining);
+                    toast.success(data.message)
+
                 })
         };
-      };
+    };
 
 
 
@@ -92,7 +92,7 @@ const UserManagment = () => {
             {
                 Header: 'Action',
                 accessor: 'action',
-                Cell: ({row}) => {
+                Cell: ({ row }) => {
                     const { id } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
                         <button onClick={() => handleUserView(id)}>
@@ -106,13 +106,13 @@ const UserManagment = () => {
                             </div>
                         </button>
 
-                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={()=>handleDeleteUser(id)}>
+                        <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => handleDeleteUser(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
-                           
+
                         </button>
-                       
+
                     </div>);
                 },
             },
@@ -122,14 +122,14 @@ const UserManagment = () => {
     };
 
     return (
-      <>
-        <div className='text-primary p-3 '>
-           {allUsers.length && (
-               <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />
-           )}
-       </div>
+        <>
+            <div className='text-primary p-3 '>
+                {allUsers.length && (
+                    <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />
+                )}
+            </div>
 
-      </>
+        </>
     );
 };
 

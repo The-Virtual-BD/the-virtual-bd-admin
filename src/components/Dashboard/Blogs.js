@@ -8,10 +8,10 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const Blogs = () => {
-    const[token]=useToken();
+    const [token] = useToken();
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
-  
+
     //Handle Get posts
     useEffect(() => {
         const sUrl = `${baseURL}/api/admin/posts`;
@@ -19,7 +19,7 @@ const Blogs = () => {
 
         fetch(sUrl, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'content-type': 'application/json',
                 "Authorization": `Bearer ${token}`
             }
@@ -37,12 +37,19 @@ const Blogs = () => {
         navigate(`/admin-dashboard/blogs/${id}`);
     };
 
+<<<<<<< HEAD
     //Handle Delete Post
     const handleDeletePost=id=>{
         const procced=window.confirm("You Want To Delete?");
     
+=======
+    //Handle Delete Service
+    const handleDeletePost = id => {
+        const procced = window.confirm("You Want To Delete?");
+
+>>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/posts/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/posts/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -51,16 +58,16 @@ const Blogs = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = blogs.filter(card => card.id !== id);
-                        setBlogs(remaining);
-                        toast.success(data.message)
+                    console.log(data);
+                    const remaining = blogs.filter(card => card.id !== id);
+                    setBlogs(remaining);
+                    toast.success(data.message)
                 })
         };
-      };
+    };
 
 
-      console.log(blogs)
+    console.log(blogs)
 
 
     const BLOG_COLUMNS = () => {
@@ -74,7 +81,7 @@ const Blogs = () => {
             {
                 Header: "Blogger Name",
                 accessor: "author.first_name",
-                
+
                 sortType: 'basic',
 
             },
@@ -117,7 +124,7 @@ const Blogs = () => {
                             </div>
                         </button>
 
-                        <button onClick={()=>handleDeletePost(id)}>
+                        <button onClick={() => handleDeletePost(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
