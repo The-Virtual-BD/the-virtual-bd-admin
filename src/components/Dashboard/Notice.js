@@ -15,15 +15,8 @@ const Notice = () => {
     const { addNotice } = useContext(APPContext);
     return (
         <div>
-<<<<<<< HEAD
              { addNotice ? <AddNotice /> : <ViewNotice />}
-=======
-            {
-                addNotice ? <AddNotice /> : <ViewNotice />
-            }
 
-
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         </div>
     );
 };
@@ -31,7 +24,6 @@ const Notice = () => {
 export default Notice;
 
 
-<<<<<<< HEAD
 const ViewNotice=()=>{
     const[token]=useToken();
     const [notices, setNotices] = useState([]);
@@ -53,22 +45,11 @@ const ViewNotice=()=>{
             setNotices(data.data)
           })
       }, [token]);
-=======
-const ViewNotice = () => {
-
-    const [notices, setNotices] = useState([]);
-    useEffect(() => {
-        fetch('/notice.json')
-            .then(res => res.json())
-            .then(data => setNotices(data))
-    }, []);
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
 
     //Download Documents
     const downloadFile = (id) => {
         const getDoc = notices.find(notice => notice.id === id);
 
-<<<<<<< HEAD
         fetch(`${getDoc.document}`)
           .then((response) => response.blob())
           .then((blob) => {
@@ -100,32 +81,11 @@ const ViewNotice = () => {
       };
 
   const NOTICE_COLUMNS = () => {
-=======
-        fetch(`${getDoc.doc}`)
-            .then((response) => response.blob())
-            .then((blob) => {
-                saveAs(blob, `${getDoc.title}`);
-            });
-    };
-
-    const NOTICE_COLUMNS = () => {
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         return [
             {
                 Header: "SL",
                 accessor: "id",
                 sortType: 'basic',
-
-<<<<<<< HEAD
-            <button onClick={()=>handleDeleteNotice(id)}>
-              <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
-                <AiFillDelete className='text-lg  text-white' />
-              </div>
-            </button>
-            
-            </div>);
-=======
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
             },
             {
                 Header: "Title",
@@ -142,7 +102,7 @@ const ViewNotice = () => {
                         <FiDownload className=' ' />
                     </button>
 
-                        <button >
+                        <button onClick={()=>handleDeleteNotice(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -175,15 +135,12 @@ const AddNotice = () => {
     //Handle Add Notice
     const handleAddNotice = async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
         // const newNotice={title,document};
         const noticeForm=new FormData();
         noticeForm.append("title",title);
         noticeForm.append("document",document);
 
-=======
-        const newNotice = { title, document };
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
+
 
         const noUrl = `${baseURL}/api/admin/notices`;
 
@@ -208,14 +165,8 @@ const AddNotice = () => {
     };
 
 
-<<<<<<< HEAD
     return(
-=======
 
-
-
-    return (
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         <div className='text-primary p-3 m-3 bg-white rounded-md '>
             <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Notice</h3>
             <form className='p-3 ' onSubmit={handleAddNotice} >

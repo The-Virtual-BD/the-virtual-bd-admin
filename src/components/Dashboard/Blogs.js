@@ -37,17 +37,11 @@ const Blogs = () => {
         navigate(`/admin-dashboard/blogs/${id}`);
     };
 
-<<<<<<< HEAD
     //Handle Delete Post
     const handleDeletePost=id=>{
         const procced=window.confirm("You Want To Delete?");
     
-=======
-    //Handle Delete Service
-    const handleDeletePost = id => {
-        const procced = window.confirm("You Want To Delete?");
 
->>>>>>> 42d22dcbb25ba10955383cfb1ebdd9c0d6d7cdf2
         if (procced) {
             const userUrl = `${baseURL}/api/admin/posts/destroy/${id}`;
             fetch(userUrl, {
