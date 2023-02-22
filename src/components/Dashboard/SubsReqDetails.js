@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from "file-saver";
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import { toast } from 'react-toastify';
 
 
 const SubsReqDetails = () => {
     const [subRe, setSubRe] = useState([]);
     const { id } = useParams();
     const[token]=useToken();
+    const navigate=useNavigate();
 
 
     //Handle Get Project
@@ -32,11 +34,6 @@ const SubsReqDetails = () => {
     }, [token,id]);
 
 
-    console.log(subRe)
-
-
-
-
     //Download Documents
     const downloadFile = () => {
         fetch(`${subRe.attachment}`)
@@ -46,6 +43,46 @@ const SubsReqDetails = () => {
             
           });
       };
+
+
+      //Handle Delete Sub Req
+    const handleDeleteSubReq=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/subscriptions/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        toast.success(data.message);
+                        navigate("/admin-dashboard/sub-request")
+                })
+        };
+      };
+
+      //handle Accept Sub Req
+      const handleSuReqAccept=id=>{
+        const userUrl=`${baseURL}/api/admin/subscriptions/approve/${id}`;
+
+        fetch(userUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/sub-request")
+            })
+      }
       
     return (
         <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
@@ -86,13 +123,13 @@ const SubsReqDetails = () => {
             
 
 
-               <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
+                 <div className='mt-7 flex items-start '>
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSuReqAccept(subRe?.id)}>Accept</button>
 
                             {/* <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
 
-                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
-             </div>
+                            <button onClick={()=>handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                  </div>
               
               
                

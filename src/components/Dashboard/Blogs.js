@@ -37,7 +37,7 @@ const Blogs = () => {
         navigate(`/admin-dashboard/blogs/${id}`);
     };
 
-    //Handle Delete Service
+    //Handle Delete Post
     const handleDeletePost=id=>{
         const procced=window.confirm("You Want To Delete?");
     
@@ -94,6 +94,15 @@ const Blogs = () => {
                 Header: "Status",
                 accessor: "status",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    const { status } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 '>
+                           {status==="1"?
+                           <p className='text-yellow-500'>Pending</p>:
+                           <p className='text-green-700'>Approved</p>
+                        } 
+                    </div>);
+                },
             },
 
             {

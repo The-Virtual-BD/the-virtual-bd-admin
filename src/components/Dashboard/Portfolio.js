@@ -299,7 +299,6 @@ const ViewProjects = () => {
   const [projects, setProjects] = useState([]);
 
  
-
   
       //Get projects
       useEffect(() => {
@@ -329,7 +328,7 @@ const ViewProjects = () => {
       navigate(`/admin-dashboard/project/${id}`);
     };
 
-    //Handle Delete Service*
+    //Handle Delete Projects
     const handleDeleteProject=id=>{
       const procced=window.confirm("You Want To Delete?");
   
@@ -351,6 +350,11 @@ const ViewProjects = () => {
               })
       };
     };
+
+    //handle Project Edit
+    const handleProjectEdit=id=>{
+      navigate(`/admin-dashboard/project/update/${id}`);
+    }
 
 
   const PROJECT_COLUMNS = () => {
@@ -397,7 +401,8 @@ const ViewProjects = () => {
                 <BsEyeFill className='text-lg  ' />
               </div>
             </button>
-            <button>
+
+            <button onClick={()=>handleProjectEdit(id)}>
               <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                 <RiEditBoxFill className='text-lg  text-white' />
               </div>

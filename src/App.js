@@ -31,6 +31,7 @@ import Login from './components/Login/Login';
 import Notice from './components/Dashboard/Notice';
 import RequireAuth from './components/utilities/RequireAuth';
 import Profile from './components/Profile/Profile';
+import ProjectEdit from './components/Dashboard/ProjectEdit';
 // import Notice from './components/Dashboard/Notice/Notice';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
 
           <Route path='/admin-dashboard/project' element={<Portfolio />}></Route>
           <Route path='/admin-dashboard/project/:id' element={<ProjectDetails />}></Route>
+          <Route path='/admin-dashboard/project/update/:id' element={<ProjectEdit />}></Route>
 
           <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
           <Route path='/admin-dashboard/notice' element={<Notice />}></Route>

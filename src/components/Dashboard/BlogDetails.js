@@ -1,11 +1,13 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const BlogDetails = () => {
     const { id } = useParams();
+    const navigate=useNavigate();
     const[token]=useToken();
     const [blog, setBlog] = useState({});
 
@@ -30,7 +32,48 @@ const BlogDetails = () => {
             })
     }, [token,id]);
 
-    const postDate = moment(blog?.created_at).format('DD MMM YYYY')
+    const postDate = moment(blog?.created_at).format('DD MMM YYYY');
+
+
+
+    //Handle Delete Post
+    const handleDeletePost=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/posts/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        toast.success(data.message);
+                        navigate("/admin-dashboard/blogs")
+                })
+        };
+      };
+
+      //handle Accept Blog
+      const handlePostAccept=id=>{
+        const userUrl=`${baseURL}/api/admin/posts/approve/${id}`;
+
+        fetch(userUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/blogs")
+            })
+      }
 
 
     return (
@@ -49,7 +92,11 @@ const BlogDetails = () => {
                         <p><span className='font-bold'>Subject: </span>{blog?.category?.name}</p>
 
                         <p><span className='font-bold'>Date:</span> {postDate}</p>
-                        <p><span className='font-bold'> Status:</span> {blog?.status}</p>
+                        <p><span className='font-bold'> Status:</span> 
+                        {
+                            blog.status==="1"? "Pendding": "Approved" 
+                        }
+                        </p>
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
                             <p className='text-labelclr'>{blog?.short_description}</p>
@@ -63,11 +110,9 @@ const BlogDetails = () => {
 
 
                         <div className='mt-4'>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
 
-                           {/*  <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
-
-                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeletePost(blog?.id)}>Delete</button>
                         </div>
 
                     </div>

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const BloggerReqDetails = () => {
     const [bloggerApplicen, setBloggerApplicen] = useState([]);
     const { id } = useParams();
+    const navigate=useNavigate();
     const[token]=useToken();
 
 
@@ -28,6 +30,46 @@ const BloggerReqDetails = () => {
                   setBloggerApplicen(data.data)
               })
       }, [token,id]);
+
+
+      //Handle Delete Blogger Req
+    const handleDeleteBlogReq=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/bloggerApplication/destroy/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        toast.success(data.message);
+                        navigate("/admin-dashboard/blogger-request")
+                })
+        };
+      };
+
+    /*   //handle Accept Blog
+      const handlePostAccept=id=>{
+        const userUrl=`${baseURL}/api/admin/posts/approve/${id}`;
+        
+        fetch(userUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/blogs")
+            })
+      } */
 
 
       console.log(bloggerApplicen);
@@ -62,9 +104,9 @@ const BloggerReqDetails = () => {
               
 
                     <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' >Accept</button>
 
-                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeleteBlogReq(bloggerApplicen?.id)}>Delete</button>
                     </div>
               
 

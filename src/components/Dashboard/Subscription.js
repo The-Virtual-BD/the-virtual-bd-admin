@@ -12,11 +12,7 @@ const Subscription = () => {
     const [subReq, setSubReq] = useState([]);
     const navigate = useNavigate();
 
-   /*  useEffect(() => {
-        fetch('/subscription.json')
-            .then(res => res.json())
-            .then(data => setSubReq(data))
-    }, []); */
+  
 
     //Get All Sub Req
     useEffect(() => {
@@ -41,7 +37,7 @@ const Subscription = () => {
         navigate(`/admin-dashboard/sub-request/${id}`);
     };
 
-    //Handle Delete Service
+    //Handle Delete Sub Req
     const handleDeleteSubReq=id=>{
         const procced=window.confirm("You Want To Delete?");
     

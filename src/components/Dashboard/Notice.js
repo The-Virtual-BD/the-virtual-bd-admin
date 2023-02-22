@@ -15,11 +15,7 @@ const Notice = () => {
     const { addNotice } = useContext(APPContext);
     return (
         <div>
-             {
-         addNotice ? <AddNotice /> : <ViewNotice />
-      }
-          
-           
+             { addNotice ? <AddNotice /> : <ViewNotice />}
         </div>
     );
 };
@@ -28,23 +24,59 @@ export default Notice;
 
 
 const ViewNotice=()=>{
-  
+    const[token]=useToken();
     const [notices, setNotices] = useState([]);
-    useEffect(() => {
-      fetch('/notice.json')
-        .then(res => res.json())
-        .then(data => setNotices(data))
-    }, []);
+    
+
+     //Get Notices
+     useEffect(() => {
+        const perUrl=`${baseURL}/api/admin/notices`;
+        fetch(perUrl,{
+          method:"GET",
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data.data);
+            setNotices(data.data)
+          })
+      }, [token]);
 
      //Download Documents
      const downloadFile = (id) => {
         const getDoc=notices.find(notice=>notice.id===id);
 
-        fetch(`${getDoc.doc}`)
+        fetch(`${getDoc.document}`)
           .then((response) => response.blob())
           .then((blob) => {
-            saveAs(blob, `${getDoc.title}`);
+            saveAs(blob, `${getDoc.title}.doc`);
           });
+      };
+
+       //Handle Delete Notice
+       const handleDeleteNotice=id=>{
+        const procced=window.confirm("You Want To Delete?");
+    
+        if (procced) {
+            const userUrl=`${baseURL}/api/admin/notices/${id}`;
+            fetch(userUrl, {
+                method: 'DELETE',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                        console.log(data);
+                        const remaining = notices.filter(card => card.id !== id);
+                        setNotices(remaining);
+                        toast.success(data.message)
+                    
+                })
+        };
       };
 
   const NOTICE_COLUMNS = () => {
@@ -70,7 +102,7 @@ const ViewNotice=()=>{
                 <FiDownload className=' ' />
             </button>
 
-            <button >
+            <button onClick={()=>handleDeleteNotice(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                 <AiFillDelete className='text-lg  text-white' />
               </div>
@@ -103,7 +135,11 @@ const AddNotice=()=>{
     //Handle Add Notice
     const handleAddNotice=async(e) => {
         e.preventDefault();
-        const newNotice={title,document};
+        // const newNotice={title,document};
+        const noticeForm=new FormData();
+        noticeForm.append("title",title);
+        noticeForm.append("document",document);
+
 
         const noUrl= `${baseURL}/api/admin/notices`;
 
@@ -112,7 +148,7 @@ const AddNotice=()=>{
             headers: {
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(newNotice)
+            body: noticeForm
         });
     
         const result = await response.json();
@@ -128,8 +164,6 @@ const AddNotice=()=>{
     };
 
     
-
-
 
     return(
         <div className='text-primary p-3 m-3 bg-white rounded-md '>
