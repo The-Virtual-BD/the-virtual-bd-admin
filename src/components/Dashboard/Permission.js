@@ -3,8 +3,11 @@ import { useContext } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
+import { baseURL } from '../utilities/url';
+import useToken from '../utilities/useToken';
 
 const Permission = () => {
   const { isAddPermission } = useContext(APPContext);
@@ -21,22 +24,54 @@ export default Permission;
 
 
 const ViewAllPermissions = () => {
+  const [token] = useToken();
   const navigate = useNavigate();
   const [permit, setPermit] = useState([]);
 
+  //Get Permissions
   useEffect(() => {
-    fetch('/permit.json')
+    const cUrl = `${baseURL}/api/admin/permissions`;
+    fetch(cUrl, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
-      .then(data => setPermit(data))
-  }, []);
+      .then(data => {
+        console.log(data.permissions);
+        setPermit(data.permissions)
+      })
+  }, [token]);
 
-  /* const handlePermitView = (id) => {
-    console.log("clicked", id);
-    navigate(`/admin-dashboard/project/${id}`);
-  }; */
+   //Handle Delete Permission
+  const handleDeletePermission=id=>{
+      const procced=window.confirm("You Want To Delete?");
+  
+      if (procced) {
+          const userUrl=`${baseURL}/api/admin/permission/destroy/${id}`;
+          fetch(userUrl, {
+              method: 'DELETE',
+              headers: {
+                  "Authorization": `Bearer ${token}`
+              }
+          })
+              .then(res => res.json())
+              .then(data => {
+                      console.log(data);
+                      const remaining = permit.filter(card => card.id !== id);
+                      setPermit(remaining);
+                      toast.success(data.message)
+                  
+              })
+      };
+    };
 
 
-  const PROJECT_COLUMNS = () => {
+
+
+  const PERMISSION_COLUMNS = () => {
     return [
       {
         Header: "SL",
@@ -52,29 +87,23 @@ const ViewAllPermissions = () => {
       },
       {
         Header: "Gurd Name",
-        accessor: "guardName",
+        accessor: "guard_name",
         sortType: 'basic',
 
       },
-
-
       {
         Header: 'Action',
         accessor: 'action',
         Cell: ({ row }) => {
-          const { _id } = row.original;
+          const { id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
-            <button>
-              <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
-                <RiEditBoxFill className='text-lg  text-white' />
-              </div>
-            </button>
 
-            <button>
+            <button onClick={()=>handleDeletePermission(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                 <AiFillDelete className='text-lg  text-white' />
               </div>
             </button>
+
           </div>);
         },
       },
@@ -87,7 +116,7 @@ const ViewAllPermissions = () => {
     <div className='text-primary p-3'>
 
       {permit.length && (
-        <Table columns={PROJECT_COLUMNS()} data={permit} headline={"All Permissions"} />
+        <Table columns={PERMISSION_COLUMNS()} data={permit} headline={"All Permissions"} />
       )}
 
     </div>
@@ -96,12 +125,36 @@ const ViewAllPermissions = () => {
 
 
 const AddPermission = () => {
-  const [permissionName, setPermissionName] = useState('');
-  const [guardName, setGuardName] = useState('');
+  const [token] = useToken();
+  const [name, setName] = useState('');
 
-  const handlePermissionForm = e => {
+  const handlePermissionForm = async(e)=> {
     e.preventDefault();
-  }
+
+    const catagoryData = new FormData();
+    catagoryData.append("name", name);
+
+    const url = `${baseURL}/api/admin/permission/create`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      body: catagoryData
+    });
+
+    const result = await response.json();
+
+    if (result.error) {
+      console.log(result.error);
+      toast.error("Permission Add Failed");
+    } else {
+      console.log(result);
+      e.target.reset();
+      toast.success(result.message);
+    }
+
+  };
 
   return (
     <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
@@ -109,24 +162,13 @@ const AddPermission = () => {
         <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Add Permission</h3>
         <form className='p-3 ' onSubmit={handlePermissionForm} >
 
-
           <div className="mb-3 flex flex-col items-start w-full">
             <label for="projectTitle" className="font-bold mb-1">Permission Name</label>
-            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setPermissionName(e.target.value)} placeholder="permission create" />
-          </div>
-
-          <div className="mb-3 flex flex-col items-start w-full">
-            <label for="projectTitle" className="font-bold mb-1 ">Guard Name</label>
-            <select onChange={(e) => setGuardName(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat   rounded transition ease-in-out  m-0 outline-none" aria-label="Clientselect"  >
-              <option selected disabled>Select Guard Name</option>
-              <option value="1">Web</option>
-              <option value="2">App</option>
-              <option value="3">Three</option>
-            </select>
+            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} placeholder="permission create" />
           </div>
 
           <div className='flex items-end justify-end'>
-            <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg mt-3 ">Submit</button>
+            <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg mt-3 ">Add</button>
           </div>
 
         </form>

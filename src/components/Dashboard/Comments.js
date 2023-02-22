@@ -26,16 +26,16 @@ const Comments = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                // setComments(data.data)
+                setComments(data.data)
             })
     }, [token]);
 
 
 
-    //handle Comments View*
-    const handleSubReqView = (id) => {
+    //handle Comments View
+    const handleCommentView = (id) => {
         console.log("clicked", id);
-        navigate(`/admin-dashboard/sub-request/${id}`);
+        navigate(`/admin-dashboard/comments/${id}`);
     };
 
     //Handle Delete Service
@@ -82,12 +82,18 @@ const Comments = () => {
 
             },
             {
+                Header: "Comment",
+                accessor: "body",
+                sortType: 'basic',
+
+            },
+            {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({ row }) => {
                     const { id } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 '>
-                        <button onClick={() => handleSubReqView(id)}>
+                        <button onClick={() => handleCommentView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg ' />
                             </div>

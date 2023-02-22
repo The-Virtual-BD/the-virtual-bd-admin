@@ -32,6 +32,9 @@ import Notice from './components/Dashboard/Notice';
 import RequireAuth from './components/utilities/RequireAuth';
 import Profile from './components/Profile/Profile';
 import ProjectEdit from './components/Dashboard/ProjectEdit';
+import CommentsDetails from './components/Dashboard/CommentsDetails';
+import ServiceEdit from './components/Dashboard/ServiceEdit';
+import UserEdit from './components/Dashboard/UserEdit';
 // import Notice from './components/Dashboard/Notice/Notice';
 
 function App() {
@@ -40,6 +43,7 @@ function App() {
   const [isAddService, setIsAddService] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
+  const [addRole, setAddRole] = useState(false);
 
 
   const [menuOpen, setMenuOpen] = useState(true);
@@ -60,7 +64,7 @@ function App() {
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole }
 
   
   return (
@@ -82,6 +86,8 @@ function App() {
           <Route path='/admin-dashboard/project/update/:id' element={<ProjectEdit />}></Route>
 
           <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
+          <Route path='/admin-dashboard/comments/:id' element={<CommentsDetails />}></Route>
+          
           <Route path='/admin-dashboard/notice' element={<Notice />}></Route>
 
           <Route path='/admin-dashboard/sub-request' element={<Subscription />}></Route>
@@ -92,9 +98,11 @@ function App() {
 
           <Route path='/admin-dashboard/services' element={<Services />}></Route>
           <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>
+          <Route path='/admin-dashboard/services/update/:id' element={<ServiceEdit />}></Route>
 
           <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
           <Route path='/admin-dashboard/user-managment/:id' element={<UserDetails />}></Route>
+          <Route path='/admin-dashboard/user-managment/update/:id' element={<UserEdit />}></Route>
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>

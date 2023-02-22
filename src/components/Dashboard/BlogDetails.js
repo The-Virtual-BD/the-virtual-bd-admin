@@ -92,7 +92,7 @@ const BlogDetails = () => {
                         <p><span className='font-bold'>Subject: </span>{blog?.category?.name}</p>
 
                         <p><span className='font-bold'>Date:</span> {postDate}</p>
-                        <p><span className='font-bold'> Status:</span> 
+                        <p><span className='font-bold mr-1'> Status:</span> 
                         {
                             blog.status==="1"? "Pendding": "Approved" 
                         }
@@ -110,12 +110,15 @@ const BlogDetails = () => {
 
 
                         <div className='mt-4'>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
+                            {
+                                blog?.status==="1"? 
+                                <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>:""
+                            }
+                           
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeletePost(blog?.id)}>Delete</button>
-                            {/*  <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
-
-                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                            
+                           
                         </div>
 
                     </div>

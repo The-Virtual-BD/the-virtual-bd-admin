@@ -15,9 +15,7 @@ const Services = () => {
     const { isAddService } = useContext(APPContext);
     return (
         <div>
-            {
-                isAddService ? <AddService /> : <ViewServices />
-            }
+            {isAddService ? <AddService /> : <ViewServices />}
         </div>
     );
 };
@@ -169,6 +167,11 @@ const ViewServices = () => {
         navigate(`/admin-dashboard/services/${id}`);
     };
 
+    const handleUserEdit = (id) => {
+        console.log("clicked", id);
+        navigate(`/admin-dashboard/services/update/${id}`);
+    };
+
 
     //Handle Delete Service
     const handleDeleteService = id => {
@@ -221,7 +224,7 @@ const ViewServices = () => {
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button>
+                        <button onClick={()=>handleUserEdit(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                                 <RiEditBoxFill className='text-lg  text-white' />
                             </div>

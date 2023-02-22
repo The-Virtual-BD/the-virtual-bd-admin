@@ -68,9 +68,9 @@ const SubsReqDetails = () => {
 
       //handle Accept Sub Req
       const handleSuReqAccept=id=>{
-        const userUrl=`${baseURL}/api/admin/subscriptions/approve/${id}`;
+        const subReqUrl=`${baseURL}/api/admin/subscriptions/approve/${id}`;
 
-        fetch(userUrl, {
+        fetch(subReqUrl, {
             method: 'PUT',
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -82,8 +82,9 @@ const SubsReqDetails = () => {
                     toast.success(data.message);
                     navigate("/admin-dashboard/sub-request")
             })
-      }
+      };
       
+      console.log(subRe)
             
 
     return (
@@ -106,6 +107,13 @@ const SubsReqDetails = () => {
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Meeting Time: </span>{subRe?.schedule}</h3>
                 </div>
+                <div className='text-start mb-1'>
+                    <h3 ><span className='font-bold'>Status: </span>
+                    {
+                            subRe?.status==="1"? "Pendding": "Approved" 
+                        }
+                    </h3>
+                </div>
 
                 <div className='text-start mb-2'>
                     <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
@@ -118,33 +126,24 @@ const SubsReqDetails = () => {
                 <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
                         <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {subRe?.attachment}</span>
-
                     </h3>
                 </div>
 
 
 
 
-                <div className='mt-7 flex items-start '>
-                    <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Accept</button>
-
-                    {/* <button className='text-primary font-bold px-5 py-1.5 rounded-md border-[1px] border-primary mx-3'>Reject</button> */}
-
-                    <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
-                </div>
-
-
-
                  <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSuReqAccept(subRe?.id)}>Accept</button>
+                         {
+                            subRe?.status==="1"? 
+                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSuReqAccept(subRe?.id)}>Accept</button>: ""
+
+                        }
+                           
 
                             <button onClick={()=>handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
                   </div>
               
               
-               
-
-
             </div>
         </div>
     );

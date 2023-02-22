@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import { saveAs } from "file-saver";
 
 const ProjectDetails = () => {
     const [project, setProject] = useState([]);
@@ -29,6 +30,17 @@ const ProjectDetails = () => {
                 setProject(data.data)
             })
     }, [token, id]);
+
+
+     //Download Documents
+     const downloadFile = () => {
+        fetch(`${project?.documents}`)
+          .then((response) => response.blob())
+          .then((blob) => {
+            saveAs(blob, `${project?.documents}`);
+            
+          });
+      };
 
     console.log(project)
 
@@ -63,7 +75,13 @@ const ProjectDetails = () => {
                             <p className='text-labelclr'>{project?.description}</p>
                         </div>
 
-                        <p className='text-start'><span className='font-bold '>Documents:</span> <a className='text-blue cursor-pointer' href={`${project?.documents}`} target="_blank" rel="noopener noreferrer">{project?.documents}</a> </p>
+                       {/*  <p className='text-start'><span className='font-bold '>Documents:</span> <a className='text-blue cursor-pointer' href={`${project?.documents}`}  onClick={downloadFile}>{project?.documents}</a> </p>
+ */}
+                        <div className='text-start  mb-1'>
+                                <h3 ><span className='font-bold mr-1'>Documents: </span>
+                                     <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {project?.documents}</span>
+                                </h3>
+                </div>
 
 
                     </div>

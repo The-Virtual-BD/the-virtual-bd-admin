@@ -13,7 +13,7 @@ import logo2 from '../../images/logo 2.png'
 
 
 const Header = () => {
-    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory } = useContext(APPContext);
+    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory,addRole, setAddRole  } = useContext(APPContext);
 
     const [token, setToken] = useToken();
     const location = useLocation();
@@ -138,6 +138,7 @@ const Header = () => {
 
                             </div>
                         }
+
                         {/* Category Sub Menu */}
                         {
                             currentPath === "/admin-dashboard/category" && <div className='lg:flex items-center gap-4 justify-center hidden'>
@@ -151,6 +152,24 @@ const Header = () => {
 
                             </div>
                         }
+
+
+                        {/* Role Sub Menu */}
+                        {
+                            currentPath === "/admin-dashboard/role" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                                <button
+                                    onClick={() => setAddRole(false)}
+                                    className={`${(!addRole) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Role</button>
+
+                                <button
+                                    onClick={() => setAddRole(true)}
+                                    className={`${addRole ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Role</button>
+
+                            </div>
+                        }
+
+
+
                     </div>
 
 
@@ -315,6 +334,25 @@ const Header = () => {
                                             setOpen(!open)
                                         }}
                                         className={`${addCategory ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Category</button>
+
+                                </div>
+                            }
+                            {/* Role Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/role" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setAddRole(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!addRole ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Role</button>
+
+                                    <button
+                                        onClick={() => {
+                                            setAddRole(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${addRole ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Role</button>
 
                                 </div>
                             }

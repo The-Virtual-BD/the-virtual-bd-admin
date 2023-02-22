@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import {AiFillHome} from 'react-icons/ai';
 import { RiUser3Fill } from 'react-icons/ri';
 import { FaUserCheck } from 'react-icons/fa';
@@ -8,6 +8,9 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 import { saveAs } from "file-saver";
 import { FiDownload } from 'react-icons/fi';
+import Table from '../SharedPage/Table';
+import SmallTable from '../SharedPage/SmallTable';
+import { BsEyeFill } from 'react-icons/bs';
 
 
 
@@ -15,12 +18,18 @@ import { FiDownload } from 'react-icons/fi';
 
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const[token]=useToken();
     const [totalUser,setTotalUser]=useState([]);
     const [totalBlogReq,setTotalBlogReq]=useState([]);
     const [totalSubReq,setTotalSubReq]=useState([]);
     const [notices,setNotices]=useState([]);
     const [blogs, setBlogs] = useState([]);
+
+    const recentNotice=[...notices].reverse().slice(0,5);
+    const recentBlogs=[...blogs].reverse().slice(0,5);
+
+    console.log(recentNotice,recentBlogs)
     
 
      //Get Users
@@ -39,23 +48,23 @@ const Dashboard = () => {
 
 
        //Get blogger req
-    useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/bloggerApplication`;
-        // setLoading(true);
-        fetch(sUrl, {
-            method: 'GET',
-            headers: { 
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                // setLoading(false);
-                console.log(data.blogger)
-                setTotalBlogReq(data.blogger)
+        useEffect(() => {
+            const sUrl = `${baseURL}/api/admin/bloggerApplication`;
+            // setLoading(true);
+            fetch(sUrl, {
+                method: 'GET',
+                headers: { 
+                    'content-type': 'application/json',
+                    "Authorization": `Bearer ${token}`
+                }
             })
-    }, [token]);
+                .then(res => res.json())
+                .then(data => {
+                    // setLoading(false);
+                    console.log(data.blogger)
+                    setTotalBlogReq(data.blogger)
+                })
+        }, [token]);
 
      //Get All Sub Req
      useEffect(() => {
@@ -88,16 +97,7 @@ const Dashboard = () => {
           })
       }, [token]);
 
-      //Download Documents
-     const downloadFile = (id) => {
-        const getDoc=notices.find(notice=>notice.id===id);
-
-        fetch(`${getDoc.document}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${getDoc.title}.doc`);
-          });
-      };
+    
 
        //Handle Get posts
     useEffect(() => {
@@ -118,6 +118,90 @@ const Dashboard = () => {
                 setBlogs(data.data)
             })
     }, [token]);
+
+
+  //Download Documents
+  const downloadFile = (id) => {
+    const getDoc=notices.find(notice=>notice.id===id);
+
+    fetch(`${getDoc.document}`)
+      .then((response) => response.blob())
+      .then((blob) => {
+        saveAs(blob, `${getDoc.title}.doc`);
+      });
+  };
+
+  const handleBlogView = (id) => {
+    console.log("clicked", id);
+    navigate(`/admin-dashboard/blogs/${id}`);
+};
+    
+
+    const NOTICE_COLUMNS = () => {
+        return [
+            {
+                Header: "SL",
+                accessor: "id",
+                sortType: 'basic',
+            },
+            {
+                Header: "Title",
+                accessor: "title",
+                sortType: 'basic',
+
+            },
+            {
+                Header: 'Action',
+                accessor: 'action',
+                Cell: ({ row }) => {
+                    const { id } = row.original;
+                    return (<div className='flex items-center justify-center gap-2'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={() => downloadFile(id)}>
+                        <FiDownload className=' ' />
+                    </button>
+                    </div>);
+                },
+            },
+        ];
+    };
+
+    const BLOG_COLUMNS = () => {
+        return [
+            {
+                Header: "SL",
+                accessor: "id",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Blogger Name",
+                accessor: "author.first_name",
+                sortType: 'basic',
+
+            },
+            {
+                Header: "Blog Title",
+                accessor: "title",
+                sortType: 'basic',
+
+            },
+            {
+                Header: 'Action',
+                accessor: 'action',
+                Cell: ({ row }) => {
+                    const { id } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 '>
+                        <button onClick={() => handleBlogView(id)}>
+                            <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
+                                <BsEyeFill className='text-lg ' />
+                            </div>
+                        </button>
+                    </div>);
+                },
+            },
+
+
+        ];
+    };
 
 
     return (
@@ -156,47 +240,26 @@ const Dashboard = () => {
             </div>
 
 
-            <div className='flex flex-col lg:flex-row items-center gap-5 w-full rounded-md'>
+            <div className='flex flex-col lg:flex-row items-start  gap-5 w-full rounded-md'>
 
                 <div className='w-full bg-white p-3 text-start rounded-md' >
-                    <h2 className='text-2xl font-semibold mb-4'>Recent Notices</h2>
+                    <h2 className='text-2xl font-semibold mb-4 pl-1'>Recent Notices</h2>
                     <div>
-                        {
-                            notices.map((notice,index)=><div className='flex items-center gap-3'>
-                                <div>
-                                  <p>{index+1}.</p>
-                                </div>
-
-                                <div>
-                                    <p>{notice.title}</p>
-                                </div>
-
-                                <button  onClick={()=>downloadFile(notice.id)}>
-                                 <FiDownload  />
-                                </button>
-                                  
-                            </div>).slice(0,5)
-                        }
+                    {notices.length && (
+                        <SmallTable columns={NOTICE_COLUMNS()} data={recentNotice} headline={" "} />
+                      )}
                     </div>
                 </div>
 
                 <div className='w-full bg-white p-3 text-start rounded-md' >
-                    <h2 className='text-2xl font-semibold mb-4'>Recent Blogs</h2>
+                    <h2 className='text-2xl font-semibold mb-4 pl-1'>Recent Blogs</h2>
                     <div>
-                        {
-                            blogs.map((blog,index)=><div className='flex items-center gap-3'>
-                                <div>
-                                  <p>{index+1}.</p>
-                                </div>
-
-                                <div>
-                                    <p>{blog.title}</p>
-                                </div>
-                                  
-                            </div>).slice(0,5)
-                        }
+                    {blogs.length && (
+                        <SmallTable columns={BLOG_COLUMNS()} data={recentBlogs} headline={" "} />
+                      )}
                     </div>
                 </div>
+
             </div>
 
 

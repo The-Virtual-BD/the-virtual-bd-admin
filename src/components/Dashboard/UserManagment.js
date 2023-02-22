@@ -38,6 +38,12 @@ const UserManagment = () => {
         navigate(`/admin-dashboard/user-managment/${id}`);
     };
 
+    //Handle Edit User
+    const handleUserEdit = (id) => {
+        console.log("clicked", id);
+        navigate(`/admin-dashboard/user-managment/update/${id}`);
+    };
+
     const handleDeleteUser = id => {
         const procced = window.confirm("You Want To Delete?");
 
@@ -100,7 +106,8 @@ const UserManagment = () => {
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button>
+
+                        <button onClick={()=>handleUserEdit(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                                 <RiEditBoxFill className='text-lg  text-white' />
                             </div>

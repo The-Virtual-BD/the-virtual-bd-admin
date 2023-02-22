@@ -1,32 +1,62 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
 const ProjectEdit = () => {
+    const { id } = useParams();
+    const [token] = useToken();
 
-    const[token]=useToken();
-
-    const [value, setProjectBudget] = useState(0);
-    const [value_paid, setProjectPaid] = useState('');
-    const [client_name, setClientName] = useState('');
-  
-    // const todayDate = new Date().toLocaleDateString();
-    const [starting_date, setProjectStartDate] = useState("");
-    const [ending_date, setProjectEndDate] = useState("");
-    const [description, setProjectDesc] = useState('');
-    const [short_description, setProjectShortDesc] = useState('');
-    const [cover, setProjectImg] = useState(null);
-    const [documents, setProjectDoc] = useState(null);
-  
-    const [name, setProjectTitle] = useState('');
-    const [service_id, setProjectSub] = useState('');
-    const [user_id, setClientSelect] = useState('');
-    const [portfolio, setPortfolio] = useState("");
-    const [progress, setProjectStatus] = useState("");
-  
+    //Get Select Data
     const [allServices,setAllServices]=useState([]);
     const [allUsers,setAllUsers]=useState([]);
+    const [project, setProject] = useState([]);
+
+    const {value,value_paid,client_name,starting_date,ending_date,description,short_description,cover,documents,name,service_id,user_id,portfolio,progress}=project;
+
+    console.log(value,value_paid,client_name,starting_date,ending_date,description,short_description,cover,documents,name,service_id,user_id,portfolio,progress)
+
+
+    const [valuE, setProjectBudget] = useState(value);
+    const [valuePaid, setProjectPaid] = useState(value_paid);
+    const [clientName, setClientName] = useState(client_name);
+  
+    // const todayDate = new Date().toLocaleDateString();
+    const [startingDate, setProjectStartDate] = useState(starting_date);
+    const [endingDate, setProjectEndDate] = useState(ending_date);
+    const [descriptioN, setProjectDesc] = useState(description);
+    const [shortDescription, setProjectShortDesc] = useState(short_description);
+    const [coveR, setProjectImg] = useState(cover);
+    const [documentS, setProjectDoc] = useState(documents);
+  
+    const [namE, setProjectTitle] = useState(name);
+    const [serviceId, setProjectSub] = useState(service_id);
+    const [userId, setClientSelect] = useState(user_id);
+    const [portfoliO, setPortfolio] = useState(portfolio);
+    const [progresS, setProjectStatus] = useState(progress);
+  
+    
+
+     //Handle Get Project
+     useEffect(() => {
+      const sUrl = `${baseURL}/api/admin/projects/show/${id}`;
+      // setLoading(true);
+
+      fetch(sUrl, {
+          method: 'GET',
+          headers: {
+              'content-type': 'application/json',
+              "Authorization": `Bearer ${token}`
+          }
+      })
+          .then(res => res.json())
+          .then(data => {
+              // setLoading(false);
+              console.log(data.data)
+              setProject(data.data)
+          })
+  }, [token, id]);
   
   
      //Get Services
@@ -113,6 +143,10 @@ const ProjectEdit = () => {
         
     
       };
+
+     
+
+
     return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
       <div >
@@ -122,12 +156,12 @@ const ProjectEdit = () => {
           <div className='flex flex-col lg:flex-row items-center gap-5'>
             <div className="mb-3 flex flex-col items-start w-full">
               <label for="projectTitle" className="font-bold mb-1">Project Title</label>
-              <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectTitle(e.target.value)} placeholder="Project Title" />
+              <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectTitle(e.target.value)}  value={name} />
             </div>
 
             <div className="mb-3 flex flex-col items-start w-full">
               <label for="projectTitle" className="font-bold mb-1">Project Budget</label>
-              <input type="number" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectBudget(e.target.value)} placeholder="$100" />
+              <input type="number" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectBudget(e.target.value)} value={valuE} />
             </div>
           </div>
 
@@ -150,7 +184,7 @@ const ProjectEdit = () => {
 
             <div className="mb-3 flex flex-col items-start w-full">
               <label for="projectTitle" className="font-bold mb-1">Paid</label>
-              <input type="number" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectPaid(e.target.value)} placeholder="$50" />
+              <input type="number" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectPaid(e.target.value)} value={valuePaid}  />
             </div>
           </div>
 
@@ -161,7 +195,7 @@ const ProjectEdit = () => {
 
               <div className="mb-3 flex flex-col items-start w-full">
                 <label for="Client-Name" className="font-bold mb-1">Client Name</label>
-                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClientName(e.target.value)} placeholder="Client Name" />
+                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClientName(e.target.value)}  value={clientName}/>
               </div>
 
               <div className="mb-3 flex flex-col items-start w-full">

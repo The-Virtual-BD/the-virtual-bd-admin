@@ -54,9 +54,9 @@ const BloggerReqDetails = () => {
         };
       };
 
-      //handle Accept Blog
+      //handle Accept Blogger Req
       const handleBlogReqAccept=id=>{
-        const userUrl=`${baseURL}/api/admin/bloggerApplication/approve//${id}`;
+        const userUrl=`${baseURL}/api/admin/bloggerApplication/approve/${id}`;
         
         fetch(userUrl, {
             method: 'PUT',
@@ -70,7 +70,7 @@ const BloggerReqDetails = () => {
                     toast.success(data.message);
                     navigate("/admin-dashboard/blogger-request")
             })
-      }
+      };
 
 
       console.log(bloggerApplicen);
@@ -94,6 +94,12 @@ const BloggerReqDetails = () => {
                     <h3 ><span className='font-bold'>Blog Subject: </span> {bloggerApplicen?.subject}</h3>
                 </div>
 
+               {/*  <p className='text-start'><span className='font-bold mr-1'> Status:</span> 
+                        {
+                            bloggerApplicen.status==="1"? "Pendding": "Approved" 
+                        }
+                </p> */}
+
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Expertise Areas: </span>{bloggerApplicen?.expertise}</h3>
                 </div>
@@ -104,7 +110,11 @@ const BloggerReqDetails = () => {
 
 
                     <div className='mt-7 flex items-start '>
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleBlogReqAccept(bloggerApplicen?.id)}>Accept</button>
+                        {
+                            bloggerApplicen?.status==="1"? 
+                                <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleBlogReqAccept(bloggerApplicen?.id)}>Accept</button>:""
+                        }
+                            
 
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeleteBlogReq(bloggerApplicen?.id)}>Delete</button>
                     </div>
