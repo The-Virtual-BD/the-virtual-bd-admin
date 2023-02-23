@@ -50,7 +50,7 @@ const UserDetails = () => {
                
                    
 
-                <div className='flex items-center gap-8'>
+                <div className='flex items-start gap-8'>
                     <div className='mt-5'>
                         <h3 className='font-bold'>Email:</h3>
                         <h3 className='font-bold'>Phone:</h3>

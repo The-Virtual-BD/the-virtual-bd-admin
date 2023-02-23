@@ -34,17 +34,12 @@ const ServiceEdit = () => {
     console.log(service)
    
 
-
-  
-
     const [namE, setName] = useState(service ? service.name : '')
     const [coveR, setCover] = useState(null);
     const [descriptioN, setDescription] = useState(service ? service.description : '');
 
 
-   
-
-
+  
     //Handle Add Services
     const handleAddServiceForm = async (e) => {
         e.preventDefault();

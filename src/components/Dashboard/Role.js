@@ -207,7 +207,7 @@ const AddRole=()=>{
   return(
     <div className='text-primary p-3 m-3 bg-white rounded-md '>
         <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Notice</h3>
-        <form className='p-3 ' onSubmit={handleAddRole} >
+        <form className='p-3' onSubmit={handleAddRole} >
 
             <div className="mb-3 flex flex-col items-start w-full">
                 <label for="projectTitle" className="font-bold mb-1">Role Name</label>
