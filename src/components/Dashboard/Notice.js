@@ -102,11 +102,11 @@ const ViewNotice=()=>{
                         <FiDownload className=' ' />
                     </button>
 
-                        <button onClick={()=>handleDeleteNotice(id)}>
-                            <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
-                                <AiFillDelete className='text-lg  text-white' />
-                            </div>
-                        </button>
+                    <button onClick={()=>handleDeleteNotice(id)}>
+                        <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
+                            <AiFillDelete className='text-lg  text-white' />
+                        </div>
+                    </button>
 
                     </div>);
                 },

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { APPContext } from '../../actions/reducers';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -30,7 +31,7 @@ const ServicesDetails = () => {
             })
     }, [token, id]);
 
-    // console.log(service)
+    console.log(service)
 
     return (
         <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>

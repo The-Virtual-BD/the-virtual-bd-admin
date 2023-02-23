@@ -46,6 +46,11 @@ function App() {
   const [addRole, setAddRole] = useState(false);
 
 
+  //get Value
+ 
+
+
+
   const [menuOpen, setMenuOpen] = useState(true);
   const [user, setUser] = useState([]);
 
@@ -64,7 +69,7 @@ function App() {
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole, }
 
   
   return (

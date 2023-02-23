@@ -94,11 +94,11 @@ const BloggerReqDetails = () => {
                     <h3 ><span className='font-bold'>Blog Subject: </span> {bloggerApplicen?.subject}</h3>
                 </div>
 
-               {/*  <p className='text-start'><span className='font-bold mr-1'> Status:</span> 
+                <p className='text-start'><span className='font-bold mr-1'> Status:</span> 
                         {
                             bloggerApplicen.status==="1"? "Pendding": "Approved" 
                         }
-                </p> */}
+                </p>
 
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Expertise Areas: </span>{bloggerApplicen?.expertise}</h3>

@@ -47,32 +47,27 @@ const UserDetails = () => {
             <div className='bg-white p-4  my-5 rounded-md text-start'>
                 <h2 className='text-2xl font-bold'>Contact Information : </h2>
 
-                <div className='mt-5'>
-                    {/*  <div className='text-start mb-1'>
-                            <h3 ><span className='font-bold'>Name: </span>  {user?.name}</h3>
-                    </div> */}
+               
+                   
 
-                    {/*  <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Blogger Name: </span> {user?.bloggerName}</h3>
-                    </div> */}
-
-                    <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Email: </span>{user?.email}</h3>
-                    </div>
-
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Phone: </span> {user?.phone}</h3>
-                    </div>
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Date of Birth: </span> {user?.birth_date}</h3>
-                    </div>
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Nationality: </span> {user?.nationality}</h3>
+                <div className='flex items-center gap-8'>
+                    <div className='mt-5'>
+                        <h3 className='font-bold'>Email:</h3>
+                        <h3 className='font-bold'>Phone:</h3>
+                        <h3 className='font-bold'>Date of Birth:</h3>
+                        <h3 className='font-bold'>Nationality:</h3>
+                        <h3 className='font-bold'>Bio:</h3>
                     </div>
 
-                    <div className='text-start  mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Bio: </span>{user?.bio}</h3>
+                    <div className='mt-5'>
+                        <p>{user?.email}</p>
+                        <p>{user?.phone}</p>
+                        <p>{user?.birth_date}</p>
+                        <p>{user?.nationality}</p>
+                        <p>{user?.bio}</p>
                     </div>
+
+
                 </div>
 
             </div>

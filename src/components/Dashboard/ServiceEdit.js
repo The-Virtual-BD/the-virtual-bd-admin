@@ -1,22 +1,55 @@
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 import { CKEditor } from 'ckeditor4-react';
+import { useParams } from 'react-router-dom';
 
 const ServiceEdit = () => {
+    const [service, setService] = useState();
+    const { id } = useParams();
     const [token] = useToken();
 
-    const [name, setName] = useState('')
-    const [cover, setCover] = useState(null);
-    const [description, setDescription] = useState("");
+     //Handle Get service
+     useEffect(() => {
+        const sUrl = `${baseURL}/api/admin/service/${id}`;
+        // setLoading(true);
+
+        fetch(sUrl, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                // setLoading(false);
+                // console.log(data.service)
+                setService(data.service)
+            })
+    }, [token, id]);
+
+
+    console.log(service)
+   
+
+
+  
+
+    const [namE, setName] = useState(service ? service.name : '')
+    const [coveR, setCover] = useState(null);
+    const [descriptioN, setDescription] = useState(service ? service.description : '');
+
+
+   
 
 
     //Handle Add Services
     const handleAddServiceForm = async (e) => {
         e.preventDefault();
 
-        const serviceData = new FormData();
+        /* const serviceData = new FormData();
         serviceData.append("name", name);
         serviceData.append("cover", cover, cover.name);
         serviceData.append("description", description);
@@ -40,32 +73,34 @@ const ServiceEdit = () => {
             console.log(result);
             e.target.reset();
             toast.success(result.message);
-        }
+        } */
     };
+
+
+    
     return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
-            <div cclassName='bg-white w-full px-10   rounded-lg mt-2 py-6 shadow-md'>
+            <div >
                 <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Update Service</h3>
 
                 <form className='p-3' onSubmit={handleAddServiceForm} >
 
                     <div className="mb-3 flex flex-col items-start w-full">
-                        <label for="projectTitle" className="font-bold mb-1">Service Title</label>
-                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} placeholder="Service Title" />
+                        <label htmlFor="projectTitle" className="font-bold mb-1">Service Title</label>
+                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} value={namE} />
                     </div>
 
 
                     <div className="mb-3 flex flex-col items-start w-full">
-                        <label for="img" className="font-bold mb-1">Imgage</label>
-                        <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
-                  outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} />
+                        <label htmlFor="img" className="font-bold mb-1">Imgage</label>
+                        <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} />
                     </div>
 
 
                     <div className="mb-3 flex flex-col  w-full">
-                        <label for="serviceDesc" className="mb-1 font-bold text-start">Description</label>
+                        <label htmlFor="serviceDesc" className="mb-1 font-bold text-start">Description</label>
                         <CKEditor
-                            data={description}
+                            data={descriptioN}
                             onChange={e => setDescription(e.editor.getData())}
                             // config={{toolbar: editorToolbar}}
                             className="w-full bg-bgclr rounded py-2 px-3 outline-none"
