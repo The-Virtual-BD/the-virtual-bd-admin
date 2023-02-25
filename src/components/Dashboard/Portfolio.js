@@ -239,7 +239,7 @@ const AddProject = () => {
 
               <div className="mb-3 flex flex-col items-start w-full">
                 <label for="Status" className="font-bold mb-1">Project Status</label>
-                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Status" onChange={(e) => setProjectStatus(e.target.value)} placeholder="50%" />
+                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Status" onChange={(e) => setProjectStatus(e.target.value)} placeholder="Status" />
               </div>
 
             </div>

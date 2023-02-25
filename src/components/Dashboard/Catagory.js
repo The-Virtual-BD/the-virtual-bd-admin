@@ -42,7 +42,7 @@ const ViewCatagory = () => {
 
 
 
-  // console.log(catagory);
+  console.log(catagory);
 
   //Handle Catagory Delete*
   const handleCatagoryDelete = id => {
@@ -163,4 +163,4 @@ const AddCatagory = () => {
       </form>
     </div>
   )
-}
+};
