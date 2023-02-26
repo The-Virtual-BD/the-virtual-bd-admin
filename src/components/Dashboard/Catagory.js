@@ -176,8 +176,6 @@ const AddSubCatagory = () => {
 
  
 
-
-
   //Get Catagory
   useEffect(() => {
     const cUrl = `${baseURL}/api/categories/catlist`;
@@ -233,7 +231,7 @@ const AddSubCatagory = () => {
               <label for="projectsub" className="font-bold mb-1">Category</label>
               <div className="flex justify-center w-full">
                 <div className=" w-full">
-                  <select onChange={(e) => setCatagory(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  >
+                  <select onChange={(e) => setCatagory(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  required>
                     <option selected disabled>Select Category</option>
                     {
                       catagories?.map(service => <option value={service.id}>{service.name}</option>)
@@ -246,7 +244,7 @@ const AddSubCatagory = () => {
 
             <div className="mb-3 flex flex-col items-start w-full">
               <label for="projectTitle" className="font-bold mb-1">Sub Category</label>
-              <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setSubCatagoryName(e.target.value)} placeholder="Sub Category Name" />
+              <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setSubCatagoryName(e.target.value)} placeholder="Sub Category Name" required />
             </div>
 
             <div className="flex  justify-center lg:justify-end items-center text-center mt-3">

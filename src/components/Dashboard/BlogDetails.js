@@ -104,7 +104,8 @@ const BlogDetails = () => {
                         </div>
                         <div className='text-start'>
                             <h3 className='font-bold'>Description:</h3>
-                            <p className='text-labelclr'>{blog?.description}</p>
+                            <div className='text-labelclr' dangerouslySetInnerHTML={{ __html: blog?.description }} />
+                            {/* <p className='text-labelclr'>{blog?.description}</p> */}
                         </div>
 
 

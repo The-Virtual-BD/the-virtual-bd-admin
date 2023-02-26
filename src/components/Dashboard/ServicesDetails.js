@@ -48,7 +48,10 @@ const ServicesDetails = () => {
 
                         <div className='text-start'>
                             <h3 className='font-bold'>Description:</h3>
-                            <p className='text-labelclr'>{service?.description}</p>
+                            <div className='text-labelclr' dangerouslySetInnerHTML={{ __html: service?.description }} />
+                                
+                            
+                            {/* <p className='text-labelclr'>{service?.description}</p> */}
                         </div>
                     </div>
 
