@@ -72,10 +72,9 @@ const ViewAllRole = () => {
     return [
       {
         Header: "SL",
-        accessor: "id",
-        sortType: 'basic',
-
-      },
+        id: 'index',
+        accessor: (_row, i) => i + 1 
+    },
       {
         Header: "Name",
         accessor: "name",

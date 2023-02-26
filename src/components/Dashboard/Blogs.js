@@ -68,9 +68,8 @@ const Blogs = () => {
         return [
             {
                 Header: "SL",
-                accessor: "id",
-                sortType: 'basic',
-
+                id: 'index',
+                accessor: (_row, i) => i + 1 
             },
             {
                 Header: "Blogger Name",

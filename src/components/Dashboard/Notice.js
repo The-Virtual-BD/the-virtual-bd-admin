@@ -82,10 +82,11 @@ const ViewNotice=()=>{
 
   const NOTICE_COLUMNS = () => {
         return [
+          
             {
                 Header: "SL",
-                accessor: "id",
-                sortType: 'basic',
+                id: 'index',
+                accessor: (_row, i) => i + 1 
             },
             {
                 Header: "Title",
@@ -131,7 +132,6 @@ const AddNotice = () => {
     const [title, setTitle] = useState('');
     const [document, setDoc] = useState(null);
 
-
     //Handle Add Notice
     const handleAddNotice = async (e) => {
         e.preventDefault();
@@ -164,10 +164,7 @@ const AddNotice = () => {
         }
     };
 
-
     return(
-
- 
         <div className='text-primary p-3 m-3 bg-white rounded-md '>
             <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Notice</h3>
             <form className='p-3 ' onSubmit={handleAddNotice} >

@@ -141,8 +141,8 @@ const Dashboard = () => {
         return [
             {
                 Header: "SL",
-                accessor: "id",
-                sortType: 'basic',
+                id: 'index',
+                accessor: (_row, i) => i + 1 
             },
             {
                 Header: "Title",
@@ -168,9 +168,8 @@ const Dashboard = () => {
         return [
             {
                 Header: "SL",
-                accessor: "id",
-                sortType: 'basic',
-
+                id: 'index',
+                accessor: (_row, i) => i + 1 
             },
             {
                 Header: "Blogger Name",
