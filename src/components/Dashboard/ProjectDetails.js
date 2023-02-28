@@ -62,7 +62,7 @@ const ProjectDetails = () => {
 
                         <p><span className='font-bold'>Ending Date:</span> {project?.ending_date}</p>
 
-                        <p><span className='font-bold'> Status:</span> {project?.status}</p>
+                        <p><span className='font-bold'> Status:</span> {project?.progress}</p>
                         <p><span className='font-bold'> Budget:</span> {project?.value}</p>
 
                         <div className='text-start my-3'>
