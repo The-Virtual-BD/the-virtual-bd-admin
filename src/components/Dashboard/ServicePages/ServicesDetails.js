@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { APPContext } from '../../actions/reducers';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { APPContext } from '../../../actions/reducers';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 
 const ServicesDetails = () => {
     const [service, setService] = useState([]);

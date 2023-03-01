@@ -1,9 +1,9 @@
-import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete, AiFillNotification } from 'react-icons/ai';
-import { FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
-import { RiEditBoxFill, RiUserFollowFill } from 'react-icons/ri';
+import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete, AiFillNotification, AiTwotoneMail, AiFillQuestionCircle } from 'react-icons/ai';
+import { FaComment, FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
+import { RiNewspaperFill } from 'react-icons/ri';
 import { HiViewGridAdd } from 'react-icons/hi';
 import { CgPlayListCheck } from 'react-icons/cg';
-import { BsChatRightTextFill, BsEyeFill, BsFileTextFill, BsFillFilterSquareFill } from 'react-icons/bs';
+import { BsChatRightTextFill, BsEyeFill, BsFileTextFill, BsFillFilterSquareFill, BsFillQuestionDiamondFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -84,6 +84,44 @@ export const sidebarMenu = [
         icon: <FaUserLock />,
         path: "/admin-dashboard/permission"
     },
+
+
+    {
+        id: 13,
+        name: "Newsletter",
+        icon: <RiNewspaperFill />,
+        path: "/admin-dashboard/newsletter"
+    },
+    {
+        id: 14,
+        name: "Email Subs",
+        icon: <AiTwotoneMail />,
+        path: "/admin-dashboard/email-subscription"
+    },
+    {
+        id: 15,
+        name: "Queries",
+        icon: <BsFillQuestionDiamondFill />,
+        path: "/admin-dashboard/query"
+    },
+    {
+        id: 16,
+        name: "Review",
+        icon: <FaComment />,
+        path: "/admin-dashboard/reviews"
+    },
+    {
+        id: 17,
+        name: "Carieer",
+        icon: <FaUserLock />,
+        path: "/admin-dashboard/carieer"
+    },
+    {
+        id: 18,
+        name: "Job Application",
+        icon: <FaUserLock />,
+        path: "/admin-dashboard/job-application"
+    }
 ];
 
 

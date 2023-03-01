@@ -1,7 +1,7 @@
 import React, {  useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 import { CKEditor } from 'ckeditor4-react';
 import { useParams } from 'react-router-dom';
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
-import blankUser from '../../images/blank_user.png';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
+import blankUser from '../../../images/blank_user.png';
 
 const UserDetails = () => {
     const { id } = useParams();

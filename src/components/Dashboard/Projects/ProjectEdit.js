@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 
 const ProjectEdit = () => {
     const { id } = useParams();

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Pricing = () => {
+const Carieer = () => {
     return (
         <div>
-            Pricing
+            Carieer
         </div>
     );
 };
 
-export default Pricing;
+export default Carieer;

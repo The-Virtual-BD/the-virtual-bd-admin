@@ -1,22 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './Dashboard.css';
+import '../Dashboard.css';
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { AiFillDelete } from 'react-icons/ai';
-import Table from '../SharedPage/Table';
+import Table from '../../SharedPage/Table';
 import { useNavigate } from 'react-router-dom';
-import { APPContext } from '../../actions/reducers';
+import { APPContext } from '../../../actions/reducers';
 import { toast } from 'react-toastify';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 
-/* import { FilePond, registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"; */
-// Register the plugins
-// registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+
 
 
 

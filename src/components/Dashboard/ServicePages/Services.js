@@ -6,10 +6,10 @@ import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../actions/reducers';
-import Table from '../SharedPage/Table';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { APPContext } from '../../../actions/reducers';
+import Table from '../../SharedPage/Table';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 
 const Services = () => {
     const { isAddService } = useContext(APPContext);
@@ -106,7 +106,7 @@ const AddService = () => {
 
 
                     <div className="mb-3 flex flex-col items-start w-full">
-                        <label for="img" className="font-bold mb-1">Imgage</label>
+                        <label for="img" className="font-bold mb-1">Image</label>
                         <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
                   outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} />
                     </div>

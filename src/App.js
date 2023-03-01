@@ -1,41 +1,46 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import AdminDashboard from './components/Dashboard/AdminDashboard';
-import Blogs from './components/Dashboard/Blogs';
-import Dashboard from './components/Dashboard/Dashboard';
-import Faqs from './components/Dashboard/Faqs';
-import Gallery from './components/Dashboard/Gallery';
-import Portfolio from './components/Dashboard/Portfolio';
-import Pricing from './components/Dashboard/Pricing';
-import Subscription from './components/Dashboard/Subscription';
-import UserManagment from './components/Dashboard/UserManagment';
-import Header from './components/SharedPage/Header';
 import 'tw-elements';
 import { useEffect, useReducer, useState } from 'react';
 import { APPContext, initialState, reducer } from './actions/reducers';
-import Catagory from './components/Dashboard/Catagory';
-import Comments from './components/Dashboard/Comments';
-import BloggerReq from './components/Dashboard/BloggerReq';
-import Services from './components/Dashboard/Services';
-import Role from './components/Dashboard/Role';
-import Permission from './components/Dashboard/Permission';
-import BlogDetails from './components/Dashboard/BlogDetails';
-import ProjectDetails from './components/Dashboard/ProjectDetails';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import BloggerReqDetails from './components/Dashboard/BloggerReqDetails';
-import SubsReqDetails from './components/Dashboard/SubsReqDetails';
-import UserDetails from './components/Dashboard/UserDetails';
-import ServicesDetails from './components/Dashboard/ServicesDetails';
+
+import RequireAuth from './components/utilities/RequireAuth';
+import './App.css';
+
+import AdminDashboard from './components/Dashboard/AdminDashboard';
+import Dashboard from './components/Dashboard/Dashboard';
+import Faqs from './components/Dashboard/Faqs';
+import Header from './components/SharedPage/Header';
+import Catagory from './components/Dashboard/Catagory';
+import Comments from './components/Dashboard/Comments';
+import Role from './components/Dashboard/Role';
+import Permission from './components/Dashboard/Permission';
 import Login from './components/Login/Login';
 import Notice from './components/Dashboard/Notice';
-import RequireAuth from './components/utilities/RequireAuth';
 import Profile from './components/Profile/Profile';
-import ProjectEdit from './components/Dashboard/ProjectEdit';
 import CommentsDetails from './components/Dashboard/CommentsDetails';
-import ServiceEdit from './components/Dashboard/ServiceEdit';
-import UserEdit from './components/Dashboard/UserEdit';
-// import Notice from './components/Dashboard/Notice/Notice';
+import Blogs from './components/Dashboard/BlogPages/Blogs';
+import Portfolio from './components/Dashboard/Projects/Portfolio';
+import Subscription from './components/Dashboard/Projects/Subscription';
+import UserManagment from './components/Dashboard/UserPages/UserManagment';
+import UserDetails from './components/Dashboard/UserPages/UserDetails';
+import UserEdit from './components/Dashboard/UserPages/UserEdit';
+import Services from './components/Dashboard/ServicePages/Services';
+import ServicesDetails from './components/Dashboard/ServicePages/ServicesDetails';
+import ServiceEdit from './components/Dashboard/ServicePages/ServiceEdit';
+import ProjectDetails from './components/Dashboard/Projects/ProjectDetails';
+import ProjectEdit from './components/Dashboard/Projects/ProjectEdit';
+import SubsReqDetails from './components/Dashboard/Projects/SubsReqDetails';
+import BlogDetails from './components/Dashboard/BlogPages/BlogDetails';
+import BloggerReq from './components/Dashboard/BlogPages/BloggerReq';
+import BloggerReqDetails from './components/Dashboard/BlogPages/BloggerReqDetails';
+import NewsLetter from './components/Dashboard/NewsLetter/NewsLetter';
+import EmailSubscription from './components/Dashboard/NewsLetter/EmailSubscription';
+import Carieer from './components/Dashboard/Carieer/Carieer';
+import JobApplication from './components/Dashboard/Carieer/JobApplication';
+import Reviews from './components/Dashboard/Reviews';
+import Query from './components/Dashboard/Query';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -46,10 +51,7 @@ function App() {
   const [addRole, setAddRole] = useState(false);
 
 
-  //get Value
  
-
-
 
   const [menuOpen, setMenuOpen] = useState(true);
   const [user, setUser] = useState([]);
@@ -99,7 +101,7 @@ function App() {
           <Route path='/admin-dashboard/sub-request/:id' element={<SubsReqDetails />}></Route>
 
           <Route path='/admin-dashboard/blogger-request' element={<BloggerReq />}></Route>
-          <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails />}></Route>
+          <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails      />}></Route>
 
           <Route path='/admin-dashboard/services' element={<Services />}></Route>
           <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>
@@ -111,16 +113,21 @@ function App() {
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
-          
+
           
 
-          {/*  <Route path='/admin-dashboard/faqs' element={<Faqs />}></Route>
-           <Route path='/admin-dashboard/gallery' element={<Gallery />}></Route>
-          <Route path='/admin-dashboard/pricing' element={<Pricing />}></Route> */}
+          <Route path='/admin-dashboard/newsletter' element={<NewsLetter />}></Route>
+          <Route path='/admin-dashboard/email-subscription' element={<EmailSubscription />}></Route>
+          <Route path='/admin-dashboard/carieer' element={<Carieer />}></Route>
+          <Route path='/admin-dashboard/job-application' element={<JobApplication />}></Route>
+
+          <Route path='/admin-dashboard/reviews' element={<Reviews/>}></Route>
+          <Route path='/admin-dashboard/query' element={<Query/>}></Route>
+
         </Route>
+
         <Route path='/profile' element={<RequireAuth> <Profile /></RequireAuth> }></Route>
         <Route path='/sign-in' element={<Login />}></Route>
-
       </Routes>
       <ToastContainer />
 

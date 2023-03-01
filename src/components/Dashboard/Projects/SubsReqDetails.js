@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { saveAs } from "file-saver";
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
 import { toast } from 'react-toastify';
 
 

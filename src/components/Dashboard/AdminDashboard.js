@@ -17,7 +17,7 @@ const AdminDashboard = () => {
                 <Outlet></Outlet>
             </div>
 
-            <div className={`bg-white text-primary h-screen   hidden lg:block  transition ease duration-300 ${menuOpen ? "w-60" : "w-14"}`}>
+            <div className={`bg-white text-primary pb-5  hidden lg:block  transition ease duration-300 ${menuOpen ? "w-60" : "w-14"}`}>
                 <ul className='flex  flex-col  '>
                     {
                         sidebarMenu.map(singleMenu => <li key={singleMenu.id}

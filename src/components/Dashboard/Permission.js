@@ -176,4 +176,4 @@ const AddPermission = () => {
 
     </div>
   )
-}
+};

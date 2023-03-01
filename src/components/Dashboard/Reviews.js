@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Gallery = () => {
+const Reviews = () => {
     return (
         <div>
-            Gallery
+            Reviews
         </div>
     );
 };
 
-export default Gallery;
+export default Reviews;

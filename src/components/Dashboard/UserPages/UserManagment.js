@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import "./Dashboard.css";
-import Table from '../SharedPage/Table';
+import '../Dashboard.css';
+import Table from '../../SharedPage/Table';
 import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { baseURL } from '../utilities/url';
-import useToken from '../utilities/useToken';
-import Modal from '../utilities/Modal';
+import { baseURL } from '../../utilities/url';
+import useToken from '../../utilities/useToken';
+import Modal from '../../utilities/Modal';
 import { toast } from 'react-toastify';
 
 const UserManagment = () => {
