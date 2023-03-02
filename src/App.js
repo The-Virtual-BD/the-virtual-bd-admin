@@ -41,6 +41,11 @@ import Carieer from './components/Dashboard/Carieer/Carieer';
 import JobApplication from './components/Dashboard/Carieer/JobApplication';
 import Reviews from './components/Dashboard/Reviews';
 import Query from './components/Dashboard/Query';
+import QueryDetails from './components/Dashboard/QueryDetails';
+import CarieerDetails from './components/Dashboard/Carieer/CarieerDetails';
+import CarieerEdit from './components/Dashboard/Carieer/CarieerEdit';
+import NewsletterDetails from './components/Dashboard/NewsLetter/NewsletterDetails';
+import NewsletterEdit from './components/Dashboard/NewsLetter/NewsletterEdit';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -117,12 +122,21 @@ function App() {
           
 
           <Route path='/admin-dashboard/newsletter' element={<NewsLetter />}></Route>
+          <Route path='/admin-dashboard/newsletter/:id' element={<NewsletterDetails />}></Route>
+          <Route path='/admin-dashboard/newsletter/update/:id' element={<NewsletterEdit />}></Route>
+
           <Route path='/admin-dashboard/email-subscription' element={<EmailSubscription />}></Route>
+          
           <Route path='/admin-dashboard/carieer' element={<Carieer />}></Route>
+          <Route path='/admin-dashboard/carieer/:id' element={<CarieerDetails />}></Route>
+          <Route path='/admin-dashboard/carieer/update/:id' element={<CarieerEdit />}></Route>
+
           <Route path='/admin-dashboard/job-application' element={<JobApplication />}></Route>
 
           <Route path='/admin-dashboard/reviews' element={<Reviews/>}></Route>
+
           <Route path='/admin-dashboard/query' element={<Query/>}></Route>
+          <Route path='/admin-dashboard/query/:id' element={<QueryDetails />}></Route>
 
         </Route>
 

@@ -13,7 +13,7 @@ const Query = () => {
     const [queries, setQuery] = useState([]);
     const navigate = useNavigate();
 
-    //Get Services
+    //Get Queries
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/queries`;
         fetch(perUrl, {
@@ -32,21 +32,16 @@ const Query = () => {
 
 
 
-
+    // view Single Query 
     const handlequeriesView = (id) => {
         console.log("clicked", id);
-        // navigate(`/admin-dashboard/services/${id}`);
-        navigate(`#`);
+        navigate(`/admin-dashboard/query/${id}`);
     };
 
-    const handlequeriesEdit = (id) => {
-        console.log("clicked", id);
-        // navigate(`/admin-dashboard/services/update/${id}`);
-        navigate(`#`);
-    };
+   
 
 
-    //Handle Delete NEWSLETTER
+    //Handle Delete Query
     const  handleDeletequeries = id => {
         const procced = window.confirm("You Want To Delete?");
 
@@ -106,11 +101,6 @@ const Query = () => {
                         <button onClick={() => handlequeriesView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
-                            </div>
-                        </button>
-                        <button onClick={()=>handlequeriesEdit(id)}>
-                            <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
-                                <RiEditBoxFill className='text-lg  text-white' />
                             </div>
                         </button>
 

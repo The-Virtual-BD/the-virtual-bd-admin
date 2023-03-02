@@ -12,8 +12,8 @@ import useToken from '../../utilities/useToken';
 const NewsLetter = () => {
     return (
         <div>
-           {/* <ViewNewsLetter /> */}
-           <AddNewsLetter />
+           <ViewNewsLetter />
+           {/* <AddNewsLetter /> */}
         </div>
     );
 };
@@ -26,7 +26,7 @@ const ViewNewsLetter=()=>{
     const [newsletters, setNewsletters] = useState([]);
     const navigate = useNavigate();
 
-    //Get Services
+    //Get Newsletter
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/newsletters`;
         fetch(perUrl, {
@@ -48,14 +48,12 @@ const ViewNewsLetter=()=>{
 
     const handleNewslettersView = (id) => {
         console.log("clicked", id);
-        // navigate(`/admin-dashboard/services/${id}`);
-        navigate(`#`);
+        navigate(`/admin-dashboard/newsletter/${id}`);
     };
 
     const handleNewslettersEdit = (id) => {
         console.log("clicked", id);
-        // navigate(`/admin-dashboard/services/update/${id}`);
-        navigate(`#`);
+        navigate(`/admin-dashboard/newsletter/update/${id}`);
     };
 
 

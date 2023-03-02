@@ -1,5 +1,5 @@
 import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete, AiFillNotification, AiTwotoneMail, AiFillQuestionCircle } from 'react-icons/ai';
-import { FaComment, FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
+import { FaAddressCard, FaBusinessTime, FaComment, FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
 import { RiNewspaperFill } from 'react-icons/ri';
 import { HiViewGridAdd } from 'react-icons/hi';
 import { CgPlayListCheck } from 'react-icons/cg';
@@ -113,13 +113,13 @@ export const sidebarMenu = [
     {
         id: 17,
         name: "Carieer",
-        icon: <FaUserLock />,
+        icon: <FaBusinessTime />,
         path: "/admin-dashboard/carieer"
     },
     {
         id: 18,
         name: "Job Application",
-        icon: <FaUserLock />,
+        icon: <FaAddressCard />,
         path: "/admin-dashboard/job-application"
     }
 ];
