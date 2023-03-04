@@ -46,6 +46,7 @@ import CarieerDetails from './components/Dashboard/Carieer/CarieerDetails';
 import CarieerEdit from './components/Dashboard/Carieer/CarieerEdit';
 import NewsletterDetails from './components/Dashboard/NewsLetter/NewsletterDetails';
 import NewsletterEdit from './components/Dashboard/NewsLetter/NewsletterEdit';
+import JobAppliDetails from './components/Dashboard/Carieer/JobAppliDetails';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -135,6 +136,7 @@ function App() {
           <Route path='/admin-dashboard/carieer/update/:id' element={<CarieerEdit />}></Route>
 
           <Route path='/admin-dashboard/job-application' element={<JobApplication />}></Route>
+          <Route path='/admin-dashboard/job-application/:id' element={<JobAppliDetails />}></Route>
 
           <Route path='/admin-dashboard/reviews' element={<Reviews/>}></Route>
 

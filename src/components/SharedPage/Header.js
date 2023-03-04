@@ -269,7 +269,7 @@ const Header = () => {
 
                 <div className='lg:hidden block  '>
                     {open ? (
-                        <div className="bg-blue text-white  rounded w-60  py-3 z-10 fixed top-2 left-0 h-auto overflow-y-auto overflow-x-hidden ">
+                        <div className="bg-blue text-white  rounded w-60  py-3 z-10 absolute top-0 left-0  overflow-y-auto overflow-x-hidden ">
                             {/* <img src="/assets/admin.png" alt="admin" srcSet="" /> */}
                             <div className='flex flex-col lg:hidden  text-center '>
                                 <h3 className='text-lg font-bold'>{user.first_name}</h3>

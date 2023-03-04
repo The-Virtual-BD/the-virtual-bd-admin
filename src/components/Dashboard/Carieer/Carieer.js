@@ -26,7 +26,7 @@ const ViewCarieer=()=>{
     const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
-    //Get Services
+    //Get Carieer
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/vaccancies`;
         fetch(perUrl, {
@@ -43,22 +43,26 @@ const ViewCarieer=()=>{
             })
     }, [token]);
 
+    if (!jobs) {
+        return <div>Loading...</div>;
+      };
 
 
 
-    const handleUserView = (id) => {
+
+    const handleCarieerView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/carieer/${id}`);
     };
 
-    const handleUserEdit = (id) => {
+    const handleCarieerEdit = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/carieer/update/${id}`);
     };
 
 
-    //Handle Delete Service
-    const handleDeleteService = id => {
+    //Handle Delete Carieer
+    const handleDeleteCarieer = id => {
         const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
@@ -82,7 +86,7 @@ const ViewCarieer=()=>{
 
 
 
-    const SERVICE_COLUMNS = () => {
+    const Carieer_COLUMNS = () => {
         return [
             {
                 Header: "SL",
@@ -115,18 +119,18 @@ const ViewCarieer=()=>{
                 Cell: ({ row }) => {
                     const { id } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
-                        <button onClick={() => handleUserView(id)}>
+                        <button onClick={() => handleCarieerView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button onClick={()=>handleUserEdit(id)}>
+                        <button onClick={()=>handleCarieerEdit(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                                 <RiEditBoxFill className='text-lg  text-white' />
                             </div>
                         </button>
 
-                        <button onClick={() => handleDeleteService(id)}>
+                        <button onClick={() => handleDeleteCarieer(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -142,7 +146,7 @@ const ViewCarieer=()=>{
     return(
         <div className='text-primary p-3 '>
         {jobs.length && (
-            <Table columns={SERVICE_COLUMNS()} data={jobs} headline={"All Jobs"} />
+            <Table columns={Carieer_COLUMNS()} data={jobs} headline={"All Jobs"} />
         )}
     </div>
     )
@@ -202,30 +206,30 @@ const AddCarieer=()=>{
                     <div className='flex flex-col lg:flex-row items-center gap-3'>
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Designation</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setDesignation(e.target.value)} placeholder="Designation" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setDesignation(e.target.value)} placeholder="Designation" required />
                         </div>
 
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Job Type</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setType(e.target.value)} placeholder="Job Type" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setType(e.target.value)} placeholder="Job Type" required />
                         </div>
                     </div>
 
                     <div className='flex flex-col lg:flex-row items-center gap-3'>
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Salary Range</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSalary_range(e.target.value)} placeholder="Salary Range" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSalary_range(e.target.value)} placeholder="Salary Range" required />
                         </div>
 
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Skills</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSkills(e.target.value)} placeholder="Skills" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSkills(e.target.value)} placeholder="Skills" required />
                         </div>
                     </div>
 
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="projectShortDesc" className="font-bold mb-1"> Description</label>
-                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setDescription(e.target.value)} placeholder="Description"></textarea>
+                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setDescription(e.target.value)} placeholder="Description" required></textarea>
                     </div>
 
                   
