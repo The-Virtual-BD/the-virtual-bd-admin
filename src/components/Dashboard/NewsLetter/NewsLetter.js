@@ -1,19 +1,20 @@
 import { CKEditor } from 'ckeditor4-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
 const NewsLetter = () => {
+    const { addNewsLetter } = useContext(APPContext);
     return (
         <div>
-           <ViewNewsLetter />
-           {/* <AddNewsLetter /> */}
+             { addNewsLetter?  <AddNewsLetter /> : <ViewNewsLetter />}
         </div>
     );
 };

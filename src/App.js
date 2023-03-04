@@ -54,6 +54,9 @@ function App() {
   const [addNotice, setAddNotice] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
   const [addRole, setAddRole] = useState(false);
+  const [addNewsLetter, setAddNewsLetter] = useState(false);
+  const [addEmailSubs, setAddEmailSubs] = useState(false);
+  const [addCareer, setAddCareer] = useState(false);
 
 
  
@@ -76,7 +79,7 @@ function App() {
 
 
   const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole, }
+  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer }
 
   
   return (
@@ -106,7 +109,7 @@ function App() {
           <Route path='/admin-dashboard/sub-request/:id' element={<SubsReqDetails />}></Route>
 
           <Route path='/admin-dashboard/blogger-request' element={<BloggerReq />}></Route>
-          <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails      />}></Route>
+          <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails />}></Route>
 
           <Route path='/admin-dashboard/services' element={<Services />}></Route>
           <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>

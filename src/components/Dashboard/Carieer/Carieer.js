@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
 const Carieer = () => {
+    const { addCareer } = useContext(APPContext);
     return (
         <div>
-            
-            <ViewCarieer />
-
-            <AddCarieer />
+             { addCareer ?   <AddCarieer />:  <ViewCarieer />}
         </div>
     );
 };
@@ -215,12 +214,12 @@ const AddCarieer=()=>{
                     <div className='flex flex-col lg:flex-row items-center gap-3'>
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Salary Range</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSalary_range(e.target.value)} placeholder="salary_range" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSalary_range(e.target.value)} placeholder="Salary Range" />
                         </div>
 
                         <div className="mb-3 flex flex-col items-start w-full">
                             <label for="projectTitle" className="font-bold mb-1">Skills</label>
-                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSkills(e.target.value)} placeholder="skills" />
+                            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSkills(e.target.value)} placeholder="Skills" />
                         </div>
                     </div>
 

@@ -13,7 +13,7 @@ import logo2 from '../../images/logo 2.png'
 
 
 const Header = () => {
-    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory,addRole, setAddRole  } = useContext(APPContext);
+    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer } = useContext(APPContext);
 
     const [token, setToken] = useToken();
     const location = useLocation();
@@ -164,6 +164,46 @@ const Header = () => {
                                 <button
                                     onClick={() => setAddRole(true)}
                                     className={`${addRole ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Role</button>
+
+                            </div>
+                        }
+
+                        {/*NewsLetter Sub Menu */}
+                        {
+                            currentPath === "/admin-dashboard/newsletter" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                                <button
+                                    onClick={() => setAddNewsLetter(false)}
+                                    className={`${(!addNewsLetter) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Newsletter</button>
+
+                                <button
+                                    onClick={() => setAddNewsLetter(true)}
+                                    className={`${addNewsLetter ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Newsletter</button>
+
+                            </div>
+                        }
+                        {/*Email Subs Sub Menu */}
+                        {
+                            currentPath === "/admin-dashboard/email-subscription" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                                <button
+                                    onClick={() => setAddEmailSubs(false)}
+                                    className={`${(!addEmailSubs) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Email Subs</button>
+
+                                <button
+                                    onClick={() => setAddEmailSubs(true)}
+                                    className={`${addEmailSubs ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Email Subs</button>
+
+                            </div>
+                        }
+                        {/*Carieer Sub Menu */}
+                        {
+                            currentPath === "/admin-dashboard/carieer" && <div className='lg:flex items-center gap-4 justify-center hidden'>
+                                <button
+                                    onClick={() => setAddCareer(false)}
+                                    className={`${(!addCareer) ? "text-blue" : ""} text-sm lg:text-lg font-semibold hover:text-blue  `}>View Career</button>
+
+                                <button
+                                    onClick={() => setAddCareer(true)}
+                                    className={`${addCareer ? "text-blue" : ""} text-sm lg:text-lg  font-semibold  hover:text-blue `}>Add Career</button>
 
                             </div>
                         }
@@ -337,6 +377,7 @@ const Header = () => {
 
                                 </div>
                             }
+
                             {/* Role Sub Menu */}
                             {
                                 currentPath === "/admin-dashboard/role" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
@@ -353,6 +394,26 @@ const Header = () => {
                                             setOpen(!open)
                                         }}
                                         className={`${addRole ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Role</button>
+
+                                </div>
+                            }
+
+                            {/* Newsletter Sub Menu */}
+                            {
+                                currentPath === "/admin-dashboard/newsletter" && <div className='flex flex-col items-start  justify-start  mt-5 mb-2 border-b-[1px] border-white lg:hidden'>
+                                    <button
+                                        onClick={() => {
+                                            setAddNewsLetter(false)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${!addNewsLetter ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* View Newsletter</button>
+
+                                    <button
+                                        onClick={() => {
+                                            setAddNewsLetter(true)
+                                            setOpen(!open)
+                                        }}
+                                        className={`${addNewsLetter ? "text-blue bg-white" : ""} text-sm text-start px-5 py-2 w-full font-semibold  hover:text-blue hover:bg-white `}>* Add Newsletter</button>
 
                                 </div>
                             }

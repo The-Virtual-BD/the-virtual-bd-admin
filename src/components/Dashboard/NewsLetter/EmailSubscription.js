@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete, AiOutlinePoweroff } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
 const EmailSubscription = () => {
+  const { addEmailSubs } = useContext(APPContext);
     return (
         <div>
-            <AddEmailSubs />
-            <ViewEmailSubs />
+           { addEmailSubs ?  <AddEmailSubs /> : <ViewEmailSubs />}
         </div>
     );
 };
