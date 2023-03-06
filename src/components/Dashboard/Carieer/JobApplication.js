@@ -14,6 +14,7 @@ const JobApplication = () => {
     const [token] = useToken();
     const [jobAppli, setJobAppli] = useState([]);
     const navigate = useNavigate();
+    const allJobAppli=[...jobAppli].reverse();
 
     //Get job Application
     useEffect(() => {
@@ -145,7 +146,7 @@ const JobApplication = () => {
     return (
         <div className='text-primary p-3 '>
         {jobAppli.length && (
-            <Table columns={jobAppli_COLUMNS()} data={jobAppli} headline={"All Job Applications"} />
+            <Table columns={jobAppli_COLUMNS()} data={allJobAppli} headline={"All Job Applications"} />
         )}
     </div>
     );

@@ -24,6 +24,7 @@ const ViewEmailSubs=()=>{
   const [token] = useToken();
   const navigate = useNavigate();
   const [emailSubs, setEmailSubs] = useState([]);
+  const allEmailSubs=[...emailSubs].reverse();
 
   //Get Subscription
   useEffect(() => {
@@ -124,7 +125,7 @@ const ViewEmailSubs=()=>{
         <div className='text-primary p-3'>
 
       {emailSubs.length && (
-        <Table columns={EMAIL_SUBS_COLUMNS()} data={emailSubs} headline={"Email Subscriptions List"} />
+        <Table columns={EMAIL_SUBS_COLUMNS()} data={allEmailSubs} headline={"Email Subscriptions List"} />
       )}
 
     </div>

@@ -12,6 +12,8 @@ const Comments = () => {
     const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
+    const allComments=[...comments].reverse();
+
 
     //Get All Comments
     useEffect(() => {
@@ -117,7 +119,7 @@ const Comments = () => {
             {comments.length && (
                 <Table
                     columns={Comments_COLUMNS()}
-                    data={comments}
+                    data={allComments}
                     headline={"All Comments"} />
             )}
 

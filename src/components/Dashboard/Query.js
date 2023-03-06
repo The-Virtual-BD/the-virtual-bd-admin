@@ -13,6 +13,8 @@ const Query = () => {
     const [queries, setQuery] = useState([]);
     const navigate = useNavigate();
 
+    const allQueries=[...queries].reverse();
+
     //Get Queries
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/queries`;
@@ -120,7 +122,7 @@ const Query = () => {
     return (
         <div className='text-primary p-3 '>
             {queries.length && (
-                <Table columns={QUERY_COLUMNS()} data={queries} headline={"All Queries"} />
+                <Table columns={QUERY_COLUMNS()} data={allQueries} headline={"All Queries"} />
             )}
         </div>
     );

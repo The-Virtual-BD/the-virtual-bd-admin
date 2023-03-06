@@ -11,6 +11,7 @@ const Blogs = () => {
     const [token] = useToken();
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
+    const allBlogs=[...blogs].reverse();
 
     //Handle Get posts
     useEffect(() => {
@@ -61,7 +62,7 @@ const Blogs = () => {
     };
 
 
-    console.log(blogs)
+    console.log(allBlogs)
 
 
     const BLOG_COLUMNS = () => {
@@ -74,7 +75,6 @@ const Blogs = () => {
             {
                 Header: "Blogger Name",
                 accessor: "author.first_name",
-
                 sortType: 'basic',
 
             },
@@ -135,8 +135,8 @@ const Blogs = () => {
             {blogs.length && (
                 <Table
                     columns={BLOG_COLUMNS()}
-                    data={blogs}
-                    headline={"All Blog list"} />
+                    data={allBlogs}
+                    headline={"All Blogs"} />
             )}
 
         </div>

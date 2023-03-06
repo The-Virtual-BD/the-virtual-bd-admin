@@ -15,6 +15,8 @@ const UserManagment = () => {
     const [allUsers, setAllUsers] = useState([]);
     const navigate = useNavigate();
 
+    const allViewUsers=[...allUsers].reverse();
+
 
     //Get Users
     useEffect(() => {
@@ -131,7 +133,7 @@ const UserManagment = () => {
         <>
             <div className='text-primary p-3 '>
                 {allUsers.length && (
-                    <Table columns={USER_COLUMNS()} data={allUsers} headline={"All User list"} />
+                    <Table columns={USER_COLUMNS()} data={allViewUsers} headline={"All User list"} />
                 )}
             </div>
 

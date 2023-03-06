@@ -27,6 +27,7 @@ export default Notice;
 const ViewNotice=()=>{
     const[token]=useToken();
     const [notices, setNotices] = useState([]);
+    const allNotices=[...notices].reverse();
     
 
      //Get Notices
@@ -120,7 +121,7 @@ const ViewNotice=()=>{
     return (
         <div className='text-primary p-3'>
             {notices.length && (
-                <Table columns={NOTICE_COLUMNS()} data={notices} headline={"Notice List"} />
+                <Table columns={NOTICE_COLUMNS()} data={allNotices} headline={"All Notices"} />
             )}
         </div>
     )

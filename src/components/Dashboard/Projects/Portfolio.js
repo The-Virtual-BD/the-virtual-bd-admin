@@ -292,6 +292,8 @@ const ViewProjects = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
 
+  const allProjects=[...projects].reverse();
+
  
   //Get projects
   useEffect(() => {
@@ -418,7 +420,7 @@ const ViewProjects = () => {
     <div className='text-primary p-3'>
 
       {projects.length && (
-        <Table columns={PROJECT_COLUMNS()} data={projects} headline={"All Projects List"} />
+        <Table columns={PROJECT_COLUMNS()} data={allProjects} headline={"All Projects"} />
       )}
 
     </div>

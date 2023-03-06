@@ -12,6 +12,8 @@ const BloggerReq = () => {
     const [bloggerApplicent, setBloggerApplicent] = useState([]);
     const navigate = useNavigate();
 
+    const allBloggerApplicent=[...bloggerApplicent].reverse();
+
 
     //Get blogger req
     useEffect(() => {
@@ -116,7 +118,7 @@ const BloggerReq = () => {
             {bloggerApplicent.length && (
                 <Table
                     columns={BLOGGER_COLUMNS()}
-                    data={bloggerApplicent}
+                    data={allBloggerApplicent}
                     headline={"Blogger Request"} />
             )}
 

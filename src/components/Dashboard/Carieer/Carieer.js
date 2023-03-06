@@ -26,6 +26,8 @@ const ViewCarieer=()=>{
     const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
+    const allJobs=[...jobs].reverse();
+
     //Get Carieer
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/vaccancies`;
@@ -146,7 +148,7 @@ const ViewCarieer=()=>{
     return(
         <div className='text-primary p-3 '>
         {jobs.length && (
-            <Table columns={Carieer_COLUMNS()} data={jobs} headline={"All Jobs"} />
+            <Table columns={Carieer_COLUMNS()} data={allJobs} headline={"All Jobs"} />
         )}
     </div>
     )

@@ -12,6 +12,8 @@ const Subscription = () => {
     const [subReq, setSubReq] = useState([]);
     const navigate = useNavigate();
 
+    const allsubReq=[...subReq].reverse();
+
 
 
     //Get All Sub Req
@@ -116,8 +118,8 @@ const Subscription = () => {
             {subReq.length && (
                 <Table
                     columns={SUB_REQ_COLUMNS()}
-                    data={subReq}
-                    headline={"Subscription Request"} />
+                    data={allsubReq}
+                    headline={"Subscription Requests"} />
             )}
 
         </div>

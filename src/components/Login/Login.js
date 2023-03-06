@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import { baseURL } from '../utilities/url';
@@ -46,37 +46,43 @@ const Login = () => {
     };
 
     return (
-        <div className='bg-bgclr flex items-center justify-center h-[100vh]'>
-            <div className='bg-white p-5 rounded-md w-96'>
-                <h2 className='text-3xl font-bold text-primary text-center mb-3'>Login</h2>
+        <div className='bg-bgclr flex flex-col items-center justify-center h-[100vh] '>
+             <div className='bg-white  rounded-md w-96'>
+                  <div className='flex justify-center'>
+                    <img src={"/assets/Virtual BD Logo2.png"} alt="talents" className="my-5 block" />
+                  </div>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className='rounded-lg bg-bgclr mb-3'>
-                        <input
-                            type="email"
-                            placeholder='Email'
-                            className=' bg-bgclr px-3 py-1.5 w-full rounded-md'
-                            {...register("email", { required: true })} />
+                    <div className='p-5'>
+                        <h3 className='text-3xl font-bold text-primary text-center mb-3'>Login</h3>
 
-                        {errors.email && <span className='text-textred text-sm'>This field is required</span>}
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className='rounded-lg bg-bgclr mb-3'>
+                                <input
+                                    type="email"
+                                    placeholder='Email'
+                                    className=' bg-bgclr px-3 py-1.5 w-full rounded-md'
+                                    {...register("email", { required: true })} />
+
+                                {errors.email && <span className='text-textred text-sm'>This field is required</span>}
+                            </div>
+
+                            <div className='rounded-lg bg-bgclr '>
+                                <input
+                                    type="password"
+                                    placeholder='Password'
+                                    {...register("password", { required: true })}
+                                    className=' bg-bgclr px-3 py-1.5 w-full rounded-md' />
+                                {errors.password && <span className='text-textred text-sm'>This field is required</span>}
+                            </div>
+
+
+
+                            <div className='flex items-center justify-center mt-3'>
+                                <button type='submit' className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Login</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div className='rounded-lg bg-bgclr '>
-                        <input
-                            type="password"
-                            placeholder='Password'
-                            {...register("password", { required: true })}
-                            className=' bg-bgclr px-3 py-1.5 w-full rounded-md' />
-                        {errors.password && <span className='text-textred text-sm'>This field is required</span>}
-                    </div>
-
-
-
-                    <div className='flex items-center justify-center mt-3'>
-                        <button type='submit' className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Login</button>
-                    </div>
-                </form>
-            </div>
+             </div>
         </div>
     );
 };

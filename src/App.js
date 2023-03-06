@@ -72,10 +72,9 @@ function App() {
          //    console.log(getUser);
             setUser(getUser);
        }
-  },[])
+  },[]);
 
   
-
   // console.log(user)
 
 
