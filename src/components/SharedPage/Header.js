@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineLogout, AiOutlineMenu } from 'react-icons/ai';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
@@ -19,18 +19,15 @@ const Header = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const userImg=`${baseURL}/${user?.photo}`;
 
-    const [image, setImage] = useState(user.photo || blankUser);
+    const [image, setImage] = useState(userImg || blankUser);
     const [profile, setProfile] = useState(false);
 
     // const access_token=window.localStorage.getItem("token")
     // const access_user=window.localStorage.getItem("user")
 
-
-    // console.log(location.pathname);
-
-    // console.log(access_user);
 
     //Handle Logout
     const handleLogout = () => {
@@ -45,17 +42,21 @@ const Header = () => {
             .then(res => res.json())
             .then(result => {
                 console.log(result);
-                setUser('')
+                setUser('');
+                setOpen(false)
                 window.localStorage.removeItem('token');
                 window.localStorage.removeItem('user');
                 navigate('/sign-in');
-            })
+            });
     };
+    console.log(user)
 
 
 
     return (
         <>
+       
+       
             <div>
                 <div className='w-full text-primary flex items-center gap-3 justify-between h-20 px-3 lg:px-5 lg:py-3  bg-white shadow-lg border-b-[1px] border-bgclr'>
 
@@ -439,6 +440,12 @@ const Header = () => {
                                         </div>
                                     </li>)
                                 }
+
+                                <li className='w-full hover:text-blue hover:bg-white  px-5 py-2 rounded-sm cursor-pointer' onClick={handleLogout}>
+                                    <div className='flex items-center justify-start'>
+                                        <AiOutlineLogout /> <span className='ml-2'> Logout</span>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     ) : null}

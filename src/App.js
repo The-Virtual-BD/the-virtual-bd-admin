@@ -85,7 +85,7 @@ function App() {
   
   return (
     <APPContext.Provider value={value}>
-      <Header />
+      
       <Routes>
         <Route path="/" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  } />
         <Route path="/admin-dashboard" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  }>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { APPContext } from '../../actions/reducers';
 import { sidebarMenu } from '../../AllData/staticData';
+import Header from '../SharedPage/Header';
 
 
 const AdminDashboard = () => {
@@ -11,6 +12,8 @@ const AdminDashboard = () => {
     const { menuOpen } = useContext(APPContext);
 
     return (
+        <>
+        <Header />
         <div className='flex flex-row-reverse justify-between  bg-bgclr'>
 
             <div className='text-center w-full  bg-bgclr'>
@@ -36,6 +39,8 @@ const AdminDashboard = () => {
                 </ul>
             </div>
         </div>
+        </>
+        
     );
 };
 
