@@ -140,9 +140,10 @@ const ViewNewsLetter=()=>{
 const AddNewsLetter=()=>{
     const [token] = useToken();
 
-    const [link, setName] = useState('')
-    const [image, setCover] = useState(null);
+    const [link, setLink] = useState('')
+    const [image, setImage] = useState(null);
     const [text, setDescription] = useState("");
+    const [subject, setSubject] = useState("");
 
 
     //Handle Add Services
@@ -184,15 +185,20 @@ const AddNewsLetter=()=>{
                 <form className='p-3' onSubmit={handleAddNewsletterForm} >
 
                     <div className="mb-3 flex flex-col items-start w-full">
-                        <label for="projectTitle" className="font-bold mb-1">Add Link</label>
-                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} placeholder="Newsletter Link" />
+                        <label for="projectTitle" className="font-bold mb-1">Subject</label>
+                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setSubject(e.target.value)} placeholder="Add Subject" />
+                    </div>
+
+                    <div className="mb-3 flex flex-col items-start w-full">
+                        <label for="projectTitle" className="font-bold mb-1">Link</label>
+                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setLink(e.target.value)} placeholder="Add Link" />
                     </div>
 
 
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="img" className="font-bold mb-1">Image</label>
-                        <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
-                  outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} />
+                        <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none" type="file" id="img" onChange={(e) => setImage(e.target.files[0])} />
+                  
                     </div>
 
 

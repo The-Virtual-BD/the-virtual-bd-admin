@@ -67,7 +67,7 @@ const QueryDetails = () => {
                 <form className='mt-5' onSubmit={handleReplyForm} >
                      <div className="mb-3 flex flex-col items-start w-full">
                         <label for="projectShortDesc" className="font-bold mb-1">Reply</label>
-                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setreply(e.target.value)} placeholder="Description"></textarea>
+                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setreply(e.target.value)} placeholder="Description" required></textarea>
                     </div>
 
                     <div className="flex flex-row gap-3 justify-center lg:justify-end items-center text-center mt-3">

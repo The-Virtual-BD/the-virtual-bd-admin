@@ -87,12 +87,22 @@ const ViewEmailSubs=()=>{
         sortType: 'basic',
 
       },
-      /* {
+      {
         Header: "Status",
         accessor: "status",
         sortType: 'basic',
+        Cell: ({ row }) => {
+          const { status } = row.original;
+          return (<div className='flex items-center justify-center  gap-2 '>
+              {
+                status==="1"? <p>On</p>: <p>Of</p>
+              }
+           
 
-      }, */
+          </div>);
+        },
+
+      },
       {
         Header: 'Action',
         accessor: 'action',
@@ -100,11 +110,11 @@ const ViewEmailSubs=()=>{
           const { id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
 
-           {/*  <button onClick={()=>handleActivity(id)}>
+            <button onClick={()=>handleActivity(id)}>
               <div className='w-8 h-8 rounded-md  bg-[#0068A3] text-white grid items-center justify-center'>
                 <AiOutlinePoweroff className='text-lg  text-white' />
               </div>
-            </button> */}
+            </button>
 
             <button onClick={()=>handleDeleteSubs(id)}>
               <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
@@ -170,7 +180,7 @@ const AddEmailSubs=()=>{
 
     return(
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
-        <div cclassName='bg-white w-full px-10   rounded-lg mt-2 py-6 shadow-md'>
+        <div>
           <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-1.5'>Add Email</h3>
           <form className='p-3 ' onSubmit={handleEmailSubscriptionsForm} >
   

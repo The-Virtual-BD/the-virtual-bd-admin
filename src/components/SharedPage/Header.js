@@ -20,9 +20,9 @@ const Header = () => {
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-    const userImg=`${baseURL}/${user?.photo}`;
+    // const userImg=`${baseURL}/${user?.photo}`;
 
-    const [image, setImage] = useState(userImg || blankUser);
+    // const [image, setImage] = useState(userImg || blankUser);
     const [profile, setProfile] = useState(false);
 
     // const access_token=window.localStorage.getItem("token")
@@ -231,7 +231,9 @@ const Header = () => {
                                         <div className="dropdown relative">
                                             <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {
-                                                    <img src={image} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />
+                                                    user?.photo?
+                                                    <img src={`${baseURL}/${user?.photo}`} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />:
+                                                    <img src={blankUser} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />
                                                 }
                                             </button>
                                             <ul className="dropdown-menu w-36 absolute bg-white text-base z-50 float-left py-1.5 list-none text-left rounded-lg shadow-lg mt-1  hidden  m-0 bg-clip-padding border-none "
