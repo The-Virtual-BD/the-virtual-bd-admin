@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import { saveAs } from "file-saver";
+import moment from 'moment/moment';
 
 const JobAppliDetails = () => {
     const [jobapp, setJobapp] = useState({});
@@ -30,15 +31,7 @@ const JobAppliDetails = () => {
             })
     }, [token, id]);
 
-    //Download Documents
-    const downloadFile = () => {
-        fetch(`${jobapp?.cv}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${jobapp?.cv}`);
-            
-          });
-      };
+  const applyTime=  moment(jobapp?.created_at).format('DD MMM YYYY')
 
       if(!jobapp){
         return <p>Loading....</p>
@@ -82,11 +75,16 @@ const JobAppliDetails = () => {
                 
                 <div className='text-start mb-2'>
                     <h3 ><span className='font-bold'>Expected Salary: </span>{jobapp?.expected_salary}</h3>
+                </div>
+
+                <div className='text-start mb-2'>
+                    <h3 ><span className='font-bold'>Job Apply Date: </span>{applyTime}</h3>
+
 
                 </div>
 
                 <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>CV : </span> <span className='text-blue cursor-pointer'  onClick={downloadFile}> {jobapp?.cv}</span></h3>
+                    <h3 ><span className='font-bold'>CV : </span> <a href={`${baseURL}/${jobapp?.cv}`} download className='text-blue cursor-pointer' > {jobapp?.cv}</a></h3>
                 </div>
 
             </div>

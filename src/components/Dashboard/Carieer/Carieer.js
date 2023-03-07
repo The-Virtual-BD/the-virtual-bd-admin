@@ -1,3 +1,4 @@
+import { CKEditor } from 'ckeditor4-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
@@ -231,10 +232,22 @@ const AddCarieer=()=>{
                         </div>
                     </div>
 
-                    <div className="mb-3 flex flex-col items-start w-full">
+                    <div className="mb-3 flex flex-col  w-full">
+                        <label for="serviceDesc" className="mb-1 font-bold text-start">Description</label>
+                        <CKEditor
+                            data={description}
+                            onChange={e => setDescription(e.editor.getData())}
+                            // config={{toolbar: editorToolbar}}
+                            className="w-full bg-bgclr rounded py-2 px-3 outline-none" required 
+                        />
+                    </div>
+
+
+
+                   {/*  <div className="mb-3 flex flex-col items-start w-full">
                         <label for="projectShortDesc" className="font-bold mb-1"> Description</label>
                         <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setDescription(e.target.value)} placeholder="Description" required></textarea>
-                    </div>
+                    </div> */}
 
                   
 

@@ -60,7 +60,8 @@ const CarieerDetails = () => {
                 </div>
 
                 <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>Description: </span>{carrier?.description}</h3>
+                    <h3 ><span className='font-bold'>Description: </span></h3>
+                    <div  dangerouslySetInnerHTML={{ __html: carrier?.description }} />
                 </div>
 
             </div>

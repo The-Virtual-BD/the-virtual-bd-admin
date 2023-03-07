@@ -66,7 +66,7 @@ const JobApplication = () => {
     };
 
     //Download Documents
-    const downloadFile = (id) => {
+   /*  const downloadFile = (id) => {
         const getDoc = jobAppli.find(notice => notice.id === id);
 
         fetch(`${getDoc.document}`)
@@ -74,7 +74,7 @@ const JobApplication = () => {
           .then((blob) => {
             saveAs(blob, `${getDoc.name}.pdf`);
           });
-      };
+      }; */
 
 
 
@@ -110,18 +110,19 @@ const JobApplication = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({ row }) => {
-                    const { id } = row.original;
+                    console.log(row)
+                    const { id,cv} = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
                         <button onClick={() => handlejobAppliView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button onClick={() => downloadFile(id)}>
-                            <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
+                        <a href={`${baseURL}/${cv}`} download >
+                            <div   className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' >
                                 <FiDownload className='text-lg  text-white' />
                             </div>
-                        </button>
+                        </a>
 
                         <button onClick={() => handleDeletejobAppli(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
