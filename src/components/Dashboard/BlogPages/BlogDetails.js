@@ -138,7 +138,7 @@ const BlogDetails = () => {
                                         <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={()=>handlePostDeclined(blog?.id)}>Declined</button>
                                     </div>
                                 ):
-                                blog?.status==="1"?(
+                                blog?.status==="3"?(
                                     <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
                                 ):""
 
