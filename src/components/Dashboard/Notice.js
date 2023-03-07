@@ -50,7 +50,7 @@ const ViewNotice=()=>{
           })
       }, [token]);
 
-    //Download Documents
+   /*  //Download Documents
     const downloadFile = (id) => {
         const getDoc = notices.find(notice => notice.id === id);
 
@@ -59,7 +59,7 @@ const ViewNotice=()=>{
           .then((blob) => {
             saveAs(blob, `${getDoc.title}.doc`);
           });
-      };
+      }; */
 
        //Handle Delete Notice
        const handleDeleteNotice=id=>{
@@ -102,10 +102,10 @@ const ViewNotice=()=>{
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({ row }) => {
-                    const { id } = row.original;
-                    return (<div className='flex items-center justify-center gap-2'><button className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' onClick={() => downloadFile(id)}>
+                    const { id,document } = row.original;
+                    return (<div className='flex items-center justify-center gap-2'><a href={`${baseURL}/${document}`} className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' download>
                         <FiDownload className=' ' />
-                    </button>
+                    </a>
 
                     <button onClick={()=>handleDeleteNotice(id)}>
                         <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
