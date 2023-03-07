@@ -9,6 +9,7 @@ import { APPContext } from '../../../actions/reducers';
 import { toast } from 'react-toastify';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
+import Loading from '../../utilities/Loading';
 
 
 
@@ -293,12 +294,13 @@ const ViewProjects = () => {
   const [projects, setProjects] = useState([]);
 
   const allProjects=[...projects].reverse();
+  const [isLoading,setIsLoading]=useState(false);
 
  
   //Get projects
   useEffect(() => {
     const sUrl = `${baseURL}/api/admin/projects`;
-    // setLoading(true);
+    setIsLoading(true);
 
     fetch(sUrl, {
       method: 'GET',
@@ -309,8 +311,7 @@ const ViewProjects = () => {
     })
       .then(res => res.json())
       .then(data => {
-        // setLoading(false);
-        console.log(data)
+        setIsLoading(false);
         setProjects(data.data)
       })
   }, [token]);
@@ -415,6 +416,10 @@ const ViewProjects = () => {
 
     ];
   };
+
+  if(isLoading){
+    return(<Loading />)
+};
 
   return (
     <div className='text-primary p-3'>

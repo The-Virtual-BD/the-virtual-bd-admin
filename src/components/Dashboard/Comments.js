@@ -4,6 +4,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
+import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -13,11 +14,13 @@ const Comments = () => {
     const navigate = useNavigate();
 
     const allComments=[...comments].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
 
     //Get All Comments
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/comments`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -27,7 +30,7 @@ const Comments = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setIsLoading(false);
                 setComments(data.data)
             })
     }, [token]);
@@ -113,7 +116,10 @@ const Comments = () => {
         ];
     };
 
-
+    if(isLoading){
+        return(<Loading />)
+    };
+    
     return (
         <div className='text-primary p-3'>
             {comments.length && (

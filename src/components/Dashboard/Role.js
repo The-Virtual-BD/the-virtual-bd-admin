@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
+import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -25,10 +26,13 @@ const ViewAllRole = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState([]);
   const roles = [...role].reverse();
+  const [isLoading,setIsLoading]=useState(false);
+  
 
   //Get Roles
   useEffect(() => {
     const perUrl = `${baseURL}/api/admin/roles`;
+    setIsLoading(true);
     fetch(perUrl, {
       method: "GET",
       headers: {
@@ -37,7 +41,10 @@ const ViewAllRole = () => {
       }
     })
       .then(res => res.json())
-      .then(data => setRole(data.roles))
+      .then(data =>{
+        setIsLoading(false); 
+        setRole(data.roles);
+      } )
   }, [token]);
 
   /* const handlePermitView = (id) => {
@@ -114,6 +121,10 @@ const ViewAllRole = () => {
     ];
   };
 
+  if(isLoading){
+    return(<Loading />)
+};
+
   return (
     <div className='text-blue p-3'>
 
@@ -135,6 +146,7 @@ const AddRole = () => {
 
   const [isChecked, setIsChecked] = useState(false);
   const [permissions, setPermissions] = useState([]);
+ 
 
   //Get Permit for all Permissions
   useEffect(() => {

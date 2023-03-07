@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
+import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -27,10 +28,12 @@ const ViewAllPermissions = () => {
   const [token] = useToken();
   const navigate = useNavigate();
   const [permit, setPermit] = useState([]);
+  const [isLoading,setIsLoading]=useState(false);
 
   //Get Permissions
   useEffect(() => {
     const cUrl = `${baseURL}/api/admin/permissions`;
+    setIsLoading(true);
     fetch(cUrl, {
       method: 'GET',
       headers: {
@@ -40,7 +43,7 @@ const ViewAllPermissions = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data.permissions);
+        setIsLoading(false);
         setPermit(data.permissions)
       })
   }, [token]);
@@ -110,6 +113,10 @@ const ViewAllPermissions = () => {
 
     ];
   };
+
+  if(isLoading){
+    return(<Loading />)
+};
 
   return (
     <div className='text-primary p-3'>

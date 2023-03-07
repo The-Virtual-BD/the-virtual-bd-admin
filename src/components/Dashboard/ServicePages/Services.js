@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -101,14 +102,14 @@ const AddService = () => {
 
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="projectTitle" className="font-bold mb-1">Service Title</label>
-                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} placeholder="Service Title" />
+                        <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setName(e.target.value)} placeholder="Service Title" required />
                     </div>
 
 
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="img" className="font-bold mb-1">Image</label>
                         <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
-                  outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} />
+                  outline-none focus:outline-none" type="file" id="img" onChange={(e) => setCover(e.target.files[0])} required  />
                     </div>
 
 
@@ -118,7 +119,7 @@ const AddService = () => {
                             data={description}
                             onChange={e => setDescription(e.editor.getData())}
                             // config={{toolbar: editorToolbar}}
-                            className="w-full bg-bgclr rounded py-2 px-3 outline-none"
+                            className="w-full bg-bgclr rounded py-2 px-3 outline-none" required 
                         />
                     </div>
 
@@ -145,9 +146,12 @@ const ViewServices = () => {
     const [services, setServices] = useState([]);
     const navigate = useNavigate();
 
+    const [isLoading,setIsLoading]=useState(false);
+
     //Get Services
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/services`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -156,7 +160,10 @@ const ViewServices = () => {
             }
         })
             .then(res => res.json())
-            .then(data => setServices(data.data))
+            .then(data =>{
+                setIsLoading(false);
+                setServices(data.data);
+            } )
     }, [token]);
 
 
@@ -242,6 +249,10 @@ const ViewServices = () => {
         ];
     };
 
+    
+if(isLoading){
+    return(<Loading />)
+}
     return (
         <div className='text-primary p-3 '>
             {services.length && (
@@ -249,4 +260,4 @@ const ViewServices = () => {
             )}
         </div>
     );
-}
+};

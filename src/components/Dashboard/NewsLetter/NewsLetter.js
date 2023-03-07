@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -26,10 +27,12 @@ const ViewNewsLetter=()=>{
     const [token] = useToken();
     const [newsletters, setNewsletters] = useState([]);
     const navigate = useNavigate();
+    const [isLoading,setIsLoading]=useState(false);
 
     //Get Newsletter
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/newsletters`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -39,8 +42,8 @@ const ViewNewsLetter=()=>{
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-                setNewsletters(data.data)
+                setIsLoading(false);
+                setNewsletters(data.data);
             })
     }, [token]);
 
@@ -125,6 +128,10 @@ const ViewNewsLetter=()=>{
 
 
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
     return(

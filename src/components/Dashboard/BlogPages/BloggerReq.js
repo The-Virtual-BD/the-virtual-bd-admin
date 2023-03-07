@@ -4,6 +4,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -13,12 +14,13 @@ const BloggerReq = () => {
     const navigate = useNavigate();
 
     const allBloggerApplicent=[...bloggerApplicent].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
 
     //Get blogger req
     useEffect(() => {
         const sUrl = `${baseURL}/api/admin/bloggerApplication`;
-        // setLoading(true);
+        setIsLoading(true);
         fetch(sUrl, {
             method: 'GET',
             headers: {
@@ -28,8 +30,8 @@ const BloggerReq = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // setLoading(false);
-                console.log(data.blogger)
+                setIsLoading(false);
+                // console.log(data.blogger)
                 setBloggerApplicent(data.blogger)
             })
     }, [token]);
@@ -111,6 +113,10 @@ const BloggerReq = () => {
 
 
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
     return (

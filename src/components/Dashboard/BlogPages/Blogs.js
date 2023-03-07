@@ -4,6 +4,7 @@ import { BsCheck2, BsEyeFill, } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -12,11 +13,12 @@ const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
     const allBlogs=[...blogs].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
     //Handle Get posts
     useEffect(() => {
         const sUrl = `${baseURL}/api/admin/posts`;
-        // setLoading(true);
+        setIsLoading(true);
 
         fetch(sUrl, {
             method: 'GET',
@@ -27,8 +29,7 @@ const Blogs = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // setLoading(false);
-                // console.log(data)
+                setIsLoading(false);
                 setBlogs(data.data)
             })
     }, [token]);
@@ -62,7 +63,7 @@ const Blogs = () => {
     };
 
 
-    console.log(allBlogs)
+    // console.log(allBlogs)
 
 
     const BLOG_COLUMNS = () => {
@@ -82,6 +83,12 @@ const Blogs = () => {
                 Header: "Blog Title",
                 accessor: "title",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    const {title } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 '>
+                           {title.slice(0,40)}
+                    </div>);
+                },
 
             },
             {
@@ -96,10 +103,10 @@ const Blogs = () => {
                 sortType: 'basic',
                 Cell: ({ row }) => {
                     const { status } = row.original;
-                    return (<div className='flex items-center justify-center  gap-2 '>
+                    return (<div className='flex items-center justify-center  gap-2 text-sm'>
                            {status==="1"?
-                           <p className='text-yellow-500'>Pending</p>:
-                           <p className='text-green-700'>Approved</p>
+                           <p className='bg-[#FFBF00] px-3 py-1 rounded-lg'>Pending</p>:
+                           <p className='bg-[#007500] text-white px-3 py-1 rounded-lg'>Approved</p>
                         } 
                     </div>);
                 },
@@ -128,6 +135,10 @@ const Blogs = () => {
 
 
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
     return (

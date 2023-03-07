@@ -9,6 +9,7 @@ import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import Modal from '../../utilities/Modal';
 import { toast } from 'react-toastify';
+import Loading from '../../utilities/Loading';
 
 const UserManagment = () => {
     const [token] = useToken();
@@ -16,11 +17,13 @@ const UserManagment = () => {
     const navigate = useNavigate();
 
     const allViewUsers=[...allUsers].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
 
     //Get Users
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/users`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -29,7 +32,10 @@ const UserManagment = () => {
             }
         })
             .then(res => res.json())
-            .then(data => setAllUsers(data.user))
+            .then(data =>{
+                setIsLoading(false); 
+                setAllUsers(data.user);
+            } )
     }, [token]);
 
 
@@ -127,6 +133,10 @@ const UserManagment = () => {
 
 
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
     return (

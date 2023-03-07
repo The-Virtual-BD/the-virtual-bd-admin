@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -27,10 +28,12 @@ const ViewCarieer=()=>{
     const navigate = useNavigate();
 
     const allJobs=[...jobs].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
     //Get Carieer
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/vaccancies`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -40,17 +43,12 @@ const ViewCarieer=()=>{
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setIsLoading(false);
                 setJobs(data.data);
             })
     }, [token]);
 
-    if (!jobs) {
-        return <div>Loading...</div>;
-      };
-
-
-
+   
 
     const handleCarieerView = (id) => {
         console.log("clicked", id);
@@ -143,6 +141,10 @@ const ViewCarieer=()=>{
 
 
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
     return(

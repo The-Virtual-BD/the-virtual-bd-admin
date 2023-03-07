@@ -47,6 +47,7 @@ import CarieerEdit from './components/Dashboard/Carieer/CarieerEdit';
 import NewsletterDetails from './components/Dashboard/NewsLetter/NewsletterDetails';
 import NewsletterEdit from './components/Dashboard/NewsLetter/NewsletterEdit';
 import JobAppliDetails from './components/Dashboard/Carieer/JobAppliDetails';
+import Loading from './components/utilities/Loading';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -58,6 +59,7 @@ function App() {
   const [addNewsLetter, setAddNewsLetter] = useState(false);
   const [addEmailSubs, setAddEmailSubs] = useState(false);
   const [addCareer, setAddCareer] = useState(false);
+
 
 
  
@@ -74,12 +76,14 @@ function App() {
        }
   },[]);
 
+
+
   
   // console.log(user)
 
 
-  const [data, dispatch] = useReducer(initialState);
-  const value = { data, dispatch, isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer }
+  // const [data, dispatch] = useReducer(initialState);
+  const value = {  isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer }
 
   
   return (

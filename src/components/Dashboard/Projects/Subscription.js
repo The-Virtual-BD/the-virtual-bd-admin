@@ -4,6 +4,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -13,12 +14,15 @@ const Subscription = () => {
     const navigate = useNavigate();
 
     const allsubReq=[...subReq].reverse();
+    const [isLoading,setIsLoading]=useState(false);
+
 
 
 
     //Get All Sub Req
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/subscriptions`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -27,10 +31,13 @@ const Subscription = () => {
             }
         })
             .then(res => res.json())
-            .then(data => setSubReq(data.data))
+            .then(data => {
+                setIsLoading(false); 
+                setSubReq(data.data);
+            })
     }, [token]);
 
-    console.log(subReq)
+    // console.log(subReq)
 
 
     //handle Sub Req View
@@ -112,6 +119,11 @@ const Subscription = () => {
 
         ];
     };
+
+    if(isLoading){
+        return(<Loading />)
+    };
+    
 
     return (
         <div className='text-primary p-3'>

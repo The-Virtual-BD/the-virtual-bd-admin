@@ -9,6 +9,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 import { toast } from 'react-toastify';
+import Loading from '../utilities/Loading';
 
 
 const Notice = () => {
@@ -28,11 +29,13 @@ const ViewNotice=()=>{
     const[token]=useToken();
     const [notices, setNotices] = useState([]);
     const allNotices=[...notices].reverse();
+    const [isLoading,setIsLoading]=useState(false);
     
 
      //Get Notices
      useEffect(() => {
         const perUrl=`${baseURL}/api/admin/notices`;
+        setIsLoading(true);
         fetch(perUrl,{
           method:"GET",
           headers: {
@@ -42,7 +45,7 @@ const ViewNotice=()=>{
       })
           .then(res => res.json())
           .then(data => {
-            console.log(data.data);
+            setIsLoading(false); 
             setNotices(data.data)
           })
       }, [token]);
@@ -114,6 +117,10 @@ const ViewNotice=()=>{
                 },
             },
         ];
+    };
+
+    if(isLoading){
+        return(<Loading />)
     };
 
 

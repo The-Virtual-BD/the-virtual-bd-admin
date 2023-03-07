@@ -9,16 +9,19 @@ import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import { saveAs } from "file-saver";
+import Loading from '../../utilities/Loading';
 
 const JobApplication = () => {
     const [token] = useToken();
     const [jobAppli, setJobAppli] = useState([]);
     const navigate = useNavigate();
     const allJobAppli=[...jobAppli].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
     //Get job Application
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/jobapplications`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -28,17 +31,10 @@ const JobApplication = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setIsLoading(false);
                 setJobAppli(data.data);
             })
     }, [token]);
-
-
-
-    if (!jobAppli) {
-        return <div>Loading...</div>;
-      };
-
 
 
 
@@ -138,9 +134,9 @@ const JobApplication = () => {
         ];
     };
 
-    if(!jobAppli){
-        return <p>Loading....</p>
-      }
+    if(isLoading){
+        return(<Loading />)
+    };
 
 
     return (

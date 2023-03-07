@@ -3,6 +3,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
+import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -24,11 +25,14 @@ export default Catagory;
 const ViewCatagory = () => {
   const [catagory, setCatagory] = useState([]);
   const [token] = useToken();
+  const [isLoading,setIsLoading]=useState(false);
+
 
 
   //Get Catagory
   useEffect(() => {
     const cUrl = `${baseURL}/api/categories/catlist`;
+    setIsLoading(true);
     fetch(cUrl, {
       method: 'GET',
       headers: {
@@ -37,14 +41,17 @@ const ViewCatagory = () => {
       }
     })
       .then(res => res.json())
-      .then(data => setCatagory(data?.data))
+      .then(data =>{
+        setIsLoading(false);
+         setCatagory(data?.data);
+      })
   }, [token]);
 
 
 
-  console.log(catagory);
+  // console.log(catagory);
 
-  //Handle Catagory Delete*
+  //Handle Catagory Delete
   const handleCatagoryDelete = id => {
 
     const procced = window.confirm("You Want To Delete?");
@@ -99,6 +106,12 @@ const ViewCatagory = () => {
 
     ];
   };
+
+  if(isLoading){
+    return(<Loading />)
+};
+
+  
 
   return (
     <div className='text-primary p-3'>
@@ -166,94 +179,5 @@ const AddCatagory = () => {
     </div>
   )
 };
-
-
-// const AddSubCatagory = () => {
-//   const [token] = useToken();
-//   const [catagories, setCatagories] = useState([]);
-//   const [catagory, setCatagory] = useState('');
-//   const[subCatagoryName,setSubCatagoryName]=useState([]);
-
- 
-
-//   //Get Catagory
-//   useEffect(() => {
-//     const cUrl = `${baseURL}/api/categories/catlist`;
-//     fetch(cUrl, {
-//       method: 'GET',
-//       headers: {
-//         'content-type': 'application/json',
-//         "Authorization": `Bearer ${token}`
-//       }
-//     })
-//       .then(res => res.json())
-//       .then(data => setCatagories(data?.data))
-//   }, [token]);
-
-
-//   //Handle Add Sub Catagory
-//   const handleAddSubCatagory = async (e) => {
-//     e.preventDefault();
-//     console.log(catagory,subCatagoryName)
-
-//    /*  const catagoryData = new FormData();
-//     catagoryData.append("name", catagoryName);
-
-//     const url = `${baseURL}/api/admin/categories`;
-//     const response = await fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         "Authorization": `Bearer ${token}`
-//       },
-//       body: catagoryData
-//     });
-
-//     const result = await response.json();
-
-//     if (result.error) {
-//       console.log(result.error);
-//       toast.error("Category Add Failed");
-//     } else {
-//       console.log(result);
-//       e.target.reset();
-//       toast.success(result.message);
-//     } */
-//   };
-
-
-//   return (
-//     <div>
-//         <div className='text-primary p-3 m-3 bg-white rounded-md mt-5'>
-//           <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Sub Category</h3>
-//           <form className='p-3 ' onSubmit={handleAddSubCatagory} >
-
-//           <div className="mb-3 flex flex-col items-start w-full">
-//               <label for="projectsub" className="font-bold mb-1">Category</label>
-//               <div className="flex justify-center w-full">
-//                 <div className=" w-full">
-//                   <select onChange={(e) => setCatagory(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  required>
-//                     <option selected disabled>Select Category</option>
-//                     {
-//                       catagories?.map(service => <option value={service.id}>{service.name}</option>)
-//                     }
-//                   </select>
-//                 </div>
-//               </div>
-//             </div>
-
-
-//             <div className="mb-3 flex flex-col items-start w-full">
-//               <label for="projectTitle" className="font-bold mb-1">Sub Category</label>
-//               <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setSubCatagoryName(e.target.value)} placeholder="Sub Category Name" required />
-//             </div>
-
-//             <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
-//               <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
-//             </div>
-//           </form>
-//         </div>
-//     </div>
-//   )
-// };
 
 

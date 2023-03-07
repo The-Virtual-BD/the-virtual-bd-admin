@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
+import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -25,10 +26,13 @@ const ViewEmailSubs=()=>{
   const navigate = useNavigate();
   const [emailSubs, setEmailSubs] = useState([]);
   const allEmailSubs=[...emailSubs].reverse();
+  const [isLoading,setIsLoading]=useState(false);
+  
 
   //Get Subscription
   useEffect(() => {
     const cUrl = `${baseURL}/api/admin/newsSubscriber`;
+    setIsLoading(true);
     fetch(cUrl, {
       method: 'GET',
       headers: {
@@ -38,7 +42,7 @@ const ViewEmailSubs=()=>{
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data?.data);
+        setIsLoading(false);
         setEmailSubs(data?.data)
       })
   }, [token]);
@@ -129,6 +133,10 @@ const ViewEmailSubs=()=>{
 
     ];
   };
+
+  if(isLoading){
+    return(<Loading />)
+};
 
 
     return(

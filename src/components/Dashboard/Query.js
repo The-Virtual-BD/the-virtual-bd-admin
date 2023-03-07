@@ -5,6 +5,7 @@ import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
+import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 
@@ -14,10 +15,12 @@ const Query = () => {
     const navigate = useNavigate();
 
     const allQueries=[...queries].reverse();
+    const [isLoading,setIsLoading]=useState(false);
 
     //Get Queries
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/queries`;
+        setIsLoading(true);
         fetch(perUrl, {
             method: "GET",
             headers: {
@@ -27,7 +30,7 @@ const Query = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.data)
+                setIsLoading(false);
                 setQuery(data.data)
             })
     }, [token]);
@@ -119,6 +122,10 @@ const Query = () => {
         ];
     };
 
+    if(isLoading){
+        return(<Loading />)
+    };
+    
     return (
         <div className='text-primary p-3 '>
             {queries.length && (
