@@ -73,7 +73,25 @@ const BlogDetails = () => {
                     toast.success(data.message);
                     navigate("/admin-dashboard/blogs")
             })
-      }
+      };
+
+      //handle Declined Blog
+      const handlePostDeclined=id=>{
+        const userUrl=`${baseURL}/api/admin/posts/decline/${id}`;
+
+        fetch(userUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/blogs")
+            })
+      };
 
 
     return (
@@ -110,13 +128,22 @@ const BlogDetails = () => {
 
 
 
-                        <div className='mt-4'>
-                            {
-                                blog?.status==="1"? 
-                                <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>:""
-                            }
-                           
+                        <div className='mt-4 flex items-center gap-3'>
 
+                            {
+                                blog?.status==="1"? (
+                                    <div>
+                                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
+
+                                        <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={()=>handlePostDeclined(blog?.id)}>Declined</button>
+                                    </div>
+                                ):
+                                blog?.status==="1"?(
+                                    <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
+                                ):""
+
+                            }
+                            
                             <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeletePost(blog?.id)}>Delete</button>
                             
                            

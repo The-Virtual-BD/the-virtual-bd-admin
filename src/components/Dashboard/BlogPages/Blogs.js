@@ -29,6 +29,7 @@ const Blogs = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 setIsLoading(false);
                 setBlogs(data.data)
             })
@@ -104,9 +105,14 @@ const Blogs = () => {
                 Cell: ({ row }) => {
                     const { status } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 text-sm'>
-                           {status==="1"?
-                           <p className='bg-[#FFBF00] px-3 py-1 rounded-lg'>Pending</p>:
-                           <p className='bg-[#007500] text-white px-3 py-1 rounded-lg'>Approved</p>
+                           {
+                           status==="1"?
+                          ( <p className='bg-white  px-2 py-[2px] rounded-full border border-red-500 text-xs text-red-500'>Pending</p>)
+                           : status==="3"?(<p className='bg-white  px-2 py-[2px] rounded-full border border-yellow-500 text-xs text-yellow-500'>Declined</p>):(
+                            <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
+                           )
+                           
+                          
                         } 
                     </div>);
                 },
