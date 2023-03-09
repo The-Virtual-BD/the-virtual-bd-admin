@@ -13,8 +13,8 @@ const BloggerReq = () => {
     const [bloggerApplicent, setBloggerApplicent] = useState([]);
     const navigate = useNavigate();
 
-    const allBloggerApplicent=[...bloggerApplicent].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const allBloggerApplicent = [...bloggerApplicent].reverse();
+    const [isLoading, setIsLoading] = useState(false);
 
 
     //Get blogger req
@@ -31,7 +31,7 @@ const BloggerReq = () => {
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
-                // console.log(data.blogger)
+                console.log(data.blogger)
                 setBloggerApplicent(data.blogger)
             })
     }, [token]);
@@ -70,7 +70,7 @@ const BloggerReq = () => {
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Blogger Name",
@@ -85,10 +85,21 @@ const BloggerReq = () => {
 
             },
             {
-                Header: "Exp. Area",
-                accessor: "expertise",
+                Header: "Status",
+                accessor: "status",
                 sortType: 'basic',
-
+                Cell: ({ row }) => {
+                    const { status } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 text-sm'>
+                        {
+                            status === "1" ?
+                                (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>)
+                                : status === "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Declined</p>) : (
+                                    <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
+                                )
+                        }
+                    </div>);
+                },
             },
             {
                 Header: 'Action',
@@ -115,8 +126,8 @@ const BloggerReq = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
+    if (isLoading) {
+        return (<Loading />)
     };
 
     return (

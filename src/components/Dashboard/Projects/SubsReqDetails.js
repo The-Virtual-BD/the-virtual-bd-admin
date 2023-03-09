@@ -4,13 +4,15 @@ import { saveAs } from "file-saver";
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 
 const SubsReqDetails = () => {
     const [subRe, setSubRe] = useState([]);
     const { id } = useParams();
-    const[token]=useToken();
-    const navigate=useNavigate();
+    const [token] = useToken();
+    const navigate = useNavigate();
+    const scheduleDate = moment(subRe?.schedule).format('DD MMM YYYY hh:mm A');
 
 
     //Handle Get Project
@@ -28,29 +30,18 @@ const SubsReqDetails = () => {
             .then(res => res.json())
             .then(data => {
                 // setLoading(false);
-                console.log(data.data)
+                // console.log(data.data)
                 setSubRe(data.data)
             })
     }, [token, id]);
 
 
-    //Download Documents
-    const downloadFile = () => {
-        fetch(`${subRe.attachment}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${subRe?.attachment}`);
-            
-          });
-      };
+    //Handle Delete Sub Req
+    const handleDeleteSubReq = id => {
+        const procced = window.confirm("You Want To Delete?");
 
-
-      //Handle Delete Sub Req
-    const handleDeleteSubReq=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/subscriptions/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/subscriptions/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -59,16 +50,16 @@ const SubsReqDetails = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        toast.success(data.message);
-                        navigate("/admin-dashboard/sub-request")
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/sub-request")
                 })
         };
-      };
+    };
 
-      //handle Accept Sub Req
-      const handleSuReqAccept=id=>{
-        const subReqUrl=`${baseURL}/api/admin/subscriptions/approve/${id}`;
+    //handle Accept Sub Req
+    const handleSuReqAccept = id => {
+        const subReqUrl = `${baseURL}/api/admin/subscriptions/approve/${id}`;
 
         fetch(subReqUrl, {
             method: 'PUT',
@@ -78,46 +69,74 @@ const SubsReqDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
-                    console.log(data);
-                    toast.success(data.message);
-                    navigate("/admin-dashboard/sub-request")
+                console.log(data);
+                toast.success(data.message);
+                navigate("/admin-dashboard/sub-request")
             })
-      };
-      
-      console.log(subRe)
-            
+    };
+
+    //handle Declined Sub Req
+    const handleSuReqDeclined = id => {
+        const subReqUrl = `${baseURL}/api/admin/subscriptions/decline/${id}`;
+
+        fetch(subReqUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success(data.message);
+                navigate("/admin-dashboard/sub-request")
+            })
+    };
+
+    // console.log(subRe)
+
 
     return (
         <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
             <div>
-                <h2 className='text-2xl font-bold text-start my-3 px-4'>View Subscription Request</h2>
+                <h2 className='text-2xl font-bold text-start my-3'>View Subscription Request</h2>
                 <hr className=' text-bgclr' />
             </div>
 
             <div className='mt-5'>
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Name: </span>{`${subRe?.applicant?.first_name} ${subRe?.applicant?.last_name}`}</h3>
+                </div>
 
+                <div className='text-start mb-3'>
+                    <h3 ><span className='font-bold'>Email: </span> {subRe?.applicant?.email}</h3>
                 </div>
 
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Service Name: </span> {subRe?.service?.name}</h3>
                 </div>
 
-                <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Meeting Time: </span>{subRe?.schedule}</h3>
+                <div className='text-start mb-2'>
+                    <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
                 </div>
+
+                <div className='text-start mb-1'>
+                    <h3 ><span className='font-bold'>Meeting Time: </span>{scheduleDate}</h3>
+                </div>
+
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Status: </span>
-                    {
-                            subRe?.status==="1"? "Pendding": "Approved" 
+                        {
+                            subRe?.status === "1" ?
+                                (<span className='text-yellow-500'>Pendding</span>) : subRe?.status === "2" ?
+                                    (<span className='text-green-500'>Approved</span>) : subRe?.status === "4" ?
+                                        (<span className='text-red-500'>Declined</span>) : subRe?.status === "3" ?
+                                            (<span className='text-purple-500'>Ongoing</span>) : ""
                         }
                     </h3>
                 </div>
 
-                <div className='text-start mb-2'>
-                    <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
-                </div>
+
 
                 <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold'>Description: </span>{subRe?.description}</h3>
@@ -125,25 +144,34 @@ const SubsReqDetails = () => {
 
                 <div className='text-start  mb-1'>
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
-                        <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {subRe?.attachment}</span>
+                        <a href={`${baseURL}/${subRe?.attachment}`} download className='text-blue hover:underline cursor-pointer'> {subRe?.attachment}</a>
                     </h3>
                 </div>
 
 
 
 
-                 <div className='mt-7 flex items-start '>
-                         {
-                            subRe?.status==="1"? 
-                            <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSuReqAccept(subRe?.id)}>Accept</button>: ""
+                <div className='mt-7 flex items-start '>
 
-                        }
-                           
+                    {
+                        subRe?.status === "1" ? (
+                            <div className='mr-3'>
+                                <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
 
-                            <button onClick={()=>handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
-                  </div>
-              
-              
+                                <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handleSuReqDeclined(subRe?.id)}>Declined</button>
+                            </div>
+                        ) :
+                            subRe?.status === "4" ? (
+                                <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
+                            ) : ""
+
+                    }
+
+
+                    <button onClick={() => handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                </div>
+
+
             </div>
         </div>
     );

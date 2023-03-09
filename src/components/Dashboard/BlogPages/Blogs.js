@@ -12,8 +12,8 @@ const Blogs = () => {
     const [token] = useToken();
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
-    const allBlogs=[...blogs].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const allBlogs = [...blogs].reverse();
+    const [isLoading, setIsLoading] = useState(false);
 
     //Handle Get posts
     useEffect(() => {
@@ -41,9 +41,9 @@ const Blogs = () => {
     };
 
     //Handle Delete Post
-    const handleDeletePost=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
+    const handleDeletePost = id => {
+        const procced = window.confirm("You Want To Delete?");
+
 
         if (procced) {
             const userUrl = `${baseURL}/api/admin/posts/destroy/${id}`;
@@ -72,7 +72,7 @@ const Blogs = () => {
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Blogger Name",
@@ -85,9 +85,9 @@ const Blogs = () => {
                 accessor: "title",
                 sortType: 'basic',
                 Cell: ({ row }) => {
-                    const {title } = row.original;
+                    const { title } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 '>
-                           {title.slice(0,40)}
+                        {title.slice(0, 40)}
                     </div>);
                 },
 
@@ -105,15 +105,13 @@ const Blogs = () => {
                 Cell: ({ row }) => {
                     const { status } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 text-sm'>
-                           {
-                           status==="1"?
-                          ( <p className='bg-white  px-2 py-[2px] rounded-full border border-red-500 text-xs text-red-500'>Pending</p>)
-                           : status==="3"?(<p className='bg-white  px-2 py-[2px] rounded-full border border-yellow-500 text-xs text-yellow-500'>Declined</p>):(
-                            <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
-                           )
-                           
-                          
-                        } 
+                        {
+                            status === "1" ?
+                                (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>)
+                                : status === "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Declined</p>) : (
+                                    <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
+                                )
+                        }
                     </div>);
                 },
             },
@@ -143,8 +141,8 @@ const Blogs = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
+    if (isLoading) {
+        return (<Loading />)
     };
 
     return (

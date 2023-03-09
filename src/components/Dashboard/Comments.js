@@ -13,8 +13,10 @@ const Comments = () => {
     const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
-    const allComments=[...comments].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const allComments = [...comments].reverse();
+    const [isLoading, setIsLoading] = useState(false);
+
+    console.log(allComments);
 
 
     //Get All Comments
@@ -71,7 +73,7 @@ const Comments = () => {
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Name",
@@ -90,6 +92,23 @@ const Comments = () => {
                 accessor: "body",
                 sortType: 'basic',
 
+            },
+            {
+                Header: "Status",
+                accessor: "status",
+                sortType: 'basic',
+                Cell: ({ row }) => {
+                    const { status } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 text-sm'>
+                        {
+                            status === "1" ?
+                                (<p className='bg-white  px-2 py-[2px] rounded-full border border-red-500 text-xs text-red-500'>Pending</p>)
+                                : status === "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border border-yellow-500 text-xs text-yellow-500'>Declined</p>) : (
+                                    <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
+                                )
+                        }
+                    </div>);
+                },
             },
             {
                 Header: 'Action',
@@ -116,10 +135,10 @@ const Comments = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
+    if (isLoading) {
+        return (<Loading />)
     };
-    
+
     return (
         <div className='text-primary p-3'>
             {comments.length && (

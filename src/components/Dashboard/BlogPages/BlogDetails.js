@@ -7,8 +7,8 @@ import useToken from '../../utilities/useToken';
 
 const BlogDetails = () => {
     const { id } = useParams();
-    const navigate=useNavigate();
-    const[token]=useToken();
+    const navigate = useNavigate();
+    const [token] = useToken();
     const [blog, setBlog] = useState({});
 
 
@@ -37,11 +37,11 @@ const BlogDetails = () => {
 
 
     //Handle Delete Post
-    const handleDeletePost=id=>{
-        const procced=window.confirm("You Want To Delete?");
-    
+    const handleDeletePost = id => {
+        const procced = window.confirm("You Want To Delete?");
+
         if (procced) {
-            const userUrl=`${baseURL}/api/admin/posts/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/posts/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -50,34 +50,16 @@ const BlogDetails = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        toast.success(data.message);
-                        navigate("/admin-dashboard/blogs")
+                    console.log(data);
+                    toast.success(data.message);
+                    navigate("/admin-dashboard/blogs")
                 })
         };
-      };
+    };
 
-      //handle Accept Blog
-      const handlePostAccept=id=>{
-        const userUrl=`${baseURL}/api/admin/posts/approve/${id}`;
-
-        fetch(userUrl, {
-            method: 'PUT',
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                    console.log(data);
-                    toast.success(data.message);
-                    navigate("/admin-dashboard/blogs")
-            })
-      };
-
-      //handle Declined Blog
-      const handlePostDeclined=id=>{
-        const userUrl=`${baseURL}/api/admin/posts/decline/${id}`;
+    //handle Accept Blog
+    const handlePostAccept = id => {
+        const userUrl = `${baseURL}/api/admin/posts/approve/${id}`;
 
         fetch(userUrl, {
             method: 'PUT',
@@ -87,11 +69,29 @@ const BlogDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
-                    console.log(data);
-                    toast.success(data.message);
-                    navigate("/admin-dashboard/blogs")
+                console.log(data);
+                toast.success(data.message);
+                navigate("/admin-dashboard/blogs")
             })
-      };
+    };
+
+    //handle Declined Blog
+    const handlePostDeclined = id => {
+        const userUrl = `${baseURL}/api/admin/posts/decline/${id}`;
+
+        fetch(userUrl, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success(data.message);
+                navigate("/admin-dashboard/blogs")
+            })
+    };
 
 
     return (
@@ -110,10 +110,13 @@ const BlogDetails = () => {
                         <p><span className='font-bold'>Subject: </span>{blog?.category?.name}</p>
 
                         <p><span className='font-bold'>Date:</span> {postDate}</p>
-                        <p><span className='font-bold mr-1'> Status:</span> 
-                        {
-                            blog.status==="1"? "Pendding": "Approved" 
-                        }
+                        <p><span className='font-bold mr-1'> Status:</span>
+                            {
+                                blog?.status === "1" ?
+                                    (<span className='text-yellow-500'>Pendding</span>) : blog?.status === "2" ?
+                                        (<span className='text-green-500'>Approved</span>) : blog?.status === "3" ?
+                                            (<span className='text-red-500'>Declined</span>) : ""
+                            }
                         </p>
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
@@ -122,7 +125,7 @@ const BlogDetails = () => {
                         </div>
                         <div className='text-start'>
                             <h3 className='font-bold'>Description:</h3>
-                            <div className='text-labelclr' dangerouslySetInnerHTML={{ __html: blog?.description  }} />
+                            <div className='text-labelclr' dangerouslySetInnerHTML={{ __html: blog?.description }} />
                             {/* <p className='text-labelclr'>{blog?.description}</p> */}
                         </div>
 
@@ -131,22 +134,22 @@ const BlogDetails = () => {
                         <div className='mt-4 flex items-center gap-3'>
 
                             {
-                                blog?.status==="1"? (
+                                blog?.status === "1" ? (
                                     <div>
-                                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
+                                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handlePostAccept(blog?.id)}>Accept</button>
 
-                                        <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={()=>handlePostDeclined(blog?.id)}>Declined</button>
+                                        <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handlePostDeclined(blog?.id)}>Declined</button>
                                     </div>
-                                ):
-                                blog?.status==="3"?(
-                                    <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handlePostAccept(blog?.id)}>Accept</button>
-                                ):""
+                                ) :
+                                    blog?.status === "3" ? (
+                                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handlePostAccept(blog?.id)}>Accept</button>
+                                    ) : ""
 
                             }
-                            
-                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={()=>handleDeletePost(blog?.id)}>Delete</button>
-                            
-                           
+
+                            <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={() => handleDeletePost(blog?.id)}>Delete</button>
+
+
                         </div>
 
                     </div>

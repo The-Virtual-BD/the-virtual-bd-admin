@@ -49,7 +49,7 @@ const Header = () => {
                 navigate('/sign-in');
             });
     };
-    console.log(user)
+    // console.log(user)
 
 
 

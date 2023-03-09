@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
@@ -13,8 +14,10 @@ const Subscription = () => {
     const [subReq, setSubReq] = useState([]);
     const navigate = useNavigate();
 
-    const allsubReq=[...subReq].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const allsubReq = [...subReq].reverse();
+    const [isLoading, setIsLoading] = useState(false);
+    // console.log(allsubReq);
+    const scheduleDate = moment(subReq?.schedule).format('DD MMM YYYY hh:mm A');
 
 
 
@@ -32,7 +35,8 @@ const Subscription = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setIsLoading(false); 
+                // console.log(data.data)
+                setIsLoading(false);
                 setSubReq(data.data);
             })
     }, [token]);
@@ -75,7 +79,7 @@ const Subscription = () => {
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Name",
@@ -85,7 +89,7 @@ const Subscription = () => {
             },
             {
                 Header: "Service",
-                accessor: "subject",
+                accessor: "service.name",
                 sortType: 'basic',
 
             },
@@ -93,6 +97,33 @@ const Subscription = () => {
                 Header: "Meeting Time",
                 accessor: "schedule",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    const { schedule } = row.original;
+                    return (<p>
+                        { moment(schedule).format('DD MMM YYYY hh:mm A')}
+                    </p>);
+                },
+            },
+            {
+                Header: "Status",
+                accessor: "status",
+                sortType: 'basic',
+                Cell: ({ row }) => {
+                    const { status } = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 text-sm'>
+                        {
+                            status === "1" ?
+                                (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs border-yellow-500  text-yellow-500 '>Pending</p>)
+                                : status === "4" ?
+                                    (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500 text-red-500'>Declined</p>)
+                                    : status === "3" ? (
+                                        <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>)
+                                        : status === "2" ? (
+                                            <p className='bg-white px-2 py-[2px] rounded-full border border-purple-500 text-xs text-purple-500'> Ongoing</p>) : ""
+
+                        }
+                    </div>);
+                },
             },
 
             {
@@ -120,10 +151,10 @@ const Subscription = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
+    if (isLoading) {
+        return (<Loading />)
     };
-    
+
 
     return (
         <div className='text-primary p-3'>

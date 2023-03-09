@@ -15,7 +15,7 @@ const NewsLetter = () => {
     const { addNewsLetter } = useContext(APPContext);
     return (
         <div>
-             { addNewsLetter?  <AddNewsLetter /> : <ViewNewsLetter />}
+            {addNewsLetter ? <AddNewsLetter /> : <ViewNewsLetter />}
         </div>
     );
 };
@@ -23,11 +23,11 @@ const NewsLetter = () => {
 export default NewsLetter;
 
 
-const ViewNewsLetter=()=>{
+const ViewNewsLetter = () => {
     const [token] = useToken();
     const [newsletters, setNewsletters] = useState([]);
     const navigate = useNavigate();
-    const [isLoading,setIsLoading]=useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     //Get Newsletter
     useEffect(() => {
@@ -62,7 +62,7 @@ const ViewNewsLetter=()=>{
 
 
     //Handle Delete NEWSLETTER
-    const  handleDeleteNewsletters = id => {
+    const handleDeleteNewsletters = id => {
         const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
@@ -91,7 +91,7 @@ const ViewNewsLetter=()=>{
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Text",
@@ -111,7 +111,7 @@ const ViewNewsLetter=()=>{
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button onClick={()=>handleNewslettersEdit(id)}>
+                        <button onClick={() => handleNewslettersEdit(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                                 <RiEditBoxFill className='text-lg  text-white' />
                             </div>
@@ -130,11 +130,11 @@ const ViewNewsLetter=()=>{
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
+    if (isLoading) {
+        return (<Loading />)
     };
 
-    return(
+    return (
         <div className='text-primary p-3 '>
             {newsletters.length && (
                 <Table columns={SERVICE_COLUMNS()} data={newsletters} headline={"All Newsletter"} />
@@ -144,7 +144,7 @@ const ViewNewsLetter=()=>{
 };
 
 
-const AddNewsLetter=()=>{
+const AddNewsLetter = () => {
     const [token] = useToken();
 
     const [link, setLink] = useState('')
@@ -161,6 +161,7 @@ const AddNewsLetter=()=>{
         serviceData.append("link", link);
         serviceData.append("image", image, image.name);
         serviceData.append("text", text);
+        // serviceData.append("subject", subject);
 
 
         const url = `${baseURL}/api/admin/newsletters/store`;
@@ -184,7 +185,7 @@ const AddNewsLetter=()=>{
             toast.success(result.message);
         }
     };
-    return(
+    return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
             <div >
                 <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Add Newsletter</h3>
@@ -205,7 +206,7 @@ const AddNewsLetter=()=>{
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="img" className="font-bold mb-1">Image</label>
                         <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr outline-none focus:outline-none" type="file" id="img" onChange={(e) => setImage(e.target.files[0])} />
-                  
+
                     </div>
 
 

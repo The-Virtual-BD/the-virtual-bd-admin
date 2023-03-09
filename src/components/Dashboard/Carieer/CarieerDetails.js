@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { baseURL } from '../../utilities/url';
@@ -7,6 +8,8 @@ const CarieerDetails = () => {
     const [carrier, setCarrier] = useState({});
     const { id } = useParams();
     const [token] = useToken();
+
+    const postDate = moment(carrier?.updated_at).format('DD MMM YYYY hh:mm A');
 
 
 
@@ -30,7 +33,7 @@ const CarieerDetails = () => {
             })
     }, [token, id]);
 
-    console.log(carrier)
+    // console.log(carrier)
 
 
     return (
@@ -43,7 +46,7 @@ const CarieerDetails = () => {
 
             <div className='mt-5'>
                 <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Designation: </span>{carrier?.designation}</h3>
+                    <h3 className='text-xl'><span className='font-bold '>Designation: </span>{carrier?.designation}</h3>
                 </div>
 
                 <div className='text-start mb-1'>
@@ -57,6 +60,9 @@ const CarieerDetails = () => {
                 
                 <div className='text-start mb-2'>
                     <h3 ><span className='font-bold'>Skills: </span> {carrier?.skills}</h3>
+                </div>
+                <div className='text-start mb-2'>
+                    <h3 ><span className='font-bold'>Post Date: </span> {postDate}</h3>
                 </div>
 
                 <div className='text-start  mb-1'>
