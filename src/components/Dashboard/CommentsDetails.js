@@ -70,6 +70,7 @@ const CommentsDetails = () => {
                 navigate("/admin-dashboard/comments")
             })
     };
+
     //handle Declined Comment
     const handleCommentDeclined = id => {
         const userUrl = `${baseURL}/api/admin/comments/decline/${id}`;
@@ -115,11 +116,15 @@ const CommentsDetails = () => {
                     <h3 ><span className='font-bold'>Email: </span>  {comment?.commenter_email}</h3>
                 </div>
 
+                {/* <div className='text-start mb-1'>
+                    <h3 ><span className='font-bold'>Post Link: </span>  <a href={`https://the-virtual-bd.vercel.app/blog/${id}`}  >{comment?.post?.title}</a></h3>
+                </div> */}
+
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Comment: </span> {comment?.body}</h3>
                 </div>
                 <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Comment Post Time: </span> {commentDate}</h3>
+                    <h3 ><span className='font-bold'>Comment Posted Time: </span> {commentDate}</h3>
                 </div>
 
                 <p className='text-start'><span className='font-bold mr-1'> Status:</span>

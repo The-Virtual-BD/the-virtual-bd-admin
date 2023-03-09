@@ -150,7 +150,7 @@ const ProjectEdit = () => {
     return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
       <div >
-        <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Update Project</h3>
+        <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Edit Project</h3>
         <form className='p-3 ' onSubmit={handleUpdateProjectForm} >
 
           <div className='flex flex-col lg:flex-row items-center gap-5'>

@@ -1,11 +1,14 @@
 import React from 'react';
 import useUser from '../utilities/useUser';
 import blankUser from '../../images/blank_user.png';
+import Header from '../SharedPage/Header';
 
 const Profile = () => {
     const [user] = useUser();
     console.log(user)
     return (
+       <>
+       <Header />
         <div className='px-5 lg:px-20  text-primary bg-bgclr p-5 h-auto lg:h-[100vh]'>
             <div className='bg-white p-4  my-5 rounded-md  flex items-center justify-start gap-3'>
 
@@ -57,6 +60,7 @@ const Profile = () => {
             </div>
 
         </div>
+       </>
     );
 };
 

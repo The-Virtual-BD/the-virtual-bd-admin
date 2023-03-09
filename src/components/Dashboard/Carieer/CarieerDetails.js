@@ -62,11 +62,11 @@ const CarieerDetails = () => {
                     <h3 ><span className='font-bold'>Skills: </span> {carrier?.skills}</h3>
                 </div>
                 <div className='text-start mb-2'>
-                    <h3 ><span className='font-bold'>Post Date: </span> {postDate}</h3>
+                    <h3 ><span className='font-bold'>Posted Date: </span> {postDate}</h3>
                 </div>
 
                 <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>Description: </span></h3>
+                    <h3 className='mb-3 font-bold '>Description: </h3>
                     <div  dangerouslySetInnerHTML={{ __html: carrier?.description }} />
                 </div>
 

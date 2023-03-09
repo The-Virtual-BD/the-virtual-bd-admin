@@ -63,7 +63,8 @@ const ProjectDetails = () => {
                         <p><span className='font-bold'>Ending Date:</span> {project?.ending_date}</p>
 
                         <p><span className='font-bold'> Status:</span> {project?.progress}</p>
-                        <p><span className='font-bold'> Budget:</span> {project?.value}</p>
+                        <p><span className='font-bold'> Budget:</span> {project?.value}$</p>
+                        <p><span className='font-bold'> Paid:</span> {project?.value_paid}$</p>
 
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
@@ -76,12 +77,19 @@ const ProjectDetails = () => {
                         </div>
 
                        {/*  <p className='text-start'><span className='font-bold '>Documents:</span> <a className='text-blue cursor-pointer' href={`${project?.documents}`}  onClick={downloadFile}>{project?.documents}</a> </p>
+                       
  */}
-                        <div className='text-start  mb-1'>
+                       {/*  <div className='text-start  mb-1'>
                                 <h3 ><span className='font-bold mr-1'>Documents: </span>
-                                     <span className='text-blue hover:underline cursor-pointer' onClick={downloadFile}> {project?.documents}</span>
+                                     <a href={`${baseURL}/${project.documents}`}  className='text-blue hover:underline cursor-pointer' download> {project?.documents}</a>
                                 </h3>
-                </div>
+                       </div> */}
+
+                       <div className='text-start  mb-1'>
+                            <h3 ><span className='font-bold mr-1'>Documents: </span>
+                                <a href={`${baseURL}/${project?.documents}`} download className='text-blue hover:underline cursor-pointer'> {project?.documents}</a>
+                            </h3>
+                      </div>
 
 
                     </div>

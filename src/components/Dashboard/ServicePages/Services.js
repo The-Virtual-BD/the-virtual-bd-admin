@@ -50,6 +50,7 @@ const AddService = () => {
             },
             body: serviceData
         });
+        console.log(response)
 
         const result = await response.json();
 

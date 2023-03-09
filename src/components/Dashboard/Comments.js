@@ -82,9 +82,15 @@ const Comments = () => {
 
             },
             {
-                Header: "Email",
-                accessor: "commenter_email",
+                Header: "Blog Title",
+                accessor: "post.title",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    const {post} = row.original;
+                    return (<div className='flex items-center justify-center  gap-2 '>
+                        {post?.title.slice(0, 30)}
+                    </div>);
+                },
 
             },
             {
