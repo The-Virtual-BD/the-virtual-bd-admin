@@ -14,6 +14,12 @@ const SubsReqDetails = () => {
     const navigate = useNavigate();
     const scheduleDate = moment(subRe?.schedule).format('DD MMM YYYY hh:mm A');
 
+    //Coversation
+    const[message,setMessage]=useState('');
+    const[type,setType]=useState(2);
+    const[attachment,setAttachment]=useState(null);
+    
+
 
     //Handle Get Project
     useEffect(() => {
@@ -96,8 +102,34 @@ const SubsReqDetails = () => {
     // console.log(subRe)
 
 
-    const handleSubReqMsgForm=e=>{
+    const handleSubReqMsgForm=async(e)=>{
         e.preventDefault();
+
+        const msgData = new FormData();
+        msgData.append("message", message);
+        msgData.append("type", type);
+        msgData.append("attachment", attachment, attachment.name);
+    
+    
+      /*   const url = `${baseURL}/api/projects/store`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${token}`
+          },
+          body: projectData
+        });
+    
+        const result = await response.json();
+    
+        if (result.error) {
+          console.log(result.error);
+          toast.error("Message Sent Failed");
+        } else {
+          console.log(result);
+          e.target.reset();
+          toast.success("Message Sent");
+        } */
     };
 
 
@@ -109,6 +141,7 @@ const SubsReqDetails = () => {
             </div>
 
             <div className='mt-5'>
+                <div>
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Name: </span>{`${subRe?.applicant?.first_name} ${subRe?.applicant?.last_name}`}</h3>
                 </div>
@@ -151,22 +184,33 @@ const SubsReqDetails = () => {
                         <a href={`${baseURL}/${subRe?.attachment}`} download className='text-blue hover:underline cursor-pointer'> {subRe?.attachment}</a>
                     </h3>
                 </div>
+                </div>
 
                 <div className='text-start  mb-1'>
                     {
                      ( subRe?.status === "2" || subRe?.status === "3" )  && <div className='text-primary bg-white rounded-md '>
+
+                    <div className='w-full bg-bgclr rounded mb-5'>
+
+                    </div>
                   
 
-                     <form  onSubmit={handleSubReqMsgForm}>
-                       <div className="mb-3 flex flex-col items-start w-full">
-                         <label for="projectTitle" className="font-bold mb-1">Message</label>
-                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" placeholder="Type Message"></textarea>
-                       </div>
-           
-                       <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
-                         <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Sent</button>
-                       </div>
-                     </form>
+                    <form  onSubmit={handleSubReqMsgForm}>
+                        <div className="mb-2 flex flex-col items-start w-full">
+                            <label for="projectTitle" className="font-bold mb-1">Message</label>
+                            <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="3" placeholder="Type Message" onChange={(e)=>setMessage(e.target.value)} required></textarea>
+                        </div>
+                        <div className="mb-2 flex flex-col items-start w-full">
+                            {/* <label for="img" className="font-bold mb-1">Add Attachment</label> */}
+                            <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
+                            outline-none focus:outline-none active:outline-none" type="file" id="img" onChange={(e) => setAttachment(e.target.files[0])} />
+                        </div>
+            
+                        <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
+                            <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Sent</button>
+                        </div>
+                    </form>
+                    
                    </div>
                     }
                 </div>
@@ -191,7 +235,7 @@ const SubsReqDetails = () => {
                     }
 
 
-                    <button onClick={() => handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button>
+                  {/*   <button onClick={() => handleDeleteSubReq(subRe?.id)} className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]'>Delete</button> */}
                 </div>
 
 
