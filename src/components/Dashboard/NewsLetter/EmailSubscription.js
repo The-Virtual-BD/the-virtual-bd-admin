@@ -27,6 +27,7 @@ const ViewEmailSubs = () => {
   const allEmailSubs = [...emailSubs].reverse();
   const [isLoading, setIsLoading] = useState(false);
   const [isOn, setIson] = useState(allEmailSubs?.status);
+  const [shouldUpdate, setShouldUpdate] = useState(false);
 
   console.log(isOn);
 
@@ -45,9 +46,10 @@ const ViewEmailSubs = () => {
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);
-        setEmailSubs(data?.data)
+        setEmailSubs(data?.data);
+        setShouldUpdate(false);
       })
-  }, [token]);
+  }, [token, shouldUpdate]);
 
 
   //Handle Delete Subscription
@@ -85,7 +87,8 @@ const ViewEmailSubs = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        setIson(!isOn)
+        setIson(!isOn);
+        setShouldUpdate(true);
         toast.success(data.message);
         // navigate("/admin-dashboard/blogs")
       })

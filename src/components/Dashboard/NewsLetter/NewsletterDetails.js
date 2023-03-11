@@ -31,7 +31,7 @@ const NewsletterDetails = () => {
                 console.log(data)
                 setsingNewsLetter(data.data)
             })
-    }, [token, id]);
+    }, [id,token]);
 
     //Handle Delete NEWSLETTER
     const handleDeleteNewsletters = id => {
@@ -54,6 +54,24 @@ const NewsletterDetails = () => {
                 })
         };
     };
+
+    //Handle Sent NEWSLETTER
+    const handleSentNewsletter = id => {
+        //Send to Backend
+        const formUrl=`${baseURL}/api/admin/newsletters/send/${id}`;
+        fetch(formUrl,{
+        method:"GET",
+        headers:{
+            "Authorization": `Bearer ${token}`
+        },
+        } )
+        .then(res=>res.json())
+        .then(result=>{
+        console.log(result);
+        toast.success(result.message);
+        });
+    };
+
 
     console.log(singNewsLetter);
 
@@ -85,7 +103,7 @@ const NewsletterDetails = () => {
 
                     <div className='mt-7 flex items-startP'>
 
-                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3'>Sent</button>
+                        <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={()=>handleSentNewsletter(singNewsLetter?.id)}>Sent</button>
 
                         <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={() => handleDeleteNewsletters(singNewsLetter?.id)}>Delete</button>
                     </div>

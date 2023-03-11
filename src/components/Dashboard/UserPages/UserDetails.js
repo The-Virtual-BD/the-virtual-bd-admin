@@ -31,8 +31,8 @@ const UserDetails = () => {
             <div className='bg-white p-4  my-5 rounded-md  flex items-center justify-start gap-3'>
 
                 {
-                    (user.img) ?
-                        <img src={user?.img} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
+                    (user.photo) ?
+                        <img src={`${baseURL}/${user?.photo}`} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                         :
                         <img src={blankUser} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                 }

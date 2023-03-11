@@ -161,7 +161,7 @@ const AddNewsLetter = () => {
         serviceData.append("link", link);
         serviceData.append("image", image, image.name);
         serviceData.append("text", text);
-        // serviceData.append("subject", subject);
+        serviceData.append("subject", subject);
 
 
         const url = `${baseURL}/api/admin/newsletters/store`;

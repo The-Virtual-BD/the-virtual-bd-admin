@@ -33,21 +33,21 @@ const QueryDetails = () => {
         const data={reply};
 
         //Send to Backend
-    const formUrl=`${baseURL}/api/admin/queries/replay/${id}`;
-    fetch(formUrl,{
-      method:"POST",
-      headers:{
-        "content-type":"application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body:JSON.stringify(data)
-    } )
-    .then(res=>res.json())
-    .then(result=>{
-      console.log(result);
-      toast.success(result.message);
-      e.target.reset();
-    });
+            const formUrl=`${baseURL}/api/admin/queries/replay/${id}`;
+            fetch(formUrl,{
+            method:"POST",
+            headers:{
+                "content-type":"application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body:JSON.stringify(data)
+            } )
+            .then(res=>res.json())
+            .then(result=>{
+            console.log(result);
+            toast.success(result.message);
+            e.target.reset();
+            });
     };
 
 

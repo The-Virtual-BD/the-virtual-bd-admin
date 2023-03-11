@@ -96,6 +96,11 @@ const SubsReqDetails = () => {
     // console.log(subRe)
 
 
+    const handleSubReqMsgForm=e=>{
+        e.preventDefault();
+    };
+
+
     return (
         <div className='bg-white p-4 mx-2 lg:mx-8 my-5 rounded-md text-primary'>
             <div>
@@ -119,7 +124,7 @@ const SubsReqDetails = () => {
                                 (<span className='text-yellow-500'>Pendding</span>) : subRe?.status === "2" ?
                                     (<span className='text-green-500'>Approved</span>) : subRe?.status === "4" ?
                                         (<span className='text-red-500'>Declined</span>) : subRe?.status === "3" ?
-                                            (<span className='text-purple-500'>Ongoing</span>) : ""
+                                            (<span className='text-green-500'>Approved</span>) : ""
                         }
                     </h3>
                 </div>
@@ -145,6 +150,25 @@ const SubsReqDetails = () => {
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
                         <a href={`${baseURL}/${subRe?.attachment}`} download className='text-blue hover:underline cursor-pointer'> {subRe?.attachment}</a>
                     </h3>
+                </div>
+
+                <div className='text-start  mb-1'>
+                    {
+                     ( subRe?.status === "2" || subRe?.status === "3" )  && <div className='text-primary bg-white rounded-md '>
+                  
+
+                     <form  onSubmit={handleSubReqMsgForm}>
+                       <div className="mb-3 flex flex-col items-start w-full">
+                         <label for="projectTitle" className="font-bold mb-1">Message</label>
+                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" placeholder="Type Message"></textarea>
+                       </div>
+           
+                       <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
+                         <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Sent</button>
+                       </div>
+                     </form>
+                   </div>
+                    }
                 </div>
 
 
