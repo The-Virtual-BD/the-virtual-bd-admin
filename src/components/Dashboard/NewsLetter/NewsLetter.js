@@ -94,8 +94,8 @@ const ViewNewsLetter = () => {
                 accessor: (_row, i) => i + 1
             },
             {
-                Header: "Text",
-                accessor: "text",
+                Header: "Subject",
+                accessor: "subject",
                 sortType: 'basic',
 
             },

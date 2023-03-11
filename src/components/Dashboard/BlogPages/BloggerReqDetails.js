@@ -120,8 +120,18 @@ const BloggerReqDetails = () => {
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Blog Subject: </span> {bloggerApplicen?.subject}</h3>
                 </div>
+               
+
+                <div className='text-start mb-1 '>
+                    <h3 ><span className='font-bold'>Expertise Areas: </span>{bloggerApplicen?.expertise}</h3>
+                </div>
+
+                <div className='text-start  mb-1'>
+                    <h3 ><span className='font-bold'>Description: </span>{bloggerApplicen?.description}</h3>
+                </div>
+
                 <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Date: </span> {postDate}</h3>
+                    <h3 ><span className='font-bold'>Request Sent Date: </span> {postDate}</h3>
                 </div>
 
                 <p className='text-start'><span className='font-bold mr-1 '> Status:</span>
@@ -132,14 +142,6 @@ const BloggerReqDetails = () => {
                                     (<span className='text-red-500'>Declined</span>) : ""
                     }
                 </p>
-
-                <div className='text-start mb-1 mt-5'>
-                    <h3 ><span className='font-bold'>Expertise Areas: </span>{bloggerApplicen?.expertise}</h3>
-                </div>
-
-                <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>Description: </span>{bloggerApplicen?.description}</h3>
-                </div>
 
 
                 <div className='mt-7 flex items-start '>

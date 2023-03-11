@@ -69,7 +69,7 @@ const NewsletterDetails = () => {
             <div className='mt-5 flex items-start flex-col lg:flex-row gap-5'>
                 <div className='w-full lg:w-1/2'>
                     <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold'>Subject: </span>{singNewsLetter?.link}</h3>
+                        <h3 ><span className='font-bold'>Subject: </span>{singNewsLetter?.subject}</h3>
                     </div>
 
                     <div className='text-start mb-1'>

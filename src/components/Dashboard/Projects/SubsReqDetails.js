@@ -113,18 +113,6 @@ const SubsReqDetails = () => {
                 </div>
 
                 <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Service Name: </span> {subRe?.service?.name}</h3>
-                </div>
-
-                <div className='text-start mb-2'>
-                    <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
-                </div>
-
-                <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Meeting Time: </span>{scheduleDate}</h3>
-                </div>
-
-                <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Status: </span>
                         {
                             subRe?.status === "1" ?
@@ -136,6 +124,17 @@ const SubsReqDetails = () => {
                     </h3>
                 </div>
 
+                <div className='text-start mb-1'>
+                    <h3 ><span className='font-bold'>Service Name: </span> {subRe?.service?.name}</h3>
+                </div>
+
+                <div className='text-start mb-2'>
+                    <h3 ><span className='font-bold'>Subject: </span> {subRe?.subject}</h3>
+                </div>
+
+                <div className='text-start mb-1'>
+                    <h3 ><span className='font-bold'>Meeting Time: </span>{scheduleDate}</h3>
+                </div>
 
 
                 <div className='text-start  mb-1'>
