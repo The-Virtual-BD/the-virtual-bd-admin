@@ -48,6 +48,7 @@ import NewsletterDetails from './components/Dashboard/NewsLetter/NewsletterDetai
 import NewsletterEdit from './components/Dashboard/NewsLetter/NewsletterEdit';
 import JobAppliDetails from './components/Dashboard/Carieer/JobAppliDetails';
 import Loading from './components/utilities/Loading';
+import RoleDetails from './components/Dashboard/RoleDetails';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -124,6 +125,7 @@ function App() {
           <Route path='/admin-dashboard/user-managment/update/:id' element={<UserEdit />}></Route>
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
+          <Route path='/admin-dashboard/role/:id' element={<RoleDetails />}></Route>
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
 
           

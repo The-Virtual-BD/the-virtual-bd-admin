@@ -74,8 +74,12 @@ const ViewAllRole = () => {
     };
   };
 
+  const  handleViewRole=id=>{
+    navigate(`/admin-dashboard/role/${id}`)
+  };
 
-  const PROJECT_COLUMNS = () => {
+
+  const ROLE_COLUMNS = () => {
     return [
       {
         Header: "SL",
@@ -102,7 +106,7 @@ const ViewAllRole = () => {
         Cell: ({ row }) => {
           const { id } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
-            <button >
+            <button onClick={() => handleViewRole(id)}>
               <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                 <BsEyeFill className='text-lg  ' />
               </div>
@@ -129,7 +133,7 @@ const ViewAllRole = () => {
     <div className='text-blue p-3'>
 
       {role.length && (
-        <Table columns={PROJECT_COLUMNS()} data={roles} headline={"All Role"} />
+        <Table columns={ROLE_COLUMNS()} data={roles} headline={"All Role"} />
       )}
 
     </div>
@@ -144,8 +148,9 @@ const AddRole = () => {
    const [permit, setPermit] = useState([]);
   const [name, setName] = useState('');
 
-  const [isChecked, setIsChecked] = useState(false);
-  const [permissions, setPermissions] = useState([]);
+  const [role_permissions, setRole_Permissions] = useState({
+    permissions: []
+  });
  
 
   //Get Permit for all Permissions
@@ -160,7 +165,6 @@ const AddRole = () => {
     })
       .then(res => res.json())
       .then(data => {
-        // console.log(data.permissions);
         setPermit(data.permissions);
       })
   }, [token]);
@@ -172,9 +176,9 @@ const AddRole = () => {
 
     const roleForm = new FormData();
     roleForm.append("name", name);
+    roleForm.append("permissions", role_permissions.permissions);
 
-
-    const noUrl = `${baseURL}/api/admin/notices`;
+    const noUrl = `${baseURL}/api/admin/role/create`;
 
     const response = await fetch(noUrl, {
       method: 'POST',
@@ -188,7 +192,7 @@ const AddRole = () => {
 
     if (result.error) {
       console.log(result.error);
-      toast.error("Notice Add Failed");
+      toast.error("Role Add Failed");
     } else {
       console.log(result);
       e.target.reset();
@@ -196,29 +200,32 @@ const AddRole = () => {
     }
   };
 
-  //handle Checkbox values
-  const handleCheckboxChange = (event) => {
-    const value = event.target.value;
-    const checked = event.target.checked;//boolean
 
+  //Handle Checkbox
+  const handleChange = (e) => {
+    const { value, checked } = e.target;
+    const { permissions } = role_permissions;
+      
     if (checked) {
-      setPermissions([...permissions, value]);
-    } else {
-      setPermissions(permissions.filter((v) => v !== value));
+      setRole_Permissions({
+        permissions: [...permissions, value],
+      });
     }
-
-    event.target.checked = true;
-
-    setIsChecked(checked);
+  
+    else {
+      setRole_Permissions({
+        permissions: permissions.filter((e) => e !== value),
+        response: permissions.filter((e) => e !== value),
+      });
+    }
   };
 
-  console.log(permissions);
-  // console.log(permit)
+  console.log( role_permissions.permissions);
 
 
   return (
     <div className='text-primary p-3 m-3 bg-white rounded-md '>
-      <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Notice</h3>
+      <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Role</h3>
       <form className='p-3' onSubmit={handleAddRole} >
 
         <div className="mb-3 flex flex-col items-start w-full">
@@ -226,58 +233,28 @@ const AddRole = () => {
           <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setName(e.target.value)} placeholder="Role Name" />
         </div>
 
-        {/* <div className="mb-3 flex flex-col items-start w-full">
+
+
+        <div>
+          <h1 className='font-bold text-start mb-2'>Add Permissions</h1>
+            <div className="mb-3 flex flex-col items-start w-full">
+              
               {permit.map((option) => (
                       <div key={option?.id}>
                         <label>
                           <input
                             type="checkbox"
                             value={option?.id}
-                            checked={permissions.includes(option?.id)}
-                            onChange={handleCheckboxChange}
-                            className={`${isChecked?"text-blue border-blue":"text-labelclr border-labelclr"} rounded focus:ring-blue h-5 w-5`}
+                            name="languages"
+                            id="flexCheckDefault"
+                            onChange={handleChange}
                           />
                           <span className='ml-2 font-semibold'>{option?.name}</span>
                         </label>
                       </div>
                 ))}
-           </div> */}
-
-
-
-        <div >
-          <h2 className="font-bold mb-1 text-start">Permissions</h2>
-          <div class="flex justify-start ">
-            <div className='text-start'>
-              {
-                permit.map((per) => (
-                  <div >
-
-                    <input
-                      type="checkbox"
-                      value={per?.id}
-                      id= {`checkid${per?.id}`}
-                      checked={isChecked}
-                      // checked={true}
-                      onChange={handleCheckboxChange}
-                      // className={`text-labelclr border-labelclr rounded focus:ring-blue h-5 w-5 ${permissions.includes(per.id) && "text-blue border-blue"}`}
-                    />
-
-                    <label
-                      class="inline-block pl-2 hover:cursor-pointer"
-                      for={`checkid${per?.id}`}>
-                      {per.name}
-                    </label>
-                  </div>
-                ))
-              }
-
-              
-
-            </div>
           </div>
         </div>
-
 
         <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
           <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
@@ -285,7 +262,7 @@ const AddRole = () => {
       </form>
     </div>
   )
-}
+};
 
 
 

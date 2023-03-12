@@ -32,7 +32,7 @@ const ProjectDetails = () => {
     }, [token, id]);
 
 
-     //Download Documents
+  /*    //Download Documents
      const downloadFile = () => {
         fetch(`${project?.documents}`)
           .then((response) => response.blob())
@@ -40,7 +40,7 @@ const ProjectDetails = () => {
             saveAs(blob, `${project?.documents}`);
             
           });
-      };
+      }; */
 
     console.log(project)
 

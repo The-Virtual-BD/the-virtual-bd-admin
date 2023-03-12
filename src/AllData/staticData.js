@@ -112,7 +112,7 @@ export const sidebarMenu = [
     },
     {
         id: 17,
-        name: "Carieer",
+        name: "Career",
         icon: <FaBusinessTime />,
         path: "/admin-dashboard/carieer"
     },

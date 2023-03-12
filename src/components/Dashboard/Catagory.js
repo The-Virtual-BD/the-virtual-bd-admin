@@ -116,7 +116,7 @@ const ViewCatagory = () => {
   return (
     <div className='text-primary p-3'>
       {catagory.length && (
-        <Table columns={CATAGORY_COLUMNS()} data={catagory} headline={"All Categories"} />
+        <Table columns={CATAGORY_COLUMNS()} data={catagory} headline={"Blog Categories"} />
       )}
 
     </div>
