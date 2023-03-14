@@ -136,9 +136,9 @@ const BloggerReqDetails = () => {
 
                 <p className='text-start'><span className='font-bold mr-1 '> Status:</span>
                     {
-                        bloggerApplicen?.status === "1" ?
-                            (<span className='text-yellow-500'>Pendding</span>) : bloggerApplicen?.status === "2" ?
-                                (<span className='text-green-500'>Approved</span>) : bloggerApplicen?.status === "3" ?
+                        bloggerApplicen?.status == "1" ?
+                            (<span className='text-yellow-500'>Pendding</span>) : bloggerApplicen?.status == "2" ?
+                                (<span className='text-green-500'>Approved</span>) : bloggerApplicen?.status == "3" ?
                                     (<span className='text-red-500'>Declined</span>) : ""
                     }
                 </p>
@@ -146,14 +146,14 @@ const BloggerReqDetails = () => {
 
                 <div className='mt-7 flex items-start '>
                     {
-                        bloggerApplicen?.status === "1" ? (
+                        bloggerApplicen?.status == "1" ? (
                             <div className='mr-3'>
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleBlogReqAccept(bloggerApplicen?.id)}>Accept</button>
 
                                 <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handleBlogReqDeclined(bloggerApplicen?.id)}>Declined</button>
                             </div>
                         ) :
-                            bloggerApplicen?.status === "3" ? (
+                            bloggerApplicen?.status == "3" ? (
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleBlogReqAccept(bloggerApplicen?.id)}>Accept</button>
                             ) : ""
 

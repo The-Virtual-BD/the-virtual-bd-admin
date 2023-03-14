@@ -104,12 +104,13 @@ const Blogs = () => {
                 sortType: 'basic',
                 Cell: ({ row }) => {
                     const { status } = row.original;
+                    console.log(status)
                     return (<div className='flex items-center justify-center  gap-2 text-sm'>
                         {
-                            status === "1" ?
-                                (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>)
-                                : status === "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Declined</p>) : (
-                                    <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>
+                            status == "2" ?
+                                (<p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>)
+                                : status == "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Declined</p>) : (
+                                <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>
                                 )
                         }
                     </div>);

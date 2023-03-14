@@ -129,23 +129,23 @@ const CommentsDetails = () => {
 
                 <p className='text-start'><span className='font-bold mr-1'> Status:</span>
                     {
-                        comment?.status === "1" ?
-                            (<span className='text-yellow-500'>Pendding</span>) : comment?.status === "2" ?
-                                (<span className='text-green-500'>Approved</span>) : comment?.status === "3" ?
+                        comment?.status === 1 ?
+                            (<span className='text-yellow-500'>Pendding</span>) : comment?.status === 2 ?
+                                (<span className='text-green-500'>Approved</span>) : comment?.status === 3 ?
                                     (<span className='text-red-500'>Declined</span>) : ""
                     }
                 </p>
 
                 <div className='mt-7 flex items-start '>
                     {
-                        comment?.status === "1" ? (
+                        comment?.status === 1 ? (
                             <div className='mr-3'>
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleCommentAccept(comment?.id)}>Accept</button>
 
                                 <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handleCommentDeclined(comment?.id)}>Declined</button>
                             </div>
                         ) :
-                            comment?.status === "3" ? (
+                            comment?.status === 3 ? (
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleCommentAccept(comment?.id)}>Accept</button>
                             ) : ""
 

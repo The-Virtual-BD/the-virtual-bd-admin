@@ -29,7 +29,6 @@ const ViewEmailSubs = () => {
   const [isOn, setIson] = useState(allEmailSubs?.status);
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
-  console.log(isOn);
 
 
   //Get Subscription
@@ -118,7 +117,7 @@ const ViewEmailSubs = () => {
           const { status } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
             {
-              status === "1" ? 
+              status == "1" ? 
               <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>On</p> : 
               <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Off</p>
             }

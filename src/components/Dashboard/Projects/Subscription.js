@@ -41,7 +41,7 @@ const Subscription = () => {
             })
     }, [token]);
 
-    // console.log(subReq)
+    console.log(subReq)
 
 
     //handle Sub Req View
@@ -112,13 +112,13 @@ const Subscription = () => {
                     const { status } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 text-sm'>
                         {
-                            status === "1" ?
+                            status == "1" ?
                                 (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs border-yellow-500  text-yellow-500 '>Pending</p>)
-                                : status === "4" ?
+                                : status == "4" ?
                                     (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500 text-red-500'>Declined</p>)
-                                    : status === "3" ? (
+                                    : status == "3" ? (
                                         <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>)
-                                        : status === "2" ? (
+                                        : status == "2" ? (
                                             <p className='bg-white px-2 py-[2px] rounded-full border border-purple-500 text-xs text-purple-500'> Ongoing</p>) : ""
 
                         }

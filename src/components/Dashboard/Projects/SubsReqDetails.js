@@ -153,10 +153,10 @@ const SubsReqDetails = () => {
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Status: </span>
                         {
-                            subRe?.status === "1" ?
-                                (<span className='text-yellow-500'>Pendding</span>) : subRe?.status === "2" ?
-                                    (<span className='text-green-500'>Approved</span>) : subRe?.status === "4" ?
-                                        (<span className='text-red-500'>Declined</span>) : subRe?.status === "3" ?
+                            subRe?.status == "1" ?
+                                (<span className='text-yellow-500'>Pendding</span>) : subRe?.status == "2" ?
+                                    (<span className='text-green-500'>Approved</span>) : subRe?.status == "4" ?
+                                        (<span className='text-red-500'>Declined</span>) : subRe?.status == "3" ?
                                             (<span className='text-green-500'>Approved</span>) : ""
                         }
                     </h3>
@@ -188,7 +188,7 @@ const SubsReqDetails = () => {
 
                 <div className='text-start  mb-1'>
                     {
-                     ( subRe?.status === "2" || subRe?.status === "3" )  && <div className='text-primary bg-white rounded-md '>
+                     ( subRe?.status == "2" || subRe?.status == "3" )  && <div className='text-primary bg-white rounded-md '>
 
                     <div className='w-full bg-bgclr rounded mb-5'>
 
@@ -221,14 +221,14 @@ const SubsReqDetails = () => {
                 <div className='mt-7 flex items-start '>
 
                     {
-                        subRe?.status === "1" ? (
+                        subRe?.status == "1" ? (
                             <div className='mr-3'>
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
 
                                 <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handleSuReqDeclined(subRe?.id)}>Declined</button>
                             </div>
                         ) :
-                            subRe?.status === "4" ? (
+                            subRe?.status == "4" ? (
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
                             ) : ""
 

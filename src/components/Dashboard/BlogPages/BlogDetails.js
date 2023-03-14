@@ -104,7 +104,7 @@ const BlogDetails = () => {
             <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>
                     <div className='flex flex-col items-start gap-3'>
-                        <h3><span className='font-bold'>Blog Title:</span> {blog?.title}</h3>
+                        <h3 className='text-start'><span className='font-bold'>Blog Title:</span> {blog?.title}</h3>
                         <h3><span className='font-bold'>Blogger Name: </span>{`${blog?.author?.first_name} ${blog?.author?.last_name}`}</h3>
 
                         <p><span className='font-bold'>Subject: </span>{blog?.category?.name}</p>
@@ -112,9 +112,9 @@ const BlogDetails = () => {
                         <p><span className='font-bold'>Date:</span> {postDate}</p>
                         <p><span className='font-bold mr-1'> Status:</span>
                             {
-                                blog?.status === "1" ?
-                                    (<span className='text-yellow-500'>Pendding</span>) : blog?.status === "2" ?
-                                        (<span className='text-green-500'>Approved</span>) : blog?.status === "3" ?
+                                blog?.status === 1 ?
+                                    (<span className='text-yellow-500'>Pendding</span>) : blog?.status === 2 ?
+                                        (<span className='text-green-500'>Approved</span>) : blog?.status ===3 ? 
                                             (<span className='text-red-500'>Declined</span>) : ""
                             }
                         </p>
@@ -134,14 +134,14 @@ const BlogDetails = () => {
                         <div className='mt-4 flex items-center gap-3'>
 
                             {
-                                blog?.status === "1" ? (
+                                blog?.status === 1 ? (
                                     <div>
                                         <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handlePostAccept(blog?.id)}>Accept</button>
 
                                         <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handlePostDeclined(blog?.id)}>Declined</button>
                                     </div>
                                 ) :
-                                    blog?.status === "3" ? (
+                                    blog?.status === 3 ? (
                                         <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handlePostAccept(blog?.id)}>Accept</button>
                                     ) : ""
 
