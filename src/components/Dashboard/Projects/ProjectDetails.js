@@ -9,8 +9,6 @@ const ProjectDetails = () => {
     const { id } = useParams();
     const [token] = useToken();
 
-
-
     //Handle Get Project
     useEffect(() => {
         const sUrl = `${baseURL}/api/admin/projects/show/${id}`;
@@ -31,17 +29,6 @@ const ProjectDetails = () => {
             })
     }, [token, id]);
 
-
-  /*    //Download Documents
-     const downloadFile = () => {
-        fetch(`${project?.documents}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${project?.documents}`);
-            
-          });
-      }; */
-
     console.log(project)
 
     return (
@@ -55,16 +42,22 @@ const ProjectDetails = () => {
             <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>
                     <div className='flex flex-col items-start gap-3'>
+
                         <h3><span className='font-bold'>Project Title:</span> {project?.name}</h3>
                         <h3><span className='font-bold'>Client Name: </span>{project?.client_name}</h3>
+                        <h3><span className='font-bold'>Client Origin: </span>{project?.client_origin}</h3>
+                        <h3><span className='font-bold'>Client Type: </span>{project?.client_type}</h3>
+                        <h3><span className='font-bold'>Service Name: </span>{project?.service?.name}</h3>
 
-                        <p><span className='font-bold'>Starting Date: </span>{project?.starting_date}</p>
+                          {
+                            project?.video ?
+                                <h3> <span className='font-bold'>Video: </span><a href={`${project?.video}`} target="_blank" rel="noopener noreferrer" className='text-blue'> Show Video</a>
+                                </h3>: ""
+                            }
 
-                        <p><span className='font-bold'>Ending Date:</span> {project?.ending_date}</p>
+                        
 
-                        <p><span className='font-bold'> Status:</span> {project?.progress}</p>
-                        <p><span className='font-bold'> Budget:</span> {project?.value}$</p>
-                        <p><span className='font-bold'> Paid:</span> {project?.value_paid}$</p>
+                        
 
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
@@ -76,23 +69,19 @@ const ProjectDetails = () => {
                             <p className='text-labelclr'>{project?.description}</p>
                         </div>
 
-                       {/*  <p className='text-start'><span className='font-bold '>Documents:</span> <a className='text-blue cursor-pointer' href={`${project?.documents}`}  onClick={downloadFile}>{project?.documents}</a> </p>
-                       
- */}
-                       {/*  <div className='text-start  mb-1'>
-                                <h3 ><span className='font-bold mr-1'>Documents: </span>
-                                     <a href={`${baseURL}/${project.documents}`}  className='text-blue hover:underline cursor-pointer' download> {project?.documents}</a>
-                                </h3>
-                       </div> */}
-
-                       <div className='text-start  mb-1'>
-                            <h3 ><span className='font-bold mr-1'>Documents: </span>
-                                <a href={`${baseURL}/${project?.documents}`} download className='text-blue hover:underline cursor-pointer'> {project?.documents}</a>
-                            </h3>
-                      </div>
-
-
+                        <div className='flex flex-col lg:flex-row gap-3 items-center'>
+                            {
+                              project?.image_1 && <img src={`${baseURL}/${project?.image_1}`} alt={project?.name} srcset="" className='w-60 h-60' />
+                            }
+                            {
+                              project?.image_2 && <img src={`${baseURL}/${project?.image_2}`} alt={project?.name} srcset="" className='w-60 h-60' />
+                            }
+                            {
+                              project?.image_3 && <img src={`${baseURL}/${project?.image_3}`} alt={project?.name} srcset="" className='w-60 h-60' />
+                            }
+                        </div>
                     </div>
+                    
 
                 </div>
 
