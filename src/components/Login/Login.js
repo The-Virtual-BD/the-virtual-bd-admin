@@ -30,18 +30,19 @@ const Login = () => {
                     toast.error("Login Failed");
                 } else {
                     console.log(result);
+
+                   if(result?.role==="admin"){
                     setUser(result.user);
                     const token = result.token
                     const user = JSON.stringify(result.user);
-
                     window.localStorage.setItem("token", token);
                     window.localStorage.setItem("user", user);
                     toast.success(result.message);
-
                     navigate('/admin-dashboard/dashboard');
+                   }else{
+                     toast.error("Login Failed"); 
+                   }
                 }
-
-
             })
     };
 
