@@ -191,20 +191,26 @@ const SubsReqDetails = () => {
                     {
                      ( subRe?.status == "2" || subRe?.status == "3" )  && <div className='text-primary bg-white rounded-md '>
 
-                    <div className=' bg-bgclr rounded mb-5 overflow-scroll h-[500px] p-3'>
+                    <div className=' bg-bgclr rounded mb-5 overflow-scroll h-[400px] p-3'>
                          {
                             subRe?.chats?.map(chat=>{
                                         console.log(chat)
                                         const {message,attachment,type,created_at}=chat;
-                                        const nowTime=new Date()-created_at;
-                                        console.log(nowTime);
+                                        const cmntDate= moment(created_at).format('hh:mm A DD/MM/YY');
                                         
                                  return(
-                                    <div className={`${type==1 ? "text-start mr-20": "text-end ml-20"} m-2 p-3 rounded bg-white`}>
-                                         <p>{message}</p>
-                                          {
-                                             attachment && <a href={`${baseURL}/${attachment}`} className="text-blue" download>attachment</a>
-                                           }
+                                    <div className={`${type==1 ? "text-start mr-20": "text-end ml-20"} m-2 `}>
+                                         <p className='mb-0 font-bold'>{subRe?.applicant?.first_name}</p>
+                                        <div>
+                                            <div className='p-3 rounded bg-white'>
+                                                <p>{message}</p>
+                                                {
+                                                    attachment && <a href={`${baseURL}/${attachment}`} className="text-blue" download>attachment</a>
+                                                }
+                                            </div>
+                                            <p className={`text-sm ${type==1 ? "text-end": "text-start"}`}>{cmntDate}</p>
+
+                                        </div>
                                      </div>
                             )})
                          }
