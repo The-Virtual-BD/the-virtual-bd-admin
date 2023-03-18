@@ -16,7 +16,6 @@ const SubsReqDetails = () => {
 
     //Coversation
     const[message,setMessage]=useState('');
-    const[type,setType]=useState(2);
     const[attachment,setAttachment]=useState(null);
     
 
@@ -105,31 +104,33 @@ const SubsReqDetails = () => {
     const handleSubReqMsgForm=async(e)=>{
         e.preventDefault();
 
+    
         const msgData = new FormData();
         msgData.append("message", message);
-        msgData.append("type", type);
-        msgData.append("attachment", attachment, attachment.name);
-    
-    
-      /*   const url = `${baseURL}/api/projects/store`;
+        msgData.append("attachment", attachment);
+        msgData.append("subscription_id", id);
+        msgData.append("type", 2);
+
+        const url = `${baseURL}/api/subchat/store`;
         const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            "Authorization": `Bearer ${token}`
-          },
-          body: projectData
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: msgData
         });
-    
+
         const result = await response.json();
-    
+
         if (result.error) {
-          console.log(result.error);
-          toast.error("Message Sent Failed");
+            console.log(result.error);
+            toast.error("Message Sent Failed");
         } else {
-          console.log(result);
-          e.target.reset();
-          toast.success("Message Sent");
-        } */
+            console.log(result);
+            setSubRe(result.data)
+            e.target.reset();
+            toast.success("Message Sent");
+        }
     };
 
 
@@ -141,7 +142,7 @@ const SubsReqDetails = () => {
             </div>
 
             <div className='mt-5'>
-                <div>
+              <div>
                 <div className='text-start mb-1'>
                     <h3 ><span className='font-bold'>Name: </span>{`${subRe?.applicant?.first_name} ${subRe?.applicant?.last_name}`}</h3>
                 </div>
@@ -179,19 +180,34 @@ const SubsReqDetails = () => {
                     <h3 ><span className='font-bold'>Description: </span>{subRe?.description}</h3>
                 </div>
 
-                <div className='text-start  mb-1'>
+                <div className='text-start  mb-10 '>
                     <h3 ><span className='font-bold mr-1'>Documents: </span>
                         <a href={`${baseURL}/${subRe?.attachment}`} download className='text-blue hover:underline cursor-pointer'> {subRe?.attachment}</a>
                     </h3>
                 </div>
-                </div>
+              </div>
 
-                <div className='text-start  mb-1'>
+              <div className='text-start  mb-1 '>
                     {
                      ( subRe?.status == "2" || subRe?.status == "3" )  && <div className='text-primary bg-white rounded-md '>
 
-                    <div className='w-full bg-bgclr rounded mb-5'>
-
+                    <div className=' bg-bgclr rounded mb-5 overflow-scroll h-[500px] p-3'>
+                         {
+                            subRe?.chats?.map(chat=>{
+                                        console.log(chat)
+                                        const {message,attachment,type,created_at}=chat;
+                                        const nowTime=new Date()-created_at;
+                                        console.log(nowTime);
+                                        
+                                 return(
+                                    <div className={`${type==1 ? "text-start mr-20": "text-end ml-20"} m-2 p-3 rounded bg-white`}>
+                                         <p>{message}</p>
+                                          {
+                                             attachment && <a href={`${baseURL}/${attachment}`} className="text-blue" download>attachment</a>
+                                           }
+                                     </div>
+                            )})
+                         }
                     </div>
                   
 
@@ -201,7 +217,6 @@ const SubsReqDetails = () => {
                             <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="3" placeholder="Type Message" onChange={(e)=>setMessage(e.target.value)} required></textarea>
                         </div>
                         <div className="mb-2 flex flex-col items-start w-full">
-                            {/* <label for="img" className="font-bold mb-1">Add Attachment</label> */}
                             <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
                             outline-none focus:outline-none active:outline-none" type="file" id="img" onChange={(e) => setAttachment(e.target.files[0])} />
                         </div>
@@ -213,7 +228,7 @@ const SubsReqDetails = () => {
                     
                    </div>
                     }
-                </div>
+              </div>
 
 
 

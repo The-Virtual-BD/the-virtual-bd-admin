@@ -55,9 +55,6 @@ const ProjectDetails = () => {
                                 </h3>: ""
                             }
 
-                        
-
-                        
 
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
@@ -81,7 +78,7 @@ const ProjectDetails = () => {
                             }
                         </div>
                     </div>
-                    
+
 
                 </div>
 
