@@ -26,7 +26,7 @@ const Dashboard = () => {
     const recentNotice = [...notices].reverse().slice(0, 5);
     const recentBlogs = [...blogs].reverse().slice(0, 5);
 
-    console.log(recentNotice, recentBlogs)
+    // console.log(recentNotice, recentBlogs)
 
 
     //Get Users

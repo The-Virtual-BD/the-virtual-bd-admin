@@ -49,6 +49,7 @@ import NewsletterEdit from './components/Dashboard/NewsLetter/NewsletterEdit';
 import JobAppliDetails from './components/Dashboard/Carieer/JobAppliDetails';
 import Loading from './components/utilities/Loading';
 import RoleDetails from './components/Dashboard/RoleDetails';
+import ReviewDetails from './components/Dashboard/ReviewDetails';
 
 function App() {
   const [isproject, setIsproject] = useState(false);
@@ -126,6 +127,7 @@ function App() {
 
           <Route path='/admin-dashboard/role' element={<Role />}></Route>
           <Route path='/admin-dashboard/role/:id' element={<RoleDetails />}></Route>
+
           <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
 
           
@@ -144,6 +146,7 @@ function App() {
           <Route path='/admin-dashboard/job-application/:id' element={<JobAppliDetails />}></Route>
 
           <Route path='/admin-dashboard/reviews' element={<Reviews/>}></Route>
+          <Route path='/admin-dashboard/reviews/:id' element={<ReviewDetails/>}></Route>
 
           <Route path='/admin-dashboard/query' element={<Query/>}></Route>
           <Route path='/admin-dashboard/query/:id' element={<QueryDetails />}></Route>
