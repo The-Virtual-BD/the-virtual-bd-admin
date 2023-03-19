@@ -190,7 +190,7 @@ const SubsReqDetails = () => {
 
               <div className='text-start  mb-1 '>
                     {
-                     ( subRe?.status == "2" || subRe?.status == "3" )  && <div className='text-primary bg-white rounded-md '>
+                     ( subRe?.status === 2 || subRe?.status === 3 )  && <div className='text-primary bg-white rounded-md '>
 
                     <div className=' bg-bgclr rounded mb-5 overflow-scroll h-[400px] p-3'>
                          {
@@ -214,7 +214,7 @@ const SubsReqDetails = () => {
                                                     attachment && <a href={`${baseURL}/${attachment}`} className="text-blue" download>attachment</a>
                                                 }
                                             </div>
-                                            <p className={`text-xs ${type==1 ? "text-end": "text-start"}`}>{cmntDate}</p>
+                                            <p className={`text-xs ${type===1 ? "text-end": "text-start"}`}>{cmntDate}</p>
 
                                         </div>
                                      </div>
@@ -248,14 +248,14 @@ const SubsReqDetails = () => {
                 <div className='mt-7 flex items-start '>
 
                     {
-                        subRe?.status == "1" ? (
+                        subRe?.status === 1 ? (
                             <div className='mr-3'>
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
 
                                 <button className='text-yellow-500 font-bold px-5 py-1.5 rounded-md border-[1px] border-yellow-500' onClick={() => handleSuReqDeclined(subRe?.id)}>Declined</button>
                             </div>
                         ) :
-                            subRe?.status == "4" ? (
+                            subRe?.status === 4 ? (
                                 <button className='text-white bg-blue font-bold px-5 py-1.5 rounded-md border-[1px] border-blue mr-3' onClick={() => handleSuReqAccept(subRe?.id)}>Accept</button>
                             ) : ""
 
