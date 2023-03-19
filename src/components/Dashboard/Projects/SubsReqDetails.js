@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { saveAs } from "file-saver";
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { APPContext } from '../../../actions/reducers';
 
 
 const SubsReqDetails = () => {
+    const{user}=useContext(APPContext);
     const [subRe, setSubRe] = useState([]);
     const { id } = useParams();
     const [token] = useToken();
@@ -98,7 +99,7 @@ const SubsReqDetails = () => {
             })
     };
 
-    // console.log(subRe)
+    console.log(user)
 
 
     const handleSubReqMsgForm=async(e)=>{
@@ -199,8 +200,13 @@ const SubsReqDetails = () => {
                                         const cmntDate= moment(created_at).format('hh:mm A DD/MM/YY');
                                         
                                  return(
-                                    <div className={`${type==1 ? "text-start mr-20": "text-end ml-20"} m-2 `}>
-                                         <p className='mb-0 font-bold'>{subRe?.applicant?.first_name}</p>
+                                    <div className={`${type===1? "text-start mr-[40%]": "text-end ml-[40%]"} m-2 `}>
+                                         <p className='mb-0 font-bold'>
+                                            {
+                                                type ===1?`${subRe?.applicant?.first_name}`:"Admin"
+                                            }
+                                           
+                                            </p>
                                         <div>
                                             <div className='p-3 rounded bg-white'>
                                                 <p>{message}</p>
@@ -208,7 +214,7 @@ const SubsReqDetails = () => {
                                                     attachment && <a href={`${baseURL}/${attachment}`} className="text-blue" download>attachment</a>
                                                 }
                                             </div>
-                                            <p className={`text-sm ${type==1 ? "text-end": "text-start"}`}>{cmntDate}</p>
+                                            <p className={`text-xs ${type==1 ? "text-end": "text-start"}`}>{cmntDate}</p>
 
                                         </div>
                                      </div>

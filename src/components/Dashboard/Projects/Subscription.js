@@ -52,7 +52,7 @@ const Subscription = () => {
 
 
     //Handle Delete Service
-    const handleDeleteSubReq = id => {
+    const handleDeleteSubReqe = id => {
         const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
@@ -138,7 +138,7 @@ const Subscription = () => {
                             </div>
                         </button>
 
-                        <button onClick={() => handleDeleteSubReq(id)}>
+                        <button onClick={() => handleDeleteSubReqe(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
