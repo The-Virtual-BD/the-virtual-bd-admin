@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { BsEyeFill } from 'react-icons/bs';
 import { FiDownload } from 'react-icons/fi';
 import Table from '../SharedPage/Table';
-import { saveAs } from "file-saver";
-import { useForm } from 'react-hook-form';
 import { APPContext } from '../../actions/reducers';
 import { AiFillDelete } from 'react-icons/ai';
 import { baseURL } from '../utilities/url';
@@ -50,16 +47,7 @@ const ViewNotice=()=>{
           })
       }, [token]);
 
-   /*  //Download Documents
-    const downloadFile = (id) => {
-        const getDoc = notices.find(notice => notice.id === id);
-
-        fetch(`${getDoc.document}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${getDoc.title}.doc`);
-          });
-      }; */
+  
 
        //Handle Delete Notice
        const handleDeleteNotice=id=>{

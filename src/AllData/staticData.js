@@ -1,10 +1,9 @@
-import { AiFillHome, AiOutlineLogout, AiFillProject, AiFillDelete, AiFillNotification, AiTwotoneMail, AiFillQuestionCircle } from 'react-icons/ai';
-import { FaAddressCard, FaBusinessTime, FaComment, FaQuestion, FaUser, FaUserAlt, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
+import { AiFillHome, AiFillProject, AiFillNotification, AiTwotoneMail } from 'react-icons/ai';
+import { FaAddressCard, FaBusinessTime, FaComment, FaUser, FaUserCheck, FaUserEdit, FaUserLock } from 'react-icons/fa';
 import { RiNewspaperFill } from 'react-icons/ri';
 import { HiViewGridAdd } from 'react-icons/hi';
 import { CgPlayListCheck } from 'react-icons/cg';
-import { BsChatRightTextFill, BsEyeFill, BsFileTextFill, BsFillFilterSquareFill, BsFillQuestionDiamondFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { BsChatRightTextFill, BsFileTextFill, BsFillQuestionDiamondFill } from 'react-icons/bs';
 
 
 export const sidebarMenu = [

@@ -242,15 +242,6 @@ const AddCarieer=()=>{
                         />
                     </div>
 
-
-
-                   {/*  <div className="mb-3 flex flex-col items-start w-full">
-                        <label for="projectShortDesc" className="font-bold mb-1"> Description</label>
-                        <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setDescription(e.target.value)} placeholder="Description" required></textarea>
-                    </div> */}
-
-                  
-
                     <div className="flex flex-row gap-3 justify-center lg:justify-end items-center text-center mt-3">
                         <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg">Add</button>
                     </div>

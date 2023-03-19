@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { FadeLoader } from 'react-spinners';
+import React from 'react';
 import './utility.css'
 
 const Loading = () => {

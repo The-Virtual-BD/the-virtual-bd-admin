@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { FiDownload } from 'react-icons/fi';
-import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
-import { saveAs } from "file-saver";
 import Loading from '../../utilities/Loading';
 
 const JobApplication = () => {
@@ -65,18 +63,7 @@ const JobApplication = () => {
         };
     };
 
-    //Download Documents
-   /*  const downloadFile = (id) => {
-        const getDoc = jobAppli.find(notice => notice.id === id);
-
-        fetch(`${getDoc.document}`)
-          .then((response) => response.blob())
-          .then((blob) => {
-            saveAs(blob, `${getDoc.name}.pdf`);
-          });
-      }; */
-
-
+   
 
     const jobAppli_COLUMNS = () => {
         return [
