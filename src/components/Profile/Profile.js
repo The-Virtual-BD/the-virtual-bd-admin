@@ -2,6 +2,7 @@ import React from 'react';
 import useUser from '../utilities/useUser';
 import blankUser from '../../images/blank_user.png';
 import Header from '../SharedPage/Header';
+import { baseURL } from '../utilities/url';
 
 const Profile = () => {
     const [user] = useUser();
@@ -13,8 +14,8 @@ const Profile = () => {
             <div className='bg-white p-4  my-5 rounded-md  flex items-center justify-start gap-3'>
 
                 {
-                    (user.img) ?
-                        <img src={user?.img} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
+                    (user.photo) ?
+                        <img src={`${baseURL}/${user?.photo}`} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                         :
                         <img src={blankUser} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                 }
@@ -29,16 +30,41 @@ const Profile = () => {
             <div className='bg-white p-4  my-5 rounded-md text-start'>
                 <h2 className='text-2xl font-bold'>Contact Information : </h2>
 
-                <div className='mt-5'>
-                    {/*  <div className='text-start mb-1'>
-                            <h3 ><span className='font-bold'>Name: </span>  {user?.name}</h3>
-                    </div> */}
+                <div className='mt-5 flex items-center  gap-5'>
 
-                    {/*  <div className='text-start mb-1'>
+                    <div>
+                        <p  className='font-bold'>Email: </p>
+                        <p  className='font-bold'>Phone: </p>
+                        <p  className='font-bold'>Date of Birth: </p>
+                        <p  className='font-bold'>Nationality: </p>
+                        <p  className='font-bold'>Bio: </p>
+                    </div>
+                    <div>
+                        <p>{user?.email}</p>
+                        <p>{user?.phone}</p>
+                        <p>{user?.birth_date}</p>
+                        <p>{user?.nationality}</p>
+                        <p>{user?.bio}</p>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     {/* <div className='text-start mb-1'>
                         <h3 ><span className='font-bold mr-2'>Blogger Name: </span> {user?.bloggerName}</h3>
                     </div> */}
 
-                    <div className='text-start mb-1'>
+                   {/*  <div className='text-start mb-1'>
                         <h3 ><span className='font-bold mr-2'>Email: </span>{user?.email}</h3>
                     </div>
 
@@ -54,7 +80,7 @@ const Profile = () => {
 
                     <div className='text-start  mb-1'>
                         <h3 ><span className='font-bold mr-2'>Bio: </span>{user?.bio}</h3>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
