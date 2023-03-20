@@ -12,16 +12,16 @@ import useToken from '../utilities/useToken';
 
 const Reviews = () => {
     const [token] = useToken();
-    const [bloggerApplicent, setBloggerApplicent] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const navigate = useNavigate();
 
-    const allBloggerApplicent = [...bloggerApplicent].reverse();
+    const allReviews = [...reviews].reverse();
     const [isLoading, setIsLoading] = useState(false);
 
 
-    //Get blogger req
+    //Get reviews
     useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/bloggerApplication`;
+        const sUrl = `${baseURL}/api/admin/reviews`;
         setIsLoading(true);
         fetch(sUrl, {
             method: 'GET',
@@ -33,23 +33,23 @@ const Reviews = () => {
             .then(res => res.json())
             .then(data => {
                 setIsLoading(false);
-                console.log(data.blogger)
-                setBloggerApplicent(data.blogger)
+                console.log(data)
+                setReviews(data.data)
             })
     }, [token]);
 
-    const handleBloggerReqView = (id) => {
+    const handleReviewsView = (id) => {
         console.log("clicked", id);
         navigate(`/admin-dashboard/reviews/${id}`);
     };
 
 
-    //Handle Delete Blogger Req
-    const handleDeleteBlogReq = id => {
+    //Handle Delete reviews
+    const handleDeleteReviews = id => {
         const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
-            const userUrl = `${baseURL}/api/admin/bloggerApplication/destroy/${id}`;
+            const userUrl = `${baseURL}/api/admin/reviews/destroy/${id}`;
             fetch(userUrl, {
                 method: 'DELETE',
                 headers: {
@@ -59,15 +59,15 @@ const Reviews = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    const remaining = bloggerApplicent.filter(card => card.id !== id);
-                    setBloggerApplicent(remaining);
+                    const remaining = reviews.filter(card => card.id !== id);
+                    setReviews(remaining);
                     toast.success(data.message)
                 })
         };
     };
 
 
-    const BLOGGER_COLUMNS = () => {
+    const Reviews_COLUMNS = () => {
         return [
             {
                 Header: "SL",
@@ -76,15 +76,13 @@ const Reviews = () => {
             },
             {
                 Header: "User Name",
-                accessor: "name",
+                accessor: "author.first_name",
                 sortType: 'basic',
-
             },
             {
                 Header: "Ratings",
-                accessor: "subject",
+                accessor: "quantity",
                 sortType: 'basic',
-
             },
             {
                 Header: "Status",
@@ -109,13 +107,13 @@ const Reviews = () => {
                 Cell: ({ row }) => {
                     const { id } = row.original;
                     return (<div className='flex items-center justify-center  gap-2 '>
-                        <button onClick={() => handleBloggerReqView(id)}>
+                        <button onClick={() => handleReviewsView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
                                 <BsEyeFill className='text-lg ' />
                             </div>
                         </button>
 
-                        <button onClick={() => handleDeleteBlogReq(id)}>
+                        <button onClick={() => handleDeleteReviews(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#FF0000] text-white grid items-center justify-center'>
                                 <AiFillDelete className='text-lg  text-white' />
                             </div>
@@ -134,10 +132,10 @@ const Reviews = () => {
 
     return (
         <div className='text-primary p-3'>
-            {bloggerApplicent.length && (
+            {allReviews.length && (
                 <Table
-                    columns={BLOGGER_COLUMNS()}
-                    data={allBloggerApplicent}
+                    columns={Reviews_COLUMNS()}
+                    data={allReviews}
                     headline={"Review Request"} />
             )}
 
