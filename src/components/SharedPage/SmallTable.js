@@ -99,12 +99,12 @@ function SmallTable({ columns, data, headline }) {
                             return (
                                 (i % 2 == 1) ? <tr {...row.getRowProps()} key={i} className="m-2 p-1.5 text-center  ">
                                     {row.cells.map((cell, i) => {
-                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-1.5 text-center capitalize bg-bgclr  text-primary  ">{cell.render('Cell')}</td>
+                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-1.5 text-center bg-bgclr  text-primary  ">{cell.render('Cell')}</td>
                                     })}
                                 </tr> :
                                     <tr {...row.getRowProps()} key={i} className="m-2 p-1.5 text-center ">
                                         {row.cells.map((cell, i) => {
-                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-1.5 text-center  text-primary   capitalize ">{cell.render('Cell')}</td>
+                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-1.5 text-center  text-primary  ">{cell.render('Cell')}</td>
                                         })}
                                     </tr>
                             )

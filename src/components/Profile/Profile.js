@@ -14,7 +14,7 @@ const Profile = () => {
             <div className='bg-white p-4  my-5 rounded-md  flex items-center justify-start gap-3'>
 
                 {
-                    (user.photo) ?
+                    (user?.photo) ?
                         <img src={`${baseURL}/${user?.photo}`} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
                         :
                         <img src={blankUser} alt={user?.name} srcSet="" className='h-[100px] w-[100px] rounded-full' />
@@ -31,7 +31,6 @@ const Profile = () => {
                 <h2 className='text-2xl font-bold'>Contact Information : </h2>
 
                 <div className='mt-5 flex items-center  gap-5'>
-
                     <div>
                         <p  className='font-bold'>Email: </p>
                         <p  className='font-bold'>Phone: </p>
@@ -46,45 +45,8 @@ const Profile = () => {
                         <p>{user?.nationality}</p>
                         <p>{user?.bio}</p>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     {/* <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Blogger Name: </span> {user?.bloggerName}</h3>
-                    </div> */}
-
-                   {/*  <div className='text-start mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Email: </span>{user?.email}</h3>
-                    </div>
-
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Phone: </span> {user?.phone}</h3>
-                    </div>
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Date of Birth: </span> {user?.birth_date}</h3>
-                    </div>
-                    <div className='text-start mb-2'>
-                        <h3 ><span className='font-bold mr-2'>Nationality: </span> {user?.nationality}</h3>
-                    </div>
-
-                    <div className='text-start  mb-1'>
-                        <h3 ><span className='font-bold mr-2'>Bio: </span>{user?.bio}</h3>
-                    </div> */}
                 </div>
-
             </div>
-
         </div>
        </>
     );

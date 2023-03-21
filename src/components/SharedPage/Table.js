@@ -102,12 +102,12 @@ function Table({ columns, data, headline }) {
                             return (
                                 (i % 2 == 1) ? <tr {...row.getRowProps()} key={i} className="m-2 p-2 text-center  ">
                                     {row.cells.map((cell, i) => {
-                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center capitalize text-primary  ">{cell.render('Cell')}</td>
+                                        return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center  text-primary  ">{cell.render('Cell')}</td>
                                     })}
                                 </tr> :
                                     <tr {...row.getRowProps()} key={i} className="m-2 p-2 text-center ">
                                         {row.cells.map((cell, i) => {
-                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center bg-bgclr text-primary   capitalize ">{cell.render('Cell')}</td>
+                                            return <td key={i} {...cell.getCellProps()} className="m-2 p-2 text-center bg-bgclr text-primary ">{cell.render('Cell')}</td>
                                         })}
                                     </tr>
                             )
