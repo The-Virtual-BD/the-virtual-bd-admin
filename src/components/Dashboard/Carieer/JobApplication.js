@@ -8,6 +8,7 @@ import Table from '../../SharedPage/Table';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import Loading from '../../utilities/Loading';
+import moment from 'moment';
 
 const JobApplication = () => {
     const [token] = useToken();
@@ -91,8 +92,19 @@ const JobApplication = () => {
                 sortType: 'basic',
 
             },
-           
-
+            {
+                Header: "Applied Date",
+                accessor: "created_at",
+                sortType: 'basic',
+                Cell: ({ row }) => {
+                    const { created_at } = row.original;
+                    return (
+                       <div>
+                         { moment(created_at).format('DD MMMM, YYYY')}
+                       </div>
+                    );
+                },
+            },
             {
                 Header: 'Action',
                 accessor: 'action',

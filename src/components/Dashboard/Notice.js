@@ -7,6 +7,7 @@ import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
 import { toast } from 'react-toastify';
 import Loading from '../utilities/Loading';
+import moment from 'moment';
 
 
 const Notice = () => {
@@ -81,11 +82,24 @@ const ViewNotice=()=>{
                 accessor: (_row, i) => i + 1 
             },
             {
-                Header: "Title",
+                Header: "Name",
                 accessor: "title",
                 sortType: 'basic',
 
             },
+            {
+                Header: "Published Date",
+                accessor: "created_at",
+                sortType: 'basic',
+                Cell: ({ row }) => {
+                  const { created_at } = row.original;
+                  return (
+                     <div>
+                       { moment(created_at).format('DD MMMM, YYYY')}
+                     </div>
+                  );
+              },
+              },
             {
                 Header: 'Action',
                 accessor: 'action',

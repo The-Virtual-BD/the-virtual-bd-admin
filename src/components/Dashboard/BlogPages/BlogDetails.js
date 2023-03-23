@@ -32,7 +32,7 @@ const BlogDetails = () => {
             })
     }, [token, id]);
 
-    const postDate = moment(blog?.created_at).format('DD MMM YYYY');
+    const postDate = moment(blog?.created_at).format('DD MMMM, YYYY');
 
 
 

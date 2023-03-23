@@ -30,7 +30,7 @@ const JobAppliDetails = () => {
             })
     }, [token, id]);
 
-  const applyTime=  moment(jobapp?.created_at).format('DD MMM YYYY')
+  const applyTime=  moment(jobapp?.created_at).format('DD MMMM, YYYY')
 
       if(!jobapp){
         return <p>Loading....</p>

@@ -383,7 +383,7 @@ console.log(projects)
     <div className='text-primary p-3'>
 
       {projects.length && (
-        <Table columns={PROJECT_COLUMNS()} data={allProjects} headline={"All Projects"} />
+        <Table columns={PROJECT_COLUMNS()} data={allProjects} headline={"Projects and Communications"} />
       )}
 
     </div>

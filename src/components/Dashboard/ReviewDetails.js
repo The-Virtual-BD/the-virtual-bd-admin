@@ -37,7 +37,7 @@ const ReviewDetails = () => {
 
 
     //Handle Delete review
-    const handleDeleteReviews = id => {
+    const handleDeleteReview = id => {
         const procced = window.confirm("You Want To Delete?");
 
         if (procced) {
@@ -150,7 +150,7 @@ const ReviewDetails = () => {
                         ) : ""
 
                 }
-                <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={() => handleDeleteReviews(review?.id)}>Delete</button>
+                <button className='text-[#E74C3C] font-bold px-5 py-1.5 rounded-md border-[1px] border-[#E74C3C]' onClick={() => handleDeleteReview(review?.id)}>Delete</button>
             </div>
             
         </div>
