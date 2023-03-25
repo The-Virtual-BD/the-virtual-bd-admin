@@ -27,7 +27,7 @@ export const sidebarMenu = [
     },
     {
         id: 4,
-        name: "Projects & Com",
+        name: "Portfolio",
         icon: <AiFillProject />,
         path: "/admin-dashboard/project"
     },
@@ -39,7 +39,7 @@ export const sidebarMenu = [
     },
     {
         id: 6,
-        name: "Sub Request",
+        name: "Projects & Com",
         icon: <CgPlayListCheck />,
         path: "/admin-dashboard/sub-request"
     },

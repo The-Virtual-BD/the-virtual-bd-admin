@@ -65,7 +65,7 @@ const ProjectDetails = () => {
                             <p className='text-labelclr'>{project?.description}</p>
                         </div>
 
-                        <div className='flex flex-col lg:flex-row gap-3 items-center'>
+                        <div className='flex flex-col lg:flex-row gap-3 items-center flex-wrap'>
                             {
                               project?.image_1 && <img src={`${baseURL}/${project?.image_1}`} alt={project?.name} srcset="" className='w-60 h-60' />
                             }

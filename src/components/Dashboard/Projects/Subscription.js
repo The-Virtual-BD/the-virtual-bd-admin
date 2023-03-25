@@ -100,7 +100,7 @@ const Subscription = () => {
                 Cell: ({ row }) => {
                     const { schedule } = row.original;
                     return (<p>
-                        { moment(schedule).format('DD MMM YYYY hh:mm A')}
+                        { moment(schedule).format('DD MMMM, YYYY hh:mm A')}
                     </p>);
                 },
             },
