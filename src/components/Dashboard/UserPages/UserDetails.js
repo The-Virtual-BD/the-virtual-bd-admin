@@ -178,15 +178,13 @@ const UserDetails = () => {
             </div>
 
 
-            <div className='text-primary '>
+        <div className='text-primary '>
             {user?.posts && (
                 <Table
                     columns={BLOG_COLUMNS()}
                     data={user?.posts}
-                    headline={"All Blogs"} />
+                    headline={`Blogs`} />
             )}
-
-
         </div>
 
 

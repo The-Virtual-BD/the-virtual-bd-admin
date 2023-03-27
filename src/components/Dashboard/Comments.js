@@ -37,8 +37,6 @@ const Comments = () => {
             })
     }, [token]);
 
-
-
     //handle Comments View
     const handleCommentView = (id) => {
         console.log("clicked", id);
@@ -79,6 +77,12 @@ const Comments = () => {
                 Header: "Name",
                 accessor: "commenter_name",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    const {commenter_name} = row.original;
+                    return (<>
+                        {commenter_name}
+                    </>);
+                },
 
             },
             {
@@ -91,7 +95,6 @@ const Comments = () => {
                         {post?.title.slice(0, 30)}
                     </div>);
                 },
-
             },
             {
                 Header: "Comment",

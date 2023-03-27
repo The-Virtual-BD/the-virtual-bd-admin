@@ -54,7 +54,7 @@ const UserEdit = () => {
     }, [id, token]);
 
    //Handle Update User Profile
-   const handleUserProfileForm = async (e) => {
+ /*   const handleUserProfileForm = async (e) => {
     e.preventDefault();
     const profileData = {
         first_name: first_namE,
@@ -92,6 +92,45 @@ const UserEdit = () => {
             }
 
         });
+}; */
+
+
+
+   //Handle Update User Profile
+   const handleUserProfileForm = async (e) => {
+    e.preventDefault();
+    const userData = new FormData();
+          userData.append("first_name", first_namE);
+          userData.append("last_name", last_namE);
+          userData.append("blogger_name", blogger_namE);
+          userData.append("birth_date", date_of_birtH);
+          userData.append("email", emaiL);
+
+          userData.append("profession", professioN);
+          userData.append("nationality", nationalitY);
+          userData.append("phone", phonE);
+          userData.append("bio", biO);
+         
+        const url = `${baseURL}/api/admin/user/update/${id}`;  
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: userData
+        });
+    
+        const result = await response.json();
+    
+        if (result.error) {
+            console.log(result.error);
+            toast.error("User Updated Failed");
+        } else {
+            console.log(result);
+            e.target.reset();
+            toast.success(result.message);
+            setUser(result.user);
+        }
 };
     
 

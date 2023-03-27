@@ -131,8 +131,6 @@ const AddProject = () => {
       toast.success(result.message);
     }
 
-
-
   };
 
 
@@ -146,12 +144,12 @@ const AddProject = () => {
            <div className='flex flex-col lg:flex-row items-center gap-5'>
               <div className="mb-3 flex flex-col items-start w-full">
                   <label for="projectTitle" className="font-bold mb-1">Project Title</label>
-                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectTitle(e.target.value)} placeholder="Project Title" />
+                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={(e) => setProjectTitle(e.target.value)} placeholder="Project Title" required />
                 </div>
 
                 <div className="mb-3 flex flex-col items-start w-full">
                   <label for="Client-Name" className="font-bold mb-1">Client Name</label>
-                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClientName(e.target.value)} placeholder="Client Name" />
+                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClientName(e.target.value)} placeholder="Client Name" required/>
                 </div>
            </div>
 
@@ -160,7 +158,7 @@ const AddProject = () => {
               <label for="projectsub" className="font-bold mb-1">Select Service</label>
               <div className="flex justify-center w-full">
                 <div className=" w-full">
-                  <select onChange={(e) => setProjectSub(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  >
+                  <select onChange={(e) => setProjectSub(e.target.value)} className="form-select appearance-none  w-full px-3  py-2  bg-bgclr bg-clip-padding bg-no-repeat rounded transition ease-in-out  m-0 outline-none" aria-label="projectsub"  required>
                     <option selected disabled>Select Service</option>
                     {
                       allServices?.data?.map(service => <option value={service.id}>{service.name}</option>)
@@ -172,7 +170,7 @@ const AddProject = () => {
 
              <div className="mb-3 flex flex-col items-start w-full">
                 <label for="Client-Name" className="font-bold mb-1">Client Type</label>
-                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClient_type(e.target.value)} placeholder="Client Type" />
+                <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClient_type(e.target.value)} placeholder="Client Type" required />
               </div>
           </div>
 
@@ -180,12 +178,12 @@ const AddProject = () => {
                 <div className="mb-3 flex flex-col items-start w-full">
                     <label for="img" className="font-bold mb-1">Upload Cover</label>
                     <input className="form-control  block w-full px-3  rounded py-2 text-base  font-normal bg-clip-padding bg-bgclr
-                      outline-none focus:outline-none" type="file" id="img" onChange={(e) => setProjectImg(e.target.files[0])} placeholder="50%" />
+                      outline-none focus:outline-none" type="file" id="img" onChange={(e) => setProjectImg(e.target.files[0])} placeholder="50%" required/>
                 </div>
 
                 <div className="mb-3 flex flex-col items-start w-full">
                   <label for="Client-Name" className="font-bold mb-1">Client Origin</label>
-                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClient_origin(e.target.value)} placeholder="Client Origin" />
+                  <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="Client-Name" onChange={(e) => setClient_origin(e.target.value)} placeholder="Client Origin" required/>
                 </div>
            </div>
 
@@ -220,18 +218,16 @@ const AddProject = () => {
 
             <div className="mb-3 flex flex-col items-start w-full">
                   <label for="projectShortDesc" className="font-bold mb-1">Short Description</label>
-                  <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setProjectShortDesc(e.target.value)} placeholder="Short Description"></textarea>
+                  <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectShortDesc' rows="4" onChange={(e) => setProjectShortDesc(e.target.value)} placeholder="Short Description" required></textarea>
               </div>
 
               <div className="mb-3 flex flex-col items-start w-full">
                   <label for="projectDesc" className="font-bold mb-1">Description</label>
-                  <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectDesc' rows="5" onChange={(e) => setProjectDesc(e.target.value)} placeholder="Description"></textarea>
+                  <textarea className="w-full bg-bgclr rounded py-1 px-3 outline-none" id='projectDesc' rows="5" onChange={(e) => setProjectDesc(e.target.value)} placeholder="Description" required></textarea>
               </div>
 
 
           
-
-
 
           <div className="flex flex-row gap-3 justify-center lg:justify-end items-center text-center mt-3">
             <button type="reset" className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>

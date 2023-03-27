@@ -48,13 +48,6 @@ const ProjectDetails = () => {
                         <h3><span className='font-bold'>Client Type: </span>{project?.client_type}</h3>
                         <h3><span className='font-bold'>Service Name: </span>{project?.service?.name}</h3>
 
-                          {
-                            project?.video ?
-                                <h3> <span className='font-bold'>Video: </span><a href={`${project?.video}`} target="_blank" rel="noopener noreferrer" className='text-blue'> Show Video</a>
-                                </h3>: ""
-                            }
-
-
                         <div className='text-start my-3'>
                             <h3 className='font-bold' >Short Description:</h3>
                             <p className='text-labelclr'>{project?.short_description}</p>
@@ -76,6 +69,15 @@ const ProjectDetails = () => {
                               project?.image_3 && <img src={`${baseURL}/${project?.image_3}`} alt={project?.name} srcset="" className='w-60 h-60' />
                             }
                         </div>
+
+                        {
+                            project?.video ?
+                                <h3 className='text-start'> <span className='font-bold '>Video: </span>
+                                {/* <a href={`${project?.video}`} target="_blank" rel="noopener noreferrer" className='text-blue'> Show Video</a> */}
+
+                                <iframe width="560" height="315" src={`${project?.video}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </h3>: ""
+                            }
                     </div>
 
 
