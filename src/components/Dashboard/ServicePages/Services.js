@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
+import Sending from '../../utilities/Sending';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -30,11 +31,13 @@ const AddService = () => {
     const [name, setName] = useState('')
     const [cover, setCover] = useState(null);
     const [description, setDescription] = useState("");
+    const [isSending,setIsSending]=useState(false);
 
 
     //Handle Add Services
     const handleAddServiceForm = async (e) => {
         e.preventDefault();
+        setIsSending(true);
 
         const serviceData = new FormData();
         serviceData.append("name", name);
@@ -61,8 +64,13 @@ const AddService = () => {
             console.log(result);
             e.target.reset();
             toast.success(result.message);
-        }
+        };
+        setIsSending(false);
     };
+
+    if(isSending){
+        return <Sending />
+    }
 
 
     /*   const editorToolbar = [
@@ -130,7 +138,7 @@ const AddService = () => {
                             type="reset"
                             className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>
 
-                        <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
+                        <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg" disabled={isSending}>Add</button>
                     </div>
                 </form>
             </div>
@@ -195,10 +203,15 @@ const ViewServices = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = services.filter(card => card.id !== id);
-                    setServices(remaining);
-                    toast.success(data.message)
+                    if(data.message){
+                        console.log(data);
+                        const remaining = services.filter(card => card.id !== id);
+                        setServices(remaining);
+                        toast.success(data.message)
+                    }else{
+                        console.log(data.message)
+                        toast.error("Service Delete Failed")
+                    }
 
                 })
         };

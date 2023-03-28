@@ -8,6 +8,7 @@ import useToken from '../utilities/useToken';
 import { toast } from 'react-toastify';
 import Loading from '../utilities/Loading';
 import moment from 'moment';
+import Sending from '../utilities/Sending';
 
 
 const Notice = () => {
@@ -64,11 +65,15 @@ const ViewNotice=()=>{
             })
                 .then(res => res.json())
                 .then(data => {
-                        console.log(data);
-                        const remaining = notices.filter(card => card.id !== id);
-                        setNotices(remaining);
-                        toast.success(data.message)
-                    
+                        if(data.message){
+                            console.log(data);
+                            const remaining = notices.filter(card => card.id !== id);
+                            setNotices(remaining);
+                            toast.success(data.message)
+                        }else{
+                            console.log(data.message)
+                            toast.error("Notice Delete Failed")
+                        }
                 })
         };
       };
@@ -141,10 +146,13 @@ const AddNotice = () => {
     const [token] = useToken();
     const [title, setTitle] = useState('');
     const [document, setDoc] = useState(null);
+    const [isSending,setIsSending]=useState(false);
 
     //Handle Add Notice
     const handleAddNotice = async (e) => {
         e.preventDefault();
+        setIsSending(true);
+
         // const newNotice={title,document};
         const noticeForm=new FormData();
         noticeForm.append("title",title);
@@ -171,7 +179,12 @@ const AddNotice = () => {
             console.log(result);
             e.target.reset();
             toast.success(result.message);
-        }
+        };
+        setIsSending(false);
+    };
+
+    if(isSending){
+        return <Sending />
     };
 
     return(
@@ -192,7 +205,7 @@ const AddNotice = () => {
                 </div>
 
                 <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
-                    <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Submit</button>
+                    <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg" disabled={isSending}>Submit</button>
                 </div>
             </form>
         </div>

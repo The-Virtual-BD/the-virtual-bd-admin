@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { APPContext } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
+import Sending from '../../utilities/Sending';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 
@@ -76,10 +77,15 @@ const ViewNewsLetter = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    const remaining = newsletters.filter(card => card.id !== id);
-                    setNewsletters(remaining);
-                    toast.success(data.message)
 
+                    if(data.message){
+                        const remaining = newsletters.filter(card => card.id !== id);
+                        setNewsletters(remaining);
+                        toast.success(data.message)
+                    }else{
+                        console.log(data.message)
+                        toast.error("Newsletter Delete Failed")
+                    }
                 })
         };
     };
@@ -151,11 +157,13 @@ const AddNewsLetter = () => {
     const [image, setImage] = useState(null);
     const [text, setDescription] = useState("");
     const [subject, setSubject] = useState("");
+    const [isSending,setIsSending]=useState(false);
 
 
     //Handle Add Services
     const handleAddNewsletterForm = async (e) => {
         e.preventDefault();
+        setIsSending(true);
 
         const serviceData = new FormData();
         serviceData.append("link", link);
@@ -175,16 +183,24 @@ const AddNewsLetter = () => {
 
         const result = await response.json();
 
-        if (result.error) {
-            console.log(result.error);
-            toast.error("Newsletter Add Failed");
-        } else {
+        if (result.message) {
             console.log(result);
+            toast.success(result.message);
             e.target.reset();
             setDescription('');
-            toast.success(result.message);
+           
+        } else {
+            console.log(result.error);
+            toast.error("Newsletter Add Failed");
         }
+        setIsSending(false);
     };
+
+    if(isSending){
+        return <Sending />
+    };
+
+
     return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
             <div >
@@ -226,7 +242,7 @@ const AddNewsLetter = () => {
                             type="reset"
                             className="px-10 font-bold py-2 bg-white border border-blue hover:bg-blue hover:border-blue hover:text-white text-blue rounded-lg ">Reset</button>
 
-                        <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
+                        <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg"  disabled={isSending}>Add</button>
                     </div>
                 </form>
             </div>
