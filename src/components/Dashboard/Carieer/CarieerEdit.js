@@ -52,9 +52,11 @@ const CarieerEdit = () => {
     }, [token, id]);
 
 
-    //Handle Add Job
+    //Handle Update Job
     const handleUpdateCareerForm = async (e) => {
         e.preventDefault();
+
+        console.log(designatioN,typE,salary_rangE,skillS,descriptioN)
 
         const jobData = new FormData();
         jobData.append("designation", designatioN);
@@ -63,26 +65,23 @@ const CarieerEdit = () => {
         jobData.append("skills", skillS);
         jobData.append("description", descriptioN);
 
-
-       /*  const url = `${baseURL}/api/admin/vaccancies/store`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
+        const sUrl = `${baseURL}/api/admin/vaccancies/update/${id}`;
+        const response = await fetch(sUrl, {
+            method: 'PUT',
+            headers: { "Authorization": `Bearer ${token}`},
             body: jobData
         });
-
         const result = await response.json();
-
-        if (result.error) {
-            console.log(result.error);
-            toast.error("Job Add Failed");
-        } else {
+    
+        if (result.message) {
             console.log(result);
             e.target.reset();
             toast.success(result.message);
-        } */
+            setCareer(result.data);
+        } else {
+            console.log(result.error);
+            toast.error("User Updated Failed");
+        }
     };
 
     return (
@@ -91,7 +90,6 @@ const CarieerEdit = () => {
             <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Edit Job</h3>
 
             <form className='p-3' onSubmit={handleUpdateCareerForm} >
-
                 <div className='flex flex-col lg:flex-row items-center gap-3'>
                     <div className="mb-3 flex flex-col items-start w-full">
                         <label for="projectTitle" className="font-bold mb-1">Designation</label>

@@ -85,13 +85,11 @@ const Subscription = () => {
                 Header: "Name",
                 accessor: "applicant.first_name",
                 sortType: 'basic',
-
             },
             {
                 Header: "Service",
                 accessor: "service.name",
                 sortType: 'basic',
-
             },
             {
                 Header: "Meeting Time",
@@ -120,7 +118,6 @@ const Subscription = () => {
                                         <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>)
                                         : status == "2" ? (
                                             <p className='bg-white px-2 py-[2px] rounded-full border border-purple-500 text-xs text-purple-500'> Ongoing</p>) : ""
-
                         }
                     </div>);
                 },

@@ -6,9 +6,23 @@ import { CKEditor } from 'ckeditor4-react';
 import { useParams } from 'react-router-dom';
 
 const ServiceEdit = () => {
-    const [service, setService] = useState();
+    const [service, setService] = useState({});
     const { id } = useParams();
     const [token] = useToken();
+
+    const [namE, setName] = useState('')
+    const [coveR, setCover] = useState(null);
+    const [descriptioN, setDescription] = useState('');
+
+     //Update Value
+     useEffect(() => {
+        if (service) { 
+            setName(service?.name);
+            setCover(service?.cover);
+            setDescription(service?.description);
+        }
+      }, [service]);
+
 
      //Handle Get service
      useEffect(() => {
@@ -24,8 +38,7 @@ const ServiceEdit = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // setLoading(false);
-                // console.log(data.service)
+                console.log(data.service)
                 setService(data.service)
             })
     }, [token, id]);
@@ -34,25 +47,21 @@ const ServiceEdit = () => {
     console.log(service)
    
 
-    const [namE, setName] = useState(service ? service.name : '')
-    const [coveR, setCover] = useState(null);
-    const [descriptioN, setDescription] = useState(service ? service.description : '');
-
-
   
-    //Handle Add Services
+    //Handle Update Services
     const handleAddServiceForm = async (e) => {
         e.preventDefault();
+        console.log(namE, coveR, descriptioN)
 
-        /* const serviceData = new FormData();
-        serviceData.append("name", name);
-        serviceData.append("cover", cover, cover.name);
-        serviceData.append("description", description);
+        const serviceData = new FormData();
+        serviceData.append("name", namE);
+        serviceData.append("cover", coveR);
+        serviceData.append("description", descriptioN);
 
 
-        const url = `${baseURL}/api/admin/service/create`;
+        const url = `${baseURL}/api/admin/service/update/${id}`;
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 "Authorization": `Bearer ${token}`
             },
@@ -63,12 +72,12 @@ const ServiceEdit = () => {
 
         if (result.error) {
             console.log(result.error);
-            toast.error("Service Add Failed");
+            toast.error("Service Update Failed");
         } else {
             console.log(result);
             e.target.reset();
             toast.success(result.message);
-        } */
+        }
     };
 
 

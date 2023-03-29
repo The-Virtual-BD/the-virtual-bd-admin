@@ -183,9 +183,9 @@ const AddNotice = () => {
         setIsSending(false);
     };
 
-    if(isSending){
+   /*  if(isSending){
         return <Sending />
-    };
+    }; */
 
     return(
         <div className='text-primary p-3 m-3 bg-white rounded-md '>
