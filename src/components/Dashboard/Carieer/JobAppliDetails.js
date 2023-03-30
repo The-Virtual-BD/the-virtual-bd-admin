@@ -64,7 +64,7 @@ const JobAppliDetails = () => {
                 </div>
 
                 <div className='text-start mb-1'>
-                    <h3 ><span className='font-bold'>Email: </span> {jobapp?.email}</h3>
+                    <h3 ><span className='font-bold'>Email: </span> <a href={`mailto:${jobapp?.email}`} className="text-blue hover:underline">{jobapp?.email}</a></h3>
                 </div>
 
                 <div className='text-start mb-1'>
@@ -83,7 +83,7 @@ const JobAppliDetails = () => {
                 </div>
 
                 <div className='text-start  mb-1'>
-                    <h3 ><span className='font-bold'>CV : </span> <a href={`${baseURL}/${jobapp?.cv}`} download className='text-blue cursor-pointer' > {jobapp?.cv}</a></h3>
+                    <h3 ><span className='font-bold'>CV : </span> <a href={`${baseURL}/${jobapp?.cv}`} download className='text-blue cursor-pointer' >Download CV</a></h3>
                 </div>
 
             </div>

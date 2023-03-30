@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
@@ -85,6 +85,13 @@ const Subscription = () => {
                 Header: "Name",
                 accessor: "applicant.first_name",
                 sortType: 'basic',
+                Cell: ({ row }) => {
+                    console.log(row)
+                    const { id,first_name } = row.original.applicant;
+                    return (<>
+                       <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
+                    </>);
+                },
             },
             {
                 Header: "Service",

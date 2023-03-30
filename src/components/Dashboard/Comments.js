@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
@@ -78,9 +78,10 @@ const Comments = () => {
                 accessor: "commenter_name",
                 sortType: 'basic',
                 Cell: ({ row }) => {
-                    const {commenter_name} = row.original;
+                    console.log(row)
+                    const { id,first_name } = row.original.author;
                     return (<>
-                        {commenter_name}
+                       <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
                     </>);
                 },
 

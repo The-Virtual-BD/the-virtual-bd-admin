@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
@@ -78,6 +78,13 @@ const Reviews = () => {
                 Header: "User Name",
                 accessor: "author.first_name",
                 sortType: 'basic',
+                 Cell: ({ row }) => {
+                    console.log(row)
+                    const { id,first_name } = row.original.author;
+                    return (<>
+                       <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
+                    </>);
+                },
             },
             {
                 Header: "Ratings",

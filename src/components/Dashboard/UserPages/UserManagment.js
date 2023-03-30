@@ -4,7 +4,7 @@ import Table from '../../SharedPage/Table';
 import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { BsEyeFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import Modal from '../../utilities/Modal';
@@ -87,7 +87,6 @@ const UserManagment = () => {
                 Header: "Name",
                 accessor: "first_name",
                 sortType: 'basic',
-
             },
             {
                 Header: "Email",

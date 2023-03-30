@@ -16,8 +16,6 @@ const NewsletterEdit = () => {
     const [subjecT, setSubject] = useState("");
 
 
-
-
      //Update Value
      useEffect(() => {
         if (newsLetter) { 

@@ -11,9 +11,6 @@ import { BsEyeFill } from 'react-icons/bs';
 
 
 
-
-
-
 const Dashboard = () => {
     const navigate = useNavigate();
     const [token] = useToken();
@@ -22,12 +19,13 @@ const Dashboard = () => {
     const [totalSubReq, setTotalSubReq] = useState([]);
     const [notices, setNotices] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    
+
+    const pendiingSubReq=totalSubReq?.filter(req=>req.status=== 1  );
+    // console.log(pendiingSubReq);
 
     const recentNotice = [...notices].reverse().slice(0, 5);
     const recentBlogs = [...blogs].reverse().slice(0, 5);
-
-    // console.log(recentNotice, recentBlogs)
-
 
     //Get Users
     useEffect(() => {
@@ -63,6 +61,7 @@ const Dashboard = () => {
             })
     }, [token]);
 
+
     //Get All Sub Req
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/subscriptions`;
@@ -77,6 +76,7 @@ const Dashboard = () => {
             .then(data => setTotalSubReq(data.data))
     }, [token]);
 
+
     //Get Notices
     useEffect(() => {
         const perUrl = `${baseURL}/api/admin/notices`;
@@ -89,7 +89,7 @@ const Dashboard = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data.data);
+                // console.log(data.data);
                 setNotices(data.data)
             })
     }, [token]);
@@ -203,7 +203,7 @@ const Dashboard = () => {
             <div className=' w-full flex flex-col lg:flex-row items-center justify-between gap-5  mb-5 rounded-md'>
                 <div className='flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md'>
                     <div className='text-start'>
-                        <h2 className='text-xl font-semibold '>Users</h2>
+                        <h2 className='text-xl font-semibold '>Total Users</h2>
                         <p>{totalUser.length}</p>
                     </div>
                     <div>
@@ -224,7 +224,7 @@ const Dashboard = () => {
                 <div className='flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md'>
                     <div className='text-start'>
                         <h2 className='text-xl font-semibold '>Subscription Request</h2>
-                        <p>{totalSubReq.length}</p>
+                        <p>{pendiingSubReq?.length}</p>
                     </div>
                     <div>
                         <CgPlayListCheck className='text-3xl font-bold' />
@@ -232,9 +232,46 @@ const Dashboard = () => {
                 </div>
             </div>
 
+          {/*   <div className=' w-full flex flex-col lg:flex-row items-center justify-between gap-5  mb-5 rounded-md'>
+                <div className='flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md'>
+                    <div className='text-start'>
+                        <h2 className='text-xl font-semibold '>Blog Request</h2>
+                        <p>{totalUser.length}</p>
+                    </div>
+                    <div>
+                        <RiUser3Fill className='text-3xl font-bold' />
+                    </div>
+                </div>
+
+                <div className='flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md'>
+                    <div className='text-start'>
+                        <h2 className='text-xl font-semibold '>Job Application</h2>
+                        <p>{totalBlogReq.length}</p>
+                    </div>
+                    <div>
+                        <FaUserCheck className='text-3xl font-bold' />
+                    </div>
+                </div>
+
+                <div className='flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md'>
+                    <div className='text-start'>
+                        <h2 className='text-xl font-semibold '>Comment Request</h2>
+                        <p>{pendiingSubReq?.length}</p>
+                    </div>
+                    <div>
+                        <CgPlayListCheck className='text-3xl font-bold' />
+                    </div>
+                </div>
+            </div>
+ */}
+
+
+
+
+
+
 
             <div className='flex flex-col lg:flex-row items-start  gap-5 w-full rounded-md'>
-
                 <div className='w-full bg-white p-3 text-start rounded-md' >
                     <h2 className='text-2xl font-semibold mb-4 pl-1'>Recent Notices</h2>
                     <div>
