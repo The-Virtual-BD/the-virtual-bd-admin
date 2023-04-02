@@ -39,7 +39,7 @@ const Login = () => {
             .then(result => {
                 if (result.error) {
                     console.log(result);
-                    toast.error("Login Failed");
+                    toast.error("Incorrect email or password");
                 } else {
                     console.log(result);
 
@@ -52,7 +52,7 @@ const Login = () => {
                     toast.success(result.message);
                     navigate('/admin-dashboard/dashboard');
                    }else{
-                     toast.error("Login Failed"); 
+                     toast.error("Incorrect email or password"); 
                    }
                 }
             })

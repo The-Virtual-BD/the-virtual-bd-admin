@@ -154,8 +154,9 @@ const ViewServices = () => {
     const [token] = useToken();
     const [services, setServices] = useState([]);
     const navigate = useNavigate();
-
     const [isLoading,setIsLoading]=useState(false);
+
+    console.log(services);
 
     //Get Services
     useEffect(() => {
