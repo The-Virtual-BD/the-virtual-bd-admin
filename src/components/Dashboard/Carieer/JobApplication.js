@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { FiDownload } from 'react-icons/fi';
@@ -21,7 +21,7 @@ const JobApplication = () => {
     };
 
     if (!jobAppliLoading && jobAppli?.length === 0) {
-        return <p>No Job is Avaiable</p>
+        return <p>No Job Application is Avaiable</p>
     };
 
     const allJobAppli = [...jobAppli].reverse();
@@ -51,14 +51,14 @@ const JobApplication = () => {
         };
     };
 
-   
+
 
     const jobAppli_COLUMNS = () => {
         return [
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Name",
@@ -66,7 +66,7 @@ const JobApplication = () => {
                 sortType: 'basic',
 
             },
-            
+
             {
                 Header: "Phone",
                 accessor: "phone",
@@ -86,9 +86,9 @@ const JobApplication = () => {
                 Cell: ({ row }) => {
                     const { created_at } = row.original;
                     return (
-                       <div>
-                         { moment(created_at).format('DD MMMM, YYYY')}
-                       </div>
+                        <div>
+                            {moment(created_at).format('DD MMMM, YYYY')}
+                        </div>
                     );
                 },
             },
@@ -97,7 +97,7 @@ const JobApplication = () => {
                 accessor: 'action',
                 Cell: ({ row }) => {
                     console.log(row)
-                    const { id,cv} = row.original;
+                    const { id, cv } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
                         <button onClick={() => handlejobAppliView(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#00A388] text-white grid items-center justify-center'>
@@ -105,7 +105,7 @@ const JobApplication = () => {
                             </div>
                         </button>
                         <a href={`${baseURL}/${cv}`} download >
-                            <div   className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' >
+                            <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center' >
                                 <FiDownload className='text-lg  text-white' />
                             </div>
                         </a>
@@ -121,14 +121,14 @@ const JobApplication = () => {
         ];
     };
 
-    
+
 
     return (
         <div className='text-primary p-3 '>
-        {jobAppli.length && (
-            <Table columns={jobAppli_COLUMNS()} data={allJobAppli} headline={"All Job Applications"} />
-        )}
-    </div>
+            {jobAppli.length && (
+                <Table columns={jobAppli_COLUMNS()} data={allJobAppli} headline={"All Job Applications"} />
+            )}
+        </div>
     );
 };
 

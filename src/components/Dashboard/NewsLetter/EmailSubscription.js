@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete, AiOutlinePoweroff } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../../actions/reducers';
+import { APPContext, useCollection } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
@@ -22,33 +22,27 @@ export default EmailSubscription;
 
 
 const ViewEmailSubs = () => {
+  const location = useLocation()
   const [token] = useToken();
-  const [emailSubs, setEmailSubs] = useState([]);
-  const allEmailSubs = [...emailSubs].reverse();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOn, setIson] = useState(allEmailSubs?.status);
+  const { emailSubs, emailSubsLoading } = useCollection();
   const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [subsStatus, setSubsStatus] = useState(false)
 
+  const [isOn, setIson] = useState(subsStatus);
+  const allEmailSubs = emailSubs?.reverse();
 
-
-  //Get Subscription
   useEffect(() => {
-    const cUrl = `${baseURL}/api/admin/newsSubscriber`;
-    setIsLoading(true);
-    fetch(cUrl, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setIsLoading(false);
-        setEmailSubs(data?.data);
-        setShouldUpdate(false);
-      })
-  }, [token, shouldUpdate]);
+    setSubsStatus(allEmailSubs?.status)
+  }, [allEmailSubs])
+
+
+  if (emailSubsLoading) {
+    return (<Loading />)
+  };
+
+  if (!emailSubsLoading && emailSubs?.length === 0) {
+    return <p>No Subscriber is Avaiable</p>
+  };
 
 
   //Handle Delete Subscription
@@ -65,9 +59,6 @@ const ViewEmailSubs = () => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-          const remaining = emailSubs.filter(card => card.id !== id);
-          setEmailSubs(remaining);
           toast.success(data.message)
         })
     };
@@ -89,12 +80,11 @@ const ViewEmailSubs = () => {
         setIson(!isOn);
         setShouldUpdate(true);
         toast.success(data.message);
+
         // navigate("/admin-dashboard/blogs")
       })
+    location.reload()
   };
-
-
-
 
   const EMAIL_SUBS_COLUMNS = () => {
     return [
@@ -117,9 +107,9 @@ const ViewEmailSubs = () => {
           const { status } = row.original;
           return (<div className='flex items-center justify-center  gap-2 '>
             {
-              status == "1" ? 
-              <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>On</p> : 
-              <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Off</p>
+              status == "1" ?
+                <p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>On</p> :
+                <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Off</p>
             }
 
 
@@ -154,9 +144,7 @@ const ViewEmailSubs = () => {
     ];
   };
 
-  if (isLoading) {
-    return (<Loading />)
-  };
+
 
 
   return (

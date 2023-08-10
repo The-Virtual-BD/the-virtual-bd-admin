@@ -6,7 +6,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../../actions/reducers';
+import { APPContext, useCollection } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import Sending from '../../utilities/Sending';
@@ -152,30 +152,19 @@ const AddService = () => {
 
 const ViewServices = () => {
     const [token] = useToken();
-    const [services, setServices] = useState([]);
     const navigate = useNavigate();
-    const [isLoading,setIsLoading]=useState(false);
 
-    console.log(services);
+    const { services,servicesLoading } = useCollection();
 
-    //Get Services
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/services`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data =>{
-                setIsLoading(false);
-                setServices(data.data);
-            } )
-    }, [token]);
+    if (servicesLoading) {
+        return (<Loading />)
+    };
 
+    if (!servicesLoading && services?.length === 0) {
+        return <p>No Service Avaiable</p>
+    };
+    const sortServices=[...services].reverse();
+    
 
 
 
@@ -205,9 +194,7 @@ const ViewServices = () => {
                 .then(res => res.json())
                 .then(data => {
                     if(data.message){
-                        console.log(data);
-                        const remaining = services.filter(card => card.id !== id);
-                        setServices(remaining);
+                       
                         toast.success(data.message)
                     }else{
                         console.log(data.message)
@@ -264,14 +251,11 @@ const ViewServices = () => {
         ];
     };
 
-    
-if(isLoading){
-    return(<Loading />)
-}
+
     return (
         <div className='text-primary p-3 '>
             {services.length && (
-                <Table columns={SERVICE_COLUMNS()} data={services} headline={"All Services"} />
+                <Table columns={SERVICE_COLUMNS()} data={sortServices} headline={"All Services"} />
             )}
         </div>
     );

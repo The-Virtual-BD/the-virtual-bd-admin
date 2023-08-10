@@ -53,6 +53,33 @@ export const fetchJobAppli = async () => {
     return data?.data;
 };
 
+// Fetch Email Subscribe
+export const fetchEmailSubs = async () => {
+    const res = await fetch(`${baseURL}/api/admin/newsSubscriber`, {
+        headers: headers,
+    });
+    const data = await res.json();
+    return data?.data;
+};
+
+// Fetch Newsletter
+export const fetchNewsLetter = async () => {
+    const res = await fetch(`${baseURL}/api/admin/newsletters`, {
+        headers: headers,
+    });
+    const data = await res.json();
+    return data?.data;
+};
+
+// Fetch Services
+export const fetchServices = async () => {
+    const res = await fetch(`${baseURL}/api/admin/services`, {
+        headers: headers,
+    });
+    const data = await res.json();
+    return data?.data;
+};
+
 
 
 

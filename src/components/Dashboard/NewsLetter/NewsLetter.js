@@ -5,7 +5,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../../actions/reducers';
+import { APPContext, useCollection } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import Sending from '../../utilities/Sending';
@@ -26,27 +26,18 @@ export default NewsLetter;
 
 const ViewNewsLetter = () => {
     const [token] = useToken();
-    const [newsletters, setNewsletters] = useState([]);
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
 
-    //Get Newsletter
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/newsletters`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                setNewsletters(data.data);
-            })
-    }, [token]);
+    const { newsLetter,newsLetterLoading } = useCollection();
+
+    if (newsLetterLoading) {
+        return (<Loading />)
+    };
+
+    if (!newsLetterLoading && newsLetter?.length === 0) {
+        return <p>No Newsletter is Avaiable</p>
+    };
+    const sortNewsLetter=[...newsLetter].reverse();
 
 
 
@@ -76,11 +67,7 @@ const ViewNewsLetter = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-
                     if(data.message){
-                        const remaining = newsletters.filter(card => card.id !== id);
-                        setNewsletters(remaining);
                         toast.success(data.message)
                     }else{
                         console.log(data.message)
@@ -136,14 +123,12 @@ const ViewNewsLetter = () => {
         ];
     };
 
-    if (isLoading) {
-        return (<Loading />)
-    };
+  
 
     return (
         <div className='text-primary p-3 '>
-            {newsletters.length && (
-                <Table columns={SERVICE_COLUMNS()} data={newsletters} headline={"All Newsletter"} />
+            {newsLetter.length && (
+                <Table columns={SERVICE_COLUMNS()} data={sortNewsLetter} headline={"All Newsletter"} />
             )}
         </div>
     )
