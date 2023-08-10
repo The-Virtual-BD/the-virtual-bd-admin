@@ -7,33 +7,21 @@ import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
+import { useCollection } from '../../../actions/reducers';
 
 const Blogs = () => {
-    const [token] = useToken();
-    const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
+    const [token] = useToken();
+    const { blogs, blogsLoading } = useCollection();
+    if (blogsLoading) {
+        return (<Loading />)
+    };
+
+    if (!blogsLoading && blogs?.length === 0) {
+        return <p>No Blog is Avaiable</p>
+    };
+
     const allBlogs = [...blogs].reverse();
-    const [isLoading, setIsLoading] = useState(false);
-
-    //Handle Get posts
-    useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/posts`;
-        setIsLoading(true);
-
-        fetch(sUrl, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setIsLoading(false);
-                setBlogs(data.data)
-            })
-    }, [token]);
 
     const handleBlogView = (id) => {
         console.log("clicked", id);
@@ -43,7 +31,6 @@ const Blogs = () => {
     //Handle Delete Post
     const handleDeletePost = id => {
         const procced = window.confirm("You Want To Delete?");
-
 
         if (procced) {
             const userUrl = `${baseURL}/api/admin/posts/destroy/${id}`;
@@ -55,16 +42,13 @@ const Blogs = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = blogs.filter(card => card.id !== id);
-                    setBlogs(remaining);
+                    // console.log(data);
+                    // const remaining = blogs.filter(card => card.id !== id);
+                    // setBlogs(remaining);
                     toast.success(data.message)
                 })
         };
     };
-
-
-    // console.log(allBlogs)
 
 
     const BLOG_COLUMNS = () => {
@@ -80,9 +64,9 @@ const Blogs = () => {
                 sortType: 'basic',
                 Cell: ({ row }) => {
                     console.log(row)
-                    const { id,first_name } = row.original.author;
+                    const { id, first_name } = row.original.author;
                     return (<>
-                       <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
+                        <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
                     </>);
                 },
 
@@ -117,7 +101,7 @@ const Blogs = () => {
                             status == "2" ?
                                 (<p className='bg-white px-2 py-[2px] rounded-full border border-green-500 text-xs text-green-500'>  Approved</p>)
                                 : status == "3" ? (<p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-red-500  text-red-500'>Declined</p>) : (
-                                <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>
+                                    <p className='bg-white  px-2 py-[2px] rounded-full border text-xs  border-yellow-500  text-yellow-500'>Pending</p>
                                 )
                         }
                     </div>);
@@ -149,9 +133,7 @@ const Blogs = () => {
         ];
     };
 
-    if (isLoading) {
-        return (<Loading />)
-    };
+
 
     return (
         <div className='text-primary p-3'>

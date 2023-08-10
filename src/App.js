@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import 'tw-elements';
 import { useEffect, useReducer, useState } from 'react';
-import { APPContext, initialState, reducer } from './actions/reducers';
+import DataCollection, { APPContext, initialState, reducer } from './actions/reducers';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
@@ -50,115 +50,85 @@ import JobAppliDetails from './components/Dashboard/Carieer/JobAppliDetails';
 import Loading from './components/utilities/Loading';
 import RoleDetails from './components/Dashboard/RoleDetails';
 import ReviewDetails from './components/Dashboard/ReviewDetails';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [isproject, setIsproject] = useState(false);
-  const [isAddPermission, setIsAddPermission] = useState(false);
-  const [isAddService, setIsAddService] = useState(false);
-  const [addNotice, setAddNotice] = useState(false);
-  const [addCategory, setAddCategory] = useState(false);
-  const [addRole, setAddRole] = useState(false);
-  const [addNewsLetter, setAddNewsLetter] = useState(false);
-  const [addEmailSubs, setAddEmailSubs] = useState(false);
-  const [addCareer, setAddCareer] = useState(false);
-
-
-
- 
-
-  const [menuOpen, setMenuOpen] = useState(true);
-  const [user, setUser] = useState([]);
-
-  useEffect(()=>{
-    const getUserStr=localStorage.getItem("user");
-       if(getUserStr){
-         const getUser= JSON.parse(getUserStr);
-         //    console.log(getUser);
-            setUser(getUser);
-       }
-  },[]);
-
-
-
-  
-  // console.log(user)
-
-
-  // const [data, dispatch] = useReducer(initialState);
-  const value = {  isproject, setIsproject,menuOpen, setMenuOpen,isAddPermission, setIsAddPermission,isAddService, setIsAddService,addNotice, setAddNotice,user, setUser,addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer }
-
-  
   return (
-    <APPContext.Provider value={value}>
-      
-      <Routes>
-        <Route path="/" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  } />
-        <Route path="/admin-dashboard" element={<RequireAuth> <AdminDashboard /> </RequireAuth>  }>
+    <QueryClientProvider client={queryClient}>
+      <DataCollection>
 
-          <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
+        <Routes>
+          <Route path="/" element={<RequireAuth> <AdminDashboard /> </RequireAuth>} />
+          <Route path="/admin-dashboard" element={<RequireAuth> <AdminDashboard /> </RequireAuth>}>
 
-          <Route path="/admin-dashboard/category" element={<Catagory />} />
+            <Route index path="/admin-dashboard/dashboard" element={<Dashboard />} />
 
-          <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
-          <Route path='/admin-dashboard/blogs/:id' element={<BlogDetails />}></Route>
+            <Route path="/admin-dashboard/category" element={<Catagory />} />
 
-          <Route path='/admin-dashboard/project' element={<Portfolio />}></Route>
-          <Route path='/admin-dashboard/project/:id' element={<ProjectDetails />}></Route>
-          <Route path='/admin-dashboard/project/update/:id' element={<ProjectEdit />}></Route>
+            <Route path='/admin-dashboard/blogs' element={<Blogs />}></Route>
+            <Route path='/admin-dashboard/blogs/:id' element={<BlogDetails />}></Route>
 
-          <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
-          <Route path='/admin-dashboard/comments/:id' element={<CommentsDetails />}></Route>
-          
-          <Route path='/admin-dashboard/notice' element={<Notice />}></Route>
+            <Route path='/admin-dashboard/project' element={<Portfolio />}></Route>
+            <Route path='/admin-dashboard/project/:id' element={<ProjectDetails />}></Route>
+            <Route path='/admin-dashboard/project/update/:id' element={<ProjectEdit />}></Route>
 
-          <Route path='/admin-dashboard/sub-request' element={<Subscription />}></Route>
-          <Route path='/admin-dashboard/sub-request/:id' element={<SubsReqDetails />}></Route>
+            <Route path='/admin-dashboard/comments' element={<Comments />}></Route>
+            <Route path='/admin-dashboard/comments/:id' element={<CommentsDetails />}></Route>
 
-          <Route path='/admin-dashboard/blogger-request' element={<BloggerReq />}></Route>
-          <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails />}></Route>
+            <Route path='/admin-dashboard/notice' element={<Notice />}></Route>
 
-          <Route path='/admin-dashboard/services' element={<Services />}></Route>
-          <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>
-          <Route path='/admin-dashboard/services/update/:id' element={<ServiceEdit />}></Route>
+            <Route path='/admin-dashboard/sub-request' element={<Subscription />}></Route>
+            <Route path='/admin-dashboard/sub-request/:id' element={<SubsReqDetails />}></Route>
 
-          <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
-          <Route path='/admin-dashboard/user-managment/:id' element={<UserDetails />}></Route>
-          <Route path='/admin-dashboard/user-managment/update/:id' element={<UserEdit />}></Route>
+            <Route path='/admin-dashboard/blogger-request' element={<BloggerReq />}></Route>
+            <Route path='/admin-dashboard/blogger-request/:id' element={<BloggerReqDetails />}></Route>
 
-          <Route path='/admin-dashboard/role' element={<Role />}></Route>
-          <Route path='/admin-dashboard/role/:id' element={<RoleDetails />}></Route>
+            <Route path='/admin-dashboard/services' element={<Services />}></Route>
+            <Route path='/admin-dashboard/services/:id' element={<ServicesDetails />}></Route>
+            <Route path='/admin-dashboard/services/update/:id' element={<ServiceEdit />}></Route>
 
-          <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
+            <Route path='/admin-dashboard/user-managment' element={<UserManagment />}></Route>
+            <Route path='/admin-dashboard/user-managment/:id' element={<UserDetails />}></Route>
+            <Route path='/admin-dashboard/user-managment/update/:id' element={<UserEdit />}></Route>
 
-          
+            <Route path='/admin-dashboard/role' element={<Role />}></Route>
+            <Route path='/admin-dashboard/role/:id' element={<RoleDetails />}></Route>
 
-          <Route path='/admin-dashboard/newsletter' element={<NewsLetter />}></Route>
-          <Route path='/admin-dashboard/newsletter/:id' element={<NewsletterDetails />}></Route>
-          <Route path='/admin-dashboard/newsletter/update/:id' element={<NewsletterEdit />}></Route>
+            <Route path='/admin-dashboard/permission' element={<Permission />}></Route>
 
-          <Route path='/admin-dashboard/email-subscription' element={<EmailSubscription />}></Route>
-          
-          <Route path='/admin-dashboard/carieer' element={<Carieer />}></Route>
-          <Route path='/admin-dashboard/carieer/:id' element={<CarieerDetails />}></Route>
-          <Route path='/admin-dashboard/carieer/update/:id' element={<CarieerEdit />}></Route>
 
-          <Route path='/admin-dashboard/job-application' element={<JobApplication />}></Route>
-          <Route path='/admin-dashboard/job-application/:id' element={<JobAppliDetails />}></Route>
 
-          <Route path='/admin-dashboard/reviews' element={<Reviews/>}></Route>
-          <Route path='/admin-dashboard/reviews/:id' element={<ReviewDetails/>}></Route>
+            <Route path='/admin-dashboard/newsletter' element={<NewsLetter />}></Route>
+            <Route path='/admin-dashboard/newsletter/:id' element={<NewsletterDetails />}></Route>
+            <Route path='/admin-dashboard/newsletter/update/:id' element={<NewsletterEdit />}></Route>
 
-          <Route path='/admin-dashboard/query' element={<Query/>}></Route>
-          <Route path='/admin-dashboard/query/:id' element={<QueryDetails />}></Route>
+            <Route path='/admin-dashboard/email-subscription' element={<EmailSubscription />}></Route>
 
-        </Route>
+            <Route path='/admin-dashboard/carieer' element={<Carieer />}></Route>
+            <Route path='/admin-dashboard/carieer/:id' element={<CarieerDetails />}></Route>
+            <Route path='/admin-dashboard/carieer/update/:id' element={<CarieerEdit />}></Route>
 
-        <Route path='/profile' element={<RequireAuth> <Profile /></RequireAuth> }></Route>
-        <Route path='/sign-in' element={<Login />}></Route>
-      </Routes>
-      <ToastContainer />
+            <Route path='/admin-dashboard/job-application' element={<JobApplication />}></Route>
+            <Route path='/admin-dashboard/job-application/:id' element={<JobAppliDetails />}></Route>
 
-    </APPContext.Provider>
+            <Route path='/admin-dashboard/reviews' element={<Reviews />}></Route>
+            <Route path='/admin-dashboard/reviews/:id' element={<ReviewDetails />}></Route>
+
+            <Route path='/admin-dashboard/query' element={<Query />}></Route>
+            <Route path='/admin-dashboard/query/:id' element={<QueryDetails />}></Route>
+
+          </Route>
+
+          <Route path='/profile' element={<RequireAuth> <Profile /></RequireAuth>}></Route>
+          <Route path='/sign-in' element={<Login />}></Route>
+        </Routes>
+        <ToastContainer />
+
+      </DataCollection>
+    </QueryClientProvider>
   );
 }
 

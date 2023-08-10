@@ -5,7 +5,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../../actions/reducers';
+import { APPContext, useCollection } from '../../../actions/reducers';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import Sending from '../../utilities/Sending';
@@ -16,7 +16,7 @@ const Carieer = () => {
     const { addCareer } = useContext(APPContext);
     return (
         <div>
-             { addCareer ?   <AddCarieer />:  <ViewCarieer />}
+            {addCareer ? <AddCarieer /> : <ViewCarieer />}
         </div>
     );
 };
@@ -24,33 +24,24 @@ const Carieer = () => {
 export default Carieer;
 
 
-const ViewCarieer=()=>{
+const ViewCarieer = () => {
     const [token] = useToken();
-    const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
-    const allJobs=[...jobs].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const { jobs, jobsLoading } = useCollection();
 
-    //Get Carieer
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/vaccancies`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                setJobs(data.data);
-            })
-    }, [token]);
+    if (jobsLoading) {
+        return (<Loading />)
+    };
 
-   
+    if (!jobsLoading && jobs?.length === 0) {
+        return <p>No Job is Avaiable</p>
+    };
+
+    const allJobs = [...jobs].reverse();
+
+
+
 
     const handleCarieerView = (id) => {
         console.log("clicked", id);
@@ -77,11 +68,7 @@ const ViewCarieer=()=>{
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = jobs.filter(card => card.id !== id);
-                    setJobs(remaining);
                     toast.success(data.message)
-
                 })
         };
     };
@@ -93,7 +80,7 @@ const ViewCarieer=()=>{
             {
                 Header: "SL",
                 id: 'index',
-                accessor: (_row, i) => i + 1 
+                accessor: (_row, i) => i + 1
             },
             {
                 Header: "Designation",
@@ -113,7 +100,7 @@ const ViewCarieer=()=>{
                 sortType: 'basic',
 
             },
-           
+
 
             {
                 Header: 'Action',
@@ -126,7 +113,7 @@ const ViewCarieer=()=>{
                                 <BsEyeFill className='text-lg  ' />
                             </div>
                         </button>
-                        <button onClick={()=>handleCarieerEdit(id)}>
+                        <button onClick={() => handleCarieerEdit(id)}>
                             <div className='w-8 h-8 rounded-md bg-[#0068A3] text-white grid items-center justify-center'>
                                 <RiEditBoxFill className='text-lg  text-white' />
                             </div>
@@ -145,29 +132,27 @@ const ViewCarieer=()=>{
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
-    };
+    
 
-    return(
+    return (
         <div className='text-primary p-3 '>
-        {jobs.length && (
-            <Table columns={Carieer_COLUMNS()} data={allJobs} headline={"All Jobs"} />
-        )}
-    </div>
+            {jobs.length && (
+                <Table columns={Carieer_COLUMNS()} data={allJobs} headline={"All Jobs"} />
+            )}
+        </div>
     )
 };
 
 
-const AddCarieer=()=>{
+const AddCarieer = () => {
     const [token] = useToken();
 
-    const [designation,setDesignation]=useState('');
-    const [type,setType]=useState('');
-    const [salary_range,setSalary_range]=useState('');
-    const [skills,setSkills]=useState('');
-    const [description,setDescription]=useState('');
-    const [isSending,setIsSending]=useState(false);
+    const [designation, setDesignation] = useState('');
+    const [type, setType] = useState('');
+    const [salary_range, setSalary_range] = useState('');
+    const [skills, setSkills] = useState('');
+    const [description, setDescription] = useState('');
+    const [isSending, setIsSending] = useState(false);
 
 
     //Handle Add Job
@@ -206,11 +191,11 @@ const AddCarieer=()=>{
 
     // console.log(isSending)
 
-    if(isSending){
+    if (isSending) {
         return <Sending />
     }
 
-    return(
+    return (
         <div className='text-labelclr p-3 m-3 bg-white rounded-md '>
             <div >
                 <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2'>Add Job</h3>
@@ -247,7 +232,7 @@ const AddCarieer=()=>{
                             data={description}
                             onChange={e => setDescription(e.editor.getData())}
                             // config={{toolbar: editorToolbar}}
-                            className="w-full bg-bgclr rounded py-2 px-3 outline-none" required 
+                            className="w-full bg-bgclr rounded py-2 px-3 outline-none" required
                         />
                     </div>
 

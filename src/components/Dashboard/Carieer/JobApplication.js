@@ -9,32 +9,22 @@ import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
 import Loading from '../../utilities/Loading';
 import moment from 'moment';
+import { useCollection } from '../../../actions/reducers';
 
 const JobApplication = () => {
     const [token] = useToken();
-    const [jobAppli, setJobAppli] = useState([]);
     const navigate = useNavigate();
-    const allJobAppli=[...jobAppli].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const { jobAppli, jobAppliLoading } = useCollection();
 
-    //Get job Application
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/jobapplications`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                setJobAppli(data.data);
-            })
-    }, [token]);
+    if (jobAppliLoading) {
+        return (<Loading />)
+    };
 
+    if (!jobAppliLoading && jobAppli?.length === 0) {
+        return <p>No Job is Avaiable</p>
+    };
+
+    const allJobAppli = [...jobAppli].reverse();
 
 
     const handlejobAppliView = (id) => {
@@ -56,9 +46,6 @@ const JobApplication = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = jobAppli.filter(card => card.id !== id);
-                    setJobAppli(remaining);
                     toast.success(data.message)
                 })
         };
@@ -134,10 +121,7 @@ const JobApplication = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
-    };
-
+    
 
     return (
         <div className='text-primary p-3 '>

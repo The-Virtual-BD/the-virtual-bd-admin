@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineClose, AiOutlineLogout, AiOutlineMenu } from 'react-icons/ai';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { APPContext } from '../../actions/reducers';
+import { APPContext, useCollection } from '../../actions/reducers';
 import { sidebarMenu } from '../../AllData/staticData';
 import useToken from '../utilities/useToken';
 import useUser from '../utilities/useUser';
@@ -13,20 +13,16 @@ import logo2 from '../../images/logo 2.png'
 
 
 const Header = () => {
-    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory,addRole, setAddRole,addNewsLetter, setAddNewsLetter,addEmailSubs, setAddEmailSubs,addCareer, setAddCareer } = useContext(APPContext);
+    const { isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory, addRole, setAddRole, addNewsLetter, setAddNewsLetter, addEmailSubs, setAddEmailSubs, addCareer, setAddCareer } = useCollection()
 
     const [token, setToken] = useToken();
     const location = useLocation();
     const currentPath = location.pathname;
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
-    // const userImg=`${baseURL}/${user?.photo}`;
 
-    // const [image, setImage] = useState(userImg || blankUser);
     const [profile, setProfile] = useState(false);
 
-    // const access_token=window.localStorage.getItem("token")
-    // const access_user=window.localStorage.getItem("user")
 
 
     //Handle Logout
@@ -55,8 +51,8 @@ const Header = () => {
 
     return (
         <>
-       
-       
+
+
             <div>
                 <div className='w-full text-primary flex items-center gap-3 justify-between h-20 px-3 lg:px-5 lg:py-3  bg-white shadow-lg border-b-[1px] border-bgclr'>
 
@@ -231,9 +227,9 @@ const Header = () => {
                                         <div className="dropdown relative">
                                             <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {
-                                                    user?.photo?
-                                                    <img src={`${baseURL}/${user?.photo}`} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />:
-                                                    <img src={blankUser} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />
+                                                    user?.photo ?
+                                                        <img src={`${baseURL}/${user?.photo}`} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} /> :
+                                                        <img src={blankUser} alt="admin" srcSet="" style={{ width: "50px", height: "50px", borderRadius: "100%" }} onClick={() => setProfile(!profile)} />
                                                 }
                                             </button>
                                             <ul className="dropdown-menu w-36 absolute bg-white text-base z-50 float-left py-1.5 list-none text-left rounded-lg shadow-lg mt-1  hidden  m-0 bg-clip-padding border-none "

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../actions/reducers';
+import { APPContext, useCollection } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
@@ -9,51 +9,31 @@ import useToken from '../utilities/useToken';
 
 const Catagory = () => {
   const { addCategory } = useContext(APPContext);
-
   return (
     <div>
-      {
-        addCategory ? <AddCatagory /> : <ViewCatagory />
-      }
-
+      {addCategory ? <AddCatagory /> : <ViewCatagory />}
     </div>
   );
 };
 export default Catagory;
 
 
+
+
 const ViewCatagory = () => {
-  const [catagory, setCatagory] = useState([]);
   const [token] = useToken();
-  const [isLoading,setIsLoading]=useState(false);
 
+  const { categories, categoriesLoading } = useCollection();
+  if (categoriesLoading) {
+    return (<Loading />)
+  };
 
-
-  //Get Catagory
-  useEffect(() => {
-    const cUrl = `${baseURL}/api/categories/catlist`;
-    setIsLoading(true);
-    fetch(cUrl, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data =>{
-        setIsLoading(false);
-         setCatagory(data?.data);
-      })
-  }, [token]);
-
-
-
-  // console.log(catagory);
+  if (!categoriesLoading && categories?.length === 0) {
+    return <p>No Category is Avaiable</p>
+  };
 
   //Handle Catagory Delete
   const handleCatagoryDelete = id => {
-
     const procced = window.confirm("You Want To Delete?");
 
     if (procced) {
@@ -66,9 +46,6 @@ const ViewCatagory = () => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-          const remaining = catagory.filter(card => card.id !== id);
-          setCatagory(remaining);
           toast.success(data.message)
         })
     };
@@ -79,8 +56,8 @@ const ViewCatagory = () => {
       {
         Header: "SL",
         id: 'index',
-        accessor: (_row, i) => i + 1 
-    },
+        accessor: (_row, i) => i + 1
+      },
       {
         Header: "Category Name",
         accessor: "name",
@@ -107,21 +84,19 @@ const ViewCatagory = () => {
     ];
   };
 
-  if(isLoading){
-    return(<Loading />)
-};
-
-  
 
   return (
     <div className='text-primary p-3'>
-      {catagory.length && (
-        <Table columns={CATAGORY_COLUMNS()} data={catagory} headline={"Blog Categories"} />
+      {categories?.length && (
+        <Table columns={CATAGORY_COLUMNS()} data={categories} headline={"Blog Categories"} />
       )}
 
     </div>
   )
 };
+
+
+
 
 
 const AddCatagory = () => {
@@ -159,23 +134,23 @@ const AddCatagory = () => {
 
   return (
     <div>
-        <div className='text-primary p-3 m-3 bg-white rounded-md '>
-          <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Category</h3>
-          <form className='p-3 ' onSubmit={handleAddCatagory} >
+      <div className='text-primary p-3 m-3 bg-white rounded-md '>
+        <h3 className='px-3 text-2xl font-bold text-center  lg:text-start my-2 text-primary'>Add Category</h3>
+        <form className='p-3 ' onSubmit={handleAddCatagory} >
 
 
-            <div className="mb-3 flex flex-col items-start w-full">
-              <label for="projectTitle" className="font-bold mb-1">Category Name</label>
-              <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setCatagoryName(e.target.value)} placeholder="Category Name" />
-            </div>
+          <div className="mb-3 flex flex-col items-start w-full">
+            <label for="projectTitle" className="font-bold mb-1">Category Name</label>
+            <input type="text" className="w-full bg-bgclr rounded py-2 px-3 outline-none" id="projectTitle" onChange={e => setCatagoryName(e.target.value)} placeholder="Category Name" />
+          </div>
 
-            <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
-              <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
-            </div>
-          </form>
-        </div>
+          <div className="flex  justify-center lg:justify-end items-center text-center mt-3">
+            <button type="submit" className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg ">Add</button>
+          </div>
+        </form>
+      </div>
 
-        {/* <AddSubCatagory /> */}
+      {/* <AddSubCatagory /> */}
     </div>
   )
 };

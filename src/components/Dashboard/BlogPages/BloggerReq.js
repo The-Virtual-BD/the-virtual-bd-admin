@@ -1,40 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Table from '../../SharedPage/Table';
 import Loading from '../../utilities/Loading';
 import { baseURL } from '../../utilities/url';
 import useToken from '../../utilities/useToken';
+import { useCollection } from '../../../actions/reducers';
 
 const BloggerReq = () => {
     const [token] = useToken();
-    const [bloggerApplicent, setBloggerApplicent] = useState([]);
     const navigate = useNavigate();
+    const { bloggerReq, bloggerReqLoading } = useCollection();
 
-    const allBloggerApplicent = [...bloggerApplicent].reverse();
-    const [isLoading, setIsLoading] = useState(false);
+    if (bloggerReqLoading) {
+        return (<Loading />)
+    };
 
+    if (!bloggerReqLoading && bloggerReq?.length === 0) {
+        return <p>No Blogger Request is Avaiable</p>
+    };
 
-    //Get blogger req
-    useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/bloggerApplication`;
-        setIsLoading(true);
-        fetch(sUrl, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                console.log(data.blogger)
-                setBloggerApplicent(data.blogger)
-            })
-    }, [token]);
+    const allBloggerApplicent = [...bloggerReq].reverse();
 
     const handleBloggerReqView = (id) => {
         console.log("clicked", id);
@@ -56,9 +44,6 @@ const BloggerReq = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = bloggerApplicent.filter(card => card.id !== id);
-                    setBloggerApplicent(remaining);
                     toast.success(data.message)
                 })
         };
@@ -76,13 +61,13 @@ const BloggerReq = () => {
                 Header: "Blogger Name",
                 accessor: "name",
                 sortType: 'basic',
-               /*  Cell: ({ row }) => {
-                    console.log(row)
-                    const { id,first_name } = row.original;
-                    return (<>
-                       <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
-                    </>);
-                }, */
+                /*  Cell: ({ row }) => {
+                     console.log(row)
+                     const { id,first_name } = row.original;
+                     return (<>
+                        <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
+                     </>);
+                 }, */
 
             },
             {
@@ -133,13 +118,11 @@ const BloggerReq = () => {
         ];
     };
 
-    if (isLoading) {
-        return (<Loading />)
-    };
+
 
     return (
         <div className='text-primary p-3'>
-            {bloggerApplicent.length && (
+            {bloggerReq?.length && (
                 <Table
                     columns={BLOGGER_COLUMNS()}
                     data={allBloggerApplicent}
