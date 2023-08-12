@@ -40,7 +40,7 @@ const ProjectDetails = () => {
 
             <div className='flex flex-col lg:flex-row items-start justify-center gap-5 p-4'>
                 <div className='w-full lg:w-1/2'>
-                    <div className='flex flex-col items-start gap-3'>
+                    <div className='flex flex-col items-start gap-3 text-start'>
 
                         <h3><span className='font-bold'>Project Title:</span> {project?.name}</h3>
                         <h3><span className='font-bold'>Client Name: </span>{project?.client_name}</h3>

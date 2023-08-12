@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { fetchBloggerApplication, fetchBlogs, fetchCategory, fetchEmailSubs, fetchJobAppli, fetchJobPost, fetchNewsLetter, fetchServices } from "./dataFetching";
+import { fetchBloggerApplication, fetchBlogs, fetchCategory, fetchEmailSubs, fetchJobAppli, fetchJobPost, fetchNewsLetter, fetchPortfolio, fetchServices, fetchSubscription } from "./dataFetching";
 
 export const APPContext = createContext();
 
@@ -37,10 +37,13 @@ const DataCollection = ({ children }) => {
     const { data: newsLetter, isLoading: newsLetterLoading } = useQuery("newsLetter", fetchNewsLetter);
     const { data: services, isLoading: servicesLoading } = useQuery("services", fetchServices);
 
+    const { data: portfolio, isLoading: portfolioLoading } = useQuery("portfolio", fetchPortfolio);
+    const { data: subscription, isLoading: subscriptionLoading } = useQuery("subscription", fetchSubscription);
+
 
     const value = {
         isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory, addRole, setAddRole, addNewsLetter, setAddNewsLetter, addEmailSubs, setAddEmailSubs, addCareer, setAddCareer,
-        categories, categoriesLoading, blogs, blogsLoading, bloggerReq, bloggerReqLoading, jobs, jobsLoading, jobAppli, jobAppliLoading, emailSubs, emailSubsLoading, newsLetter, newsLetterLoading, services, servicesLoading
+        categories, categoriesLoading, blogs, blogsLoading, bloggerReq, bloggerReqLoading, jobs, jobsLoading, jobAppli, jobAppliLoading, emailSubs, emailSubsLoading, newsLetter, newsLetterLoading, services, servicesLoading,portfolio,portfolioLoading,subscription,subscriptionLoading
     }
 
     return <APPContext.Provider value={value}>

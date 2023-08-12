@@ -5,7 +5,7 @@ import { RiEditBoxFill } from "react-icons/ri";
 import { AiFillDelete } from "react-icons/ai";
 import Table from "../../SharedPage/Table";
 import { useNavigate } from "react-router-dom";
-import { APPContext } from "../../../actions/reducers";
+import { APPContext, useCollection } from "../../../actions/reducers";
 import { toast } from "react-toastify";
 import { baseURL } from "../../utilities/url";
 import useToken from "../../utilities/useToken";
@@ -342,29 +342,18 @@ const AddProject = () => {
 const ViewProjects = () => {
 	const [token] = useToken();
 	const navigate = useNavigate();
-	const [projects, setProjects] = useState([]);
 
-	const allProjects = [...projects].reverse();
-	const [isLoading, setIsLoading] = useState(false);
+	const { portfolio, portfolioLoading } = useCollection();
 
-	//Get projects
-	useEffect(() => {
-		const sUrl = `${baseURL}/api/admin/projects`;
-		setIsLoading(true);
+	if (portfolioLoading) {
+		return <Loading />;
+	}
 
-		fetch(sUrl, {
-			method: "GET",
-			headers: {
-				"content-type": "application/json",
-				Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setIsLoading(false);
-				setProjects(data.data);
-			});
-	}, [token]);
+	if (!portfolioLoading && portfolio?.length === 0) {
+		return <p>No Portfolio is Avaiable</p>;
+	}
+
+	const allProjects = portfolio?.reverse();
 
 	//Handle Project View
 	const handleProjectView = (id) => {
@@ -386,9 +375,6 @@ const ViewProjects = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					console.log(data);
-					const remaining = projects.filter((card) => card.id !== id);
-					setProjects(remaining);
 					toast.success(data.message);
 				});
 		}
@@ -460,19 +446,13 @@ const ViewProjects = () => {
 		];
 	};
 
-	if (isLoading) {
-		return <Loading />;
-	}
-
-	console.log(projects);
-
 	return (
 		<div className="text-primary p-3">
-			{projects.length && (
+			{portfolio.length && (
 				<Table
 					columns={PROJECT_COLUMNS()}
 					data={allProjects}
-					headline={"Projects and Communications"}
+					headline={"Portfolio"}
 				/>
 			)}
 		</div>
