@@ -111,18 +111,16 @@ const AddProject = () => {
 		if (result.error) {
 			console.log(result.error);
 			toast.error("Project Added Failed");
+			setIsSending(false);
 		} else {
 			console.log(result);
 			e.target.reset();
 			toast.success(result.message);
+			setIsSending(false);
 		}
-		setIsSending(false);
 	};
 
-	if (isSending) {
-		return <Sending />;
-	}
-
+	
 	return (
 		<div className="text-labelclr p-3 m-3 bg-white rounded-md ">
 			<div>
@@ -330,7 +328,7 @@ const AddProject = () => {
 							className="px-10 font-bold py-2 bg-blue border border-blue hover:bg-white hover:border-blue hover:text-blue text-white rounded-lg "
 							disabled={isSending}
 						>
-							Submit
+							{isSending ? "Submitting..." : "Submit"}
 						</button>
 					</div>
 				</form>
