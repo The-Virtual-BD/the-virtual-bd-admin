@@ -27,20 +27,20 @@ const Dashboard = () => {
 		subscriptionLoading,
 	} = useCollection();
 
-	if (
+	/* if (
 		usersLoading ||
 		blogsLoading ||
 		bloggerReqLoading ||
 		noticesLoading ||
 		subscriptionLoading
 	) {
-		return <p>Loading...</p>;
-	}
+		return null;
+	} */
 
 	const pendiingSubReq = subscription?.filter((req) => req.status === 1);
 
-	const recentNotice = [...notices].reverse().slice(0, 5);
-	const recentBlogs = [...blogs].reverse().slice(0, 5);
+	const recentNotice = notices?.reverse().slice(0, 5);
+	const recentBlogs = blogs?.reverse().slice(0, 5);
 
 	const handleBlogView = (id) => {
 		console.log("clicked", id);
@@ -130,7 +130,7 @@ const Dashboard = () => {
 				<div className="flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md">
 					<div className="text-start">
 						<h2 className="text-xl font-semibold ">Total Users</h2>
-						<p>{users ? users?.length : "0"}</p>
+						<p>{usersLoading ? "0" : users?.length}</p>
 					</div>
 					<div>
 						<RiUser3Fill className="text-3xl font-bold" />
@@ -140,7 +140,7 @@ const Dashboard = () => {
 				<div className="flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md">
 					<div className="text-start">
 						<h2 className="text-xl font-semibold ">Blogger Applications</h2>
-						<p>{bloggerReq ? bloggerReq?.length : "0"}</p>
+						<p>{bloggerReqLoading ? "0" : bloggerReq?.length}</p>
 					</div>
 					<div>
 						<FaUserCheck className="text-3xl font-bold" />
@@ -150,7 +150,7 @@ const Dashboard = () => {
 				<div className="flex items-center justify-between gap-5 bg-white  p-5 round w-full rounded-md">
 					<div className="text-start">
 						<h2 className="text-xl font-semibold ">Subscription Request</h2>
-						<p>{subscription ? pendiingSubReq?.length : "0"}</p>
+						<p>{subscriptionLoading ? "0" : pendiingSubReq?.length}</p>
 					</div>
 					<div>
 						<CgPlayListCheck className="text-3xl font-bold" />
