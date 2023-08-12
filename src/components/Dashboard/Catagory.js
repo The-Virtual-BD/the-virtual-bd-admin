@@ -40,7 +40,7 @@ const ViewCatagory = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					toast.success(data.message);
-          window.location.reload()
+					window.location.reload();
 				});
 		}
 	};
@@ -123,7 +123,7 @@ const AddCatagory = () => {
 			e.target.reset();
 			toast.success(result.message);
 			setSubmitting(false);
-      // window.location.reload()
+			// window.location.reload()
 		}
 	};
 
