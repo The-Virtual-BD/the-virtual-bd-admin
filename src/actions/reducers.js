@@ -54,6 +54,7 @@ const DataCollection = ({ children }) => {
 
     const value = {
         isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory, addRole, setAddRole, addNewsLetter, setAddNewsLetter, addEmailSubs, setAddEmailSubs, addCareer, setAddCareer,
+        
         categories, categoriesLoading, blogs, blogsLoading, bloggerReq, bloggerReqLoading, jobs, jobsLoading, jobAppli, jobAppliLoading, emailSubs, emailSubsLoading, newsLetter, newsLetterLoading, services, servicesLoading,portfolio,portfolioLoading,subscription,subscriptionLoading,users,usersLoading,comments,commentsLoading,notices,noticesLoading,query,queryLoading,reviews,reviewsLoading,roles,rolesLoading,permits,permissionsLoading
     }
 

@@ -63,7 +63,7 @@ const Subscription = () => {
 				accessor: "applicant.first_name",
 				sortType: "basic",
 				Cell: ({ row }) => {
-					console.log(row);
+					// console.log(row);
 					const { id, first_name } = row.original.applicant;
 					return (
 						<>

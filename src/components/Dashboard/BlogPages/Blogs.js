@@ -63,7 +63,7 @@ const Blogs = () => {
                 accessor: "author.first_name",
                 sortType: 'basic',
                 Cell: ({ row }) => {
-                    console.log(row)
+                    // console.log(row)
                     const { id, first_name } = row.original.author;
                     return (<>
                         <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
@@ -95,7 +95,7 @@ const Blogs = () => {
                 sortType: 'basic',
                 Cell: ({ row }) => {
                     const { status } = row.original;
-                    console.log(status)
+                    // console.log(status)
                     return (<div className='flex items-center justify-center  gap-2 text-sm'>
                         {
                             status == "2" ?
