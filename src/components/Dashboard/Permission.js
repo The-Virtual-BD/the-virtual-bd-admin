@@ -4,7 +4,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../actions/reducers';
+import { APPContext, useCollection } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
@@ -27,26 +27,19 @@ export default Permission;
 const ViewAllPermissions = () => {
   const [token] = useToken();
   const navigate = useNavigate();
-  const [permit, setPermit] = useState([]);
-  const [isLoading,setIsLoading]=useState(false);
 
-  //Get Permissions
-  useEffect(() => {
-    const cUrl = `${baseURL}/api/admin/permissions`;
-    setIsLoading(true);
-    fetch(cUrl, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setIsLoading(false);
-        setPermit(data.permissions)
-      })
-  }, [token]);
+  const { permits,permissionsLoading } = useCollection();
+
+  if (permissionsLoading) {
+      return (<Loading />)
+  };
+
+  if (!permissionsLoading && permits?.length === 0) {
+      return <p>No Permissions is Avaiable</p>
+  };
+
+  const allPermissions = permits?.reverse();
+ 
 
    //Handle Delete Permission
   const handleDeletePermission=id=>{
@@ -62,9 +55,6 @@ const ViewAllPermissions = () => {
           })
               .then(res => res.json())
               .then(data => {
-                      console.log(data);
-                      const remaining = permit.filter(card => card.id !== id);
-                      setPermit(remaining);
                       toast.success(data.message)
                   
               })
@@ -114,15 +104,13 @@ const ViewAllPermissions = () => {
     ];
   };
 
-  if(isLoading){
-    return(<Loading />)
-};
+
 
   return (
     <div className='text-primary p-3'>
 
-      {permit.length && (
-        <Table columns={PERMISSION_COLUMNS()} data={permit} headline={"All Permissions"} />
+      {permits?.length && (
+        <Table columns={PERMISSION_COLUMNS()} data={allPermissions} headline={"All Permissions"} />
       )}
 
     </div>

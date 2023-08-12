@@ -21,7 +21,7 @@ const Query = () => {
     };
 
     if (!queryLoading && query?.length === 0) {
-        return <p>No Job is Avaiable</p>
+        return <p>No Query is Avaiable</p>
     };
 
     const allQuery = [...query].reverse();

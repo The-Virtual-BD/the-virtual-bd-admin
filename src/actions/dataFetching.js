@@ -140,3 +140,21 @@ export const fetchReviews = async () => {
 	const data = await res.json();
 	return data?.data;
 };
+
+// Fetch Roles
+export const fetchRoles = async () => {
+	const res = await fetch(`${baseURL}/api/admin/roles`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.roles;
+};
+
+// Fetch Permission
+export const fetchPermission = async () => {
+	const res = await fetch(`${baseURL}/api/admin/permissions`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.permissions;
+};

@@ -9,37 +9,26 @@ import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import { useCollection } from '../../actions/reducers';
 
 const Reviews = () => {
     const [token] = useToken();
-    const [reviews, setReviews] = useState([]);
     const navigate = useNavigate();
 
-    const allReviews = [...reviews].reverse();
-    const [isLoading, setIsLoading] = useState(false);
+    const { reviews,reviewsLoading } = useCollection();
 
+    if (reviewsLoading) {
+        return (<Loading />)
+    };
 
-    //Get reviews
-    useEffect(() => {
-        const sUrl = `${baseURL}/api/admin/reviews`;
-        setIsLoading(true);
-        fetch(sUrl, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                console.log(data)
-                setReviews(data.data)
-            })
-    }, [token]);
+    if (!reviewsLoading && reviews?.length === 0) {
+        return <p>No Reviews is Avaiable</p>
+    };
+
+    const allReviews = reviews?.reverse();
 
     const handleReviewsView = (id) => {
-        console.log("clicked", id);
+        // console.log("clicked", id);
         navigate(`/admin-dashboard/reviews/${id}`);
     };
 
@@ -58,9 +47,6 @@ const Reviews = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = reviews.filter(card => card.id !== id);
-                    setReviews(remaining);
                     toast.success(data.message)
                 })
         };
@@ -79,7 +65,7 @@ const Reviews = () => {
                 accessor: "author.first_name",
                 sortType: 'basic',
                  Cell: ({ row }) => {
-                    console.log(row)
+                    // console.log(row)
                     const { id,first_name } = row.original.author;
                     return (<>
                        <Link to={`/admin-dashboard/user-managment/${id}`}>{first_name}</Link>
@@ -133,9 +119,7 @@ const Reviews = () => {
         ];
     };
 
-    if (isLoading) {
-        return (<Loading />)
-    };
+    
 
     return (
         <div className='text-primary p-3'>

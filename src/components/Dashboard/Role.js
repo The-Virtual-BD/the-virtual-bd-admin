@@ -3,7 +3,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { BsEyeFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { APPContext } from '../../actions/reducers';
+import { APPContext, useCollection } from '../../actions/reducers';
 import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
@@ -24,33 +24,19 @@ export default Role;
 const ViewAllRole = () => {
   const [token] = useToken();
   const navigate = useNavigate();
-  const [role, setRole] = useState([]);
-  const roles = [...role].reverse();
-  const [isLoading,setIsLoading]=useState(false);
   
+  const { roles,rolesLoading } = useCollection();
 
-  //Get Roles
-  useEffect(() => {
-    const perUrl = `${baseURL}/api/admin/roles`;
-    setIsLoading(true);
-    fetch(perUrl, {
-      method: "GET",
-      headers: {
-        'content-type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data =>{
-        setIsLoading(false); 
-        setRole(data.roles);
-      } )
-  }, [token]);
+  if (rolesLoading) {
+      return (<Loading />)
+  };
 
-  /* const handlePermitView = (id) => {
-    console.log("clicked", id);
-    navigate(`/admin-dashboard/project/${id}`);
-  }; */
+  if (!rolesLoading && roles?.length === 0) {
+      return <p>No Role is Avaiable</p>
+  };
+
+  const allRoles = roles?.reverse();
+
 
   const handleDeleteRole = id => {
     const procced = window.confirm("You Want To Delete?");
@@ -65,9 +51,7 @@ const ViewAllRole = () => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-          const remaining = role.filter(card => card.id !== id);
-          setRole(remaining);
+          
           toast.success(data.message)
 
         })
@@ -125,15 +109,13 @@ const ViewAllRole = () => {
     ];
   };
 
-  if(isLoading){
-    return(<Loading />)
-};
+
 
   return (
     <div className='text-blue p-3'>
 
-      {role.length && (
-        <Table columns={ROLE_COLUMNS()} data={roles} headline={"All Role"} />
+      {roles?.length && (
+        <Table columns={ROLE_COLUMNS()} data={allRoles} headline={"All Roles"} />
       )}
 
     </div>
@@ -144,30 +126,19 @@ const ViewAllRole = () => {
 
 const AddRole = () => {
   const [token] = useToken();
-  //Get All Permission 
-   const [permit, setPermit] = useState([]);
-  const [name, setName] = useState('');
+  const { permits,permissionsLoading } = useCollection();
 
+  const [name, setName] = useState('');
   const [role_permissions, setRole_Permissions] = useState({
     permissions: []
   });
+
+  if (permissionsLoading) {
+    return (<Loading />)
+};
  
 
-  //Get Permit for all Permissions
-  useEffect(() => {
-    const cUrl = `${baseURL}/api/admin/permissions`;
-    fetch(cUrl, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setPermit(data.permissions);
-      })
-  }, [token]);
+
 
 
   //Handle Add Role
@@ -239,7 +210,7 @@ const AddRole = () => {
           <h1 className='font-bold text-start mb-2'>Add Permissions</h1>
             <div className="mb-3 flex flex-col items-start w-full">
               
-              {permit.map((option) => (
+              {permits?.map((option) => (
                       <div key={option?.id}>
                         <label>
                           <input
