@@ -39,8 +39,8 @@ const Dashboard = () => {
 
 	const pendiingSubReq = subscription?.filter((req) => req.status === 1);
 
-	const recentNotice = notices?.reverse().slice(0, 5);
-	const recentBlogs = blogs?.reverse().slice(0, 5);
+	const recentNotice = notices?.reverse();
+	const recentBlogs = blogs?.reverse()
 
 	const handleBlogView = (id) => {
 		console.log("clicked", id);
@@ -165,7 +165,7 @@ const Dashboard = () => {
 						{notices?.length && (
 							<SmallTable
 								columns={NOTICE_COLUMNS()}
-								data={recentNotice}
+								data={recentNotice.slice(0, 5)}
 								headline={" "}
 							/>
 						)}
@@ -178,7 +178,7 @@ const Dashboard = () => {
 						{blogs?.length && (
 							<SmallTable
 								columns={BLOG_COLUMNS()}
-								data={recentBlogs}
+								data={recentBlogs.slice(0, 5)}
 								headline={" "}
 							/>
 						)}
