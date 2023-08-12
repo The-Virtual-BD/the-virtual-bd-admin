@@ -7,35 +7,25 @@ import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import { useCollection } from '../../actions/reducers';
 
 const Comments = () => {
     const [token] = useToken();
-    const [comments, setComments] = useState([]);
     const navigate = useNavigate();
 
+    const { comments,commentsLoading } = useCollection();
+
+    if (commentsLoading) {
+        return (<Loading />)
+    };
+
+    if (!commentsLoading && comments?.length === 0) {
+        return <p>No Comments is Avaiable</p>
+    };
+
     const allComments = [...comments].reverse();
-    const [isLoading, setIsLoading] = useState(false);
 
-    console.log(allComments);
-
-
-    //Get All Comments
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/comments`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                setComments(data.data)
-            })
-    }, [token]);
+    
 
     //handle Comments View
     const handleCommentView = (id) => {
@@ -57,9 +47,6 @@ const Comments = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = comments.filter(card => card.id !== id);
-                    setComments(remaining);
                     toast.success(data.message)
                 })
         };
@@ -151,9 +138,7 @@ const Comments = () => {
         ];
     };
 
-    if (isLoading) {
-        return (<Loading />)
-    };
+   
 
     return (
         <div className='text-primary p-3'>

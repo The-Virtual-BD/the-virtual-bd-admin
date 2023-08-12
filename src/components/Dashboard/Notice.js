@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FiDownload } from 'react-icons/fi';
 import Table from '../SharedPage/Table';
-import { APPContext } from '../../actions/reducers';
+import { APPContext, useCollection } from '../../actions/reducers';
 import { AiFillDelete } from 'react-icons/ai';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
@@ -26,28 +26,18 @@ export default Notice;
 
 const ViewNotice=()=>{
     const[token]=useToken();
-    const [notices, setNotices] = useState([]);
-    const allNotices=[...notices].reverse();
-    const [isLoading,setIsLoading]=useState(false);
     
+    const { notices,noticesLoading} = useCollection();
 
-     //Get Notices
-     useEffect(() => {
-        const perUrl=`${baseURL}/api/admin/notices`;
-        setIsLoading(true);
-        fetch(perUrl,{
-          method:"GET",
-          headers: {
-              'content-type': 'application/json',
-              "Authorization": `Bearer ${token}`
-          }
-      })
-          .then(res => res.json())
-          .then(data => {
-            setIsLoading(false); 
-            setNotices(data.data)
-          })
-      }, [token]);
+    if (noticesLoading) {
+        return (<Loading />)
+    };
+
+    if (!noticesLoading && notices?.length === 0) {
+        return <p>No Notice is Avaiable</p>
+    };
+
+    const allNotices = [...notices].reverse();
 
   
 
@@ -66,9 +56,6 @@ const ViewNotice=()=>{
                 .then(res => res.json())
                 .then(data => {
                         if(data.message){
-                            console.log(data);
-                            const remaining = notices.filter(card => card.id !== id);
-                            setNotices(remaining);
                             toast.success(data.message)
                         }else{
                             console.log(data.message)
@@ -126,10 +113,7 @@ const ViewNotice=()=>{
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
-    };
-
+  
 
 
     return (

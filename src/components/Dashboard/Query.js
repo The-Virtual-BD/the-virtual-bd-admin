@@ -8,38 +8,29 @@ import Table from '../SharedPage/Table';
 import Loading from '../utilities/Loading';
 import { baseURL } from '../utilities/url';
 import useToken from '../utilities/useToken';
+import { useCollection } from '../../actions/reducers';
 
 const Query = () => {
     const [token] = useToken();
-    const [queries, setQuery] = useState([]);
     const navigate = useNavigate();
 
-    const allQueries=[...queries].reverse();
-    const [isLoading,setIsLoading]=useState(false);
+    const { query,queryLoading } = useCollection();
 
-    //Get Queries
-    useEffect(() => {
-        const perUrl = `${baseURL}/api/admin/queries`;
-        setIsLoading(true);
-        fetch(perUrl, {
-            method: "GET",
-            headers: {
-                'content-type': 'application/json',
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setIsLoading(false);
-                setQuery(data.data)
-            })
-    }, [token]);
+    if (queryLoading) {
+        return (<Loading />)
+    };
+
+    if (!queryLoading && query?.length === 0) {
+        return <p>No Job is Avaiable</p>
+    };
+
+    const allQuery = [...query].reverse();
 
 
 
     // view Single Query 
     const handlequeriesView = (id) => {
-        console.log("clicked", id);
+        // console.log("clicked", id);
         navigate(`/admin-dashboard/query/${id}`);
     };
 
@@ -60,9 +51,6 @@ const Query = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    const remaining = queries.filter(card => card.id !== id);
-                    setQuery(remaining);
                     toast.success("Query Deleted")
 
                 })
@@ -122,14 +110,12 @@ const Query = () => {
         ];
     };
 
-    if(isLoading){
-        return(<Loading />)
-    };
+  
     
     return (
         <div className='text-primary p-3 '>
-            {queries.length && (
-                <Table columns={QUERY_COLUMNS()} data={allQueries} headline={"All Queries"} />
+            {query?.length && (
+                <Table columns={QUERY_COLUMNS()} data={allQuery} headline={"All Queries"} />
             )}
         </div>
     );

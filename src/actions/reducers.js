@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { fetchBloggerApplication, fetchBlogs, fetchCategory, fetchEmailSubs, fetchJobAppli, fetchJobPost, fetchNewsLetter, fetchPortfolio, fetchServices, fetchSubscription } from "./dataFetching";
+import { fetchBloggerApplication, fetchBlogs, fetchCategory, fetchComments, fetchEmailSubs, fetchJobAppli, fetchJobPost, fetchNewsLetter, fetchNotices, fetchPortfolio, fetchQuery, fetchReviews, fetchServices, fetchSubscription, fetchUsers } from "./dataFetching";
 
 export const APPContext = createContext();
 
@@ -40,10 +40,19 @@ const DataCollection = ({ children }) => {
     const { data: portfolio, isLoading: portfolioLoading } = useQuery("portfolio", fetchPortfolio);
     const { data: subscription, isLoading: subscriptionLoading } = useQuery("subscription", fetchSubscription);
 
+    const { data: users, isLoading: usersLoading } = useQuery("users", fetchUsers);
+    const { data: comments, isLoading: commentsLoading } = useQuery("comments", fetchComments);
+    const { data: notices, isLoading: noticesLoading } = useQuery("notices", fetchNotices);
+
+    const { data: query, isLoading: queryLoading } = useQuery("query", fetchQuery);
+    const { data: reviews, isLoading: reviewsLoading } = useQuery("reviews", fetchReviews);
+
+    // console.log(users)
+
 
     const value = {
         isproject, setIsproject, menuOpen, setMenuOpen, isAddPermission, setIsAddPermission, isAddService, setIsAddService, addNotice, setAddNotice, user, setUser, addCategory, setAddCategory, addRole, setAddRole, addNewsLetter, setAddNewsLetter, addEmailSubs, setAddEmailSubs, addCareer, setAddCareer,
-        categories, categoriesLoading, blogs, blogsLoading, bloggerReq, bloggerReqLoading, jobs, jobsLoading, jobAppli, jobAppliLoading, emailSubs, emailSubsLoading, newsLetter, newsLetterLoading, services, servicesLoading,portfolio,portfolioLoading,subscription,subscriptionLoading
+        categories, categoriesLoading, blogs, blogsLoading, bloggerReq, bloggerReqLoading, jobs, jobsLoading, jobAppli, jobAppliLoading, emailSubs, emailSubsLoading, newsLetter, newsLetterLoading, services, servicesLoading,portfolio,portfolioLoading,subscription,subscriptionLoading,users,usersLoading,comments,commentsLoading,notices,noticesLoading,query,queryLoading,reviews,reviewsLoading
     }
 
     return <APPContext.Provider value={value}>

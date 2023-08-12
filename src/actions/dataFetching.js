@@ -95,3 +95,48 @@ export const fetchSubscription = async () => {
 	const data = await res.json();
 	return data?.data;
 };
+
+// Fetch Users
+export const fetchUsers = async () => {
+	const res = await fetch(`${baseURL}/api/admin/users`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.user;
+};
+
+// Fetch Comments
+export const fetchComments = async () => {
+	const res = await fetch(`${baseURL}/api/admin/comments`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.data;
+};
+
+// Fetch Notices
+export const fetchNotices = async () => {
+	const res = await fetch(`${baseURL}/api/admin/notices`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.data;
+};
+
+// Fetch Query
+export const fetchQuery = async () => {
+	const res = await fetch(`${baseURL}/api/admin/queries`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.data;
+};
+
+// Fetch Reviews
+export const fetchReviews = async () => {
+	const res = await fetch(`${baseURL}/api/admin/reviews`, {
+		headers: headers,
+	});
+	const data = await res.json();
+	return data?.data;
+};

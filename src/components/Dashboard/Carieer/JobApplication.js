@@ -96,7 +96,7 @@ const JobApplication = () => {
                 Header: 'Action',
                 accessor: 'action',
                 Cell: ({ row }) => {
-                    console.log(row)
+                    // console.log(row)
                     const { id, cv } = row.original;
                     return (<div className='flex  items-center justify-center  gap-2 '>
                         <button onClick={() => handlejobAppliView(id)}>
