@@ -123,7 +123,7 @@ const Reviews = () => {
 
     return (
         <div className='text-primary p-3'>
-            {allReviews.length && (
+            {allReviews?.length && (
                 <Table
                     columns={Reviews_COLUMNS()}
                     data={allReviews}

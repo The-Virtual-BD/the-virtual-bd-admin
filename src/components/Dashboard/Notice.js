@@ -106,7 +106,7 @@ const ViewNotice = () => {
 
 	return (
 		<div className="text-primary p-3">
-			{notices.length && (
+			{notices?.length && (
 				<Table
 					columns={NOTICE_COLUMNS()}
 					data={allNotices}

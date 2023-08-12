@@ -125,7 +125,7 @@ const JobApplication = () => {
 
     return (
         <div className='text-primary p-3 '>
-            {jobAppli.length && (
+            {jobAppli?.length && (
                 <Table columns={jobAppli_COLUMNS()} data={allJobAppli} headline={"All Job Applications"} />
             )}
         </div>

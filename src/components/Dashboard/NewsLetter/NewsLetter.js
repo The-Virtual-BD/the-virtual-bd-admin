@@ -113,7 +113,7 @@ const ViewNewsLetter = () => {
 
 	return (
 		<div className="text-primary p-3 ">
-			{newsLetter.length && (
+			{newsLetter?.length && (
 				<Table
 					columns={SERVICE_COLUMNS()}
 					data={sortNewsLetter}

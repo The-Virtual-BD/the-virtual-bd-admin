@@ -174,7 +174,7 @@ const AddRole = () => {
 		}
 	};
 
-	console.log(role_permissions.permissions);
+	// console.log(role_permissions.permissions);
 
 	return (
 		<div className="text-primary p-3 m-3 bg-white rounded-md ">

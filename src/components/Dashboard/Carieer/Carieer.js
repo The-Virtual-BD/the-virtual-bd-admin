@@ -119,7 +119,7 @@ const ViewCarieer = () => {
 
 	return (
 		<div className="text-primary p-3 ">
-			{jobs.length && (
+			{jobs?.length && (
 				<Table
 					columns={Carieer_COLUMNS()}
 					data={allJobs}

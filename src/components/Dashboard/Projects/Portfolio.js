@@ -446,7 +446,7 @@ const ViewProjects = () => {
 
 	return (
 		<div className="text-primary p-3">
-			{portfolio.length && (
+			{portfolio?.length && (
 				<Table
 					columns={PROJECT_COLUMNS()}
 					data={allProjects}

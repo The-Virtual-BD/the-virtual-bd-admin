@@ -142,7 +142,7 @@ const Comments = () => {
 
     return (
         <div className='text-primary p-3'>
-            {comments.length && (
+            {comments?.length && (
                 <Table
                     columns={Comments_COLUMNS()}
                     data={allComments}

@@ -137,7 +137,7 @@ const Blogs = () => {
 
     return (
         <div className='text-primary p-3'>
-            {blogs.length && (
+            {blogs?.length && (
                 <Table
                     columns={BLOG_COLUMNS()}
                     data={allBlogs}

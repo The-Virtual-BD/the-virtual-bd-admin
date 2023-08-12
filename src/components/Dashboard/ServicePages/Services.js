@@ -227,7 +227,7 @@ const ViewServices = () => {
 
 	return (
 		<div className="text-primary p-3 ">
-			{services.length && (
+			{services?.length && (
 				<Table
 					columns={SERVICE_COLUMNS()}
 					data={sortServices}
